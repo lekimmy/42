@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:03:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2025/11/26 19:33:27 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:08:38 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_putunbr(unsigned int n)
 	if (nb >= 10)
 		ft_putunbr(nb / 10);
 	tmp = nb % 10 + '0';
-	ft_putchar_fd(tmp, 1);
+	ft_putchar_fd(1, tmp);
 }
 
 int	ft_print_unsigned(unsigned int n)
