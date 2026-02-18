@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 16:36:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/18 19:09:42 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/18 20:22:59 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_print_str(char *str)
 {
 	if (!str)
 	{
-		ft_putstr_fd("(null)", 1);
+		ft_putstr_fd(1, "(null)");
 		return (ft_strlen("(null)"));
 	}
 	else
