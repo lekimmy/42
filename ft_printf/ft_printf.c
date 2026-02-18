@@ -6,19 +6,19 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:57:16 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/18 18:17:32 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/18 19:08:01 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 // Input value instead of pointer, otherwise UB
-static int	ft_format(int fd, va_list args, const char *format)
+static int	ft_format(va_list args, const char *format)
 {
 	if (*format == 'c')
-		return (ft_putchar_fd(va_arg(args, int)), fd);
+		return (ft_putchar_fd(1, va_arg(args, int)));
 	else if (*format == 's')
-		return (ft_putstr_fd(va_arg(args, char *)), fd);
+		return (ft_putstr_fd(1, va_arg(args, char *)));
 	else if (*format == 'p')
 		return (ft_print_ptr(va_arg(args, void *)));
 	else if (*format == 'd' || *format == 'i')
