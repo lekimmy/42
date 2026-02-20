@@ -20,7 +20,7 @@ SRCS_FILES			= ft_printf.c \
 						ft_print_utils.c \
 						ft_print_unsigned.c \
 						ft_print_hex.c \
-					ft_print_ptr.c
+						ft_print_ptr.c
 
 SRCS 				= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
 OBJS				= $(SRCS:.c=.o)
