@@ -2,27 +2,27 @@
 # Variables #
 #############
 
-CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -fPIC -g3 #-fsanitize=address
+CC						= cc
+CFLAGS					= -Wall -Wextra -Werror -fPIC -g3 #-fsanitize=address
 
-NAME			= minitalk
+NAME					= minitalk
 
-LIBFT_PATH		= libft
-LIBFT 			= $(LIBFT_PATH)/libft.a
+LIBFT_PATH				= libft
+LIBFT 					= $(LIBFT_PATH)/libft.a
 
-FT_PRINTF_PATH	= ft_printf
-FT_PRINTF		= $(FT_PRINTF_PATH)/libftprintf.a
+FT_PRINTF_PATH			= ft_printf
+FT_PRINTF				= $(FT_PRINTF_PATH)/libftprintf.a
 
-SRCS_PATH 		= srcs
-SRCS_FILES		= minitalk.c
+SRCS_PATH 				= srcs
+SRCS_FILES				= minitalk.c
 
-INCLUDES_PATH 	= includes
+INCLUDES_PATH 			= includes
 FT_PRINTF_INCLUDES_PATH = $(FT_PRINTF_PATH)/includes
-LIBFT_INCLUDES_PATH = libft/includes
-INCLUDES 		= -I$(INCLUDES_PATH) -I$(FT_PRINTF_INCLUDES_PATH) -I$(LIBFT_INCLUDES_PATH)
+LIBFT_INCLUDES_PATH 	= libft/includes
+INCLUDES 				= -I$(INCLUDES_PATH) -I$(FT_PRINTF_INCLUDES_PATH) -I$(LIBFT_INCLUDES_PATH)
 
-SRCS 			= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
-OBJS			= $(SRCS:.c=.o)
+SRCS 					= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
+OBJS					= $(SRCS:.c=.o)
 
 #########
 # Rules #

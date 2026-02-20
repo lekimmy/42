@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:25:02 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/18 18:33:13 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/20 07:08:04 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void				*ft_memcpy(void *dest, const void *src, size_t n);
 void				*ft_memmove(void *dest, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 void				*ft_calloc(size_t nmemb, size_t size);
-void				ft_putchar_fd(int fd, char c);
-void				ft_putstr_fd(int fd, char *s);
+int					ft_putchar_fd(int fd, char c);
+int					ft_putstr_fd(int fd, char *s);
 void				ft_putendl_fd(int fd, char *s);
 void				ft_putnbr_fd(int fd, int n);
 
