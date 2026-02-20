@@ -6,13 +6,13 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 03:12:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/20 03:32:21 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/20 07:20:25 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	minitalk(void)
+int	main(void)
 {
 	ft_printf("wesh\n");
 	return (0);

@@ -18,7 +18,7 @@ SRCS_FILES				= minitalk.c
 
 INCLUDES_PATH 			= includes
 FT_PRINTF_INCLUDES_PATH = $(FT_PRINTF_PATH)/includes
-LIBFT_INCLUDES_PATH 	= libft/includes
+LIBFT_INCLUDES_PATH		= libft/includes
 INCLUDES 				= -I$(INCLUDES_PATH) -I$(FT_PRINTF_INCLUDES_PATH) -I$(LIBFT_INCLUDES_PATH)
 
 SRCS 					= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
@@ -31,15 +31,18 @@ OBJS					= $(SRCS:.c=.o)
 # Default rule
 all: $(NAME)
 
-$(NAME): $(OBJS) $(FT_PRINTF)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FT_PRINTF) -o $(NAME)
+$(NAME): $(OBJS) $(FT_PRINTF) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FT_PRINTF) $(LIBFT) -o $(NAME)
+
+$(FT_PRINTF): $(FT_PRINTF_INCLUDES_PATH)/ft_printf.h $(LIBFT)
+	$(MAKE) -C $(FT_PRINTF_PATH)
+
+$(LIBFT): $(LIBFT_INCLUDES_PATH)/libft.h
+	$(MAKE) -C $(LIBFT_PATH)
 
 # Pattern rule for .o files
-$(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES_PATH)/minitalk.h
+$(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES_PATH)/minitalk.h $(FT_PRINTF_INCLUDES_PATH)/ft_printf.h $(LIBFT_INCLUDES_PATH)/libft.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(FT_PRINTF): $(FT_PRINTF_INCLUDES_PATH)/ft_printf.h
-	$(MAKE) -C $(FT_PRINTF_PATH)
 
 # Clean
 clean:
