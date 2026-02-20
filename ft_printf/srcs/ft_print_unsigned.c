@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 19:03:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/18 20:21:53 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/20 07:56:12 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	*ft_utoa(unsigned int n)
 	return (str);
 }
 
-void	ft_putunbr(unsigned int n)
+void	ft_putunbr(int fd, unsigned int n)
 {
 	long int	nb;
 	int			tmp;
@@ -57,17 +57,17 @@ void	ft_putunbr(unsigned int n)
 	nb = n;
 	tmp = 0;
 	if (nb >= 10)
-		ft_putunbr(nb / 10);
+		ft_putunbr(fd, nb / 10);
 	tmp = nb % 10 + '0';
-	ft_putchar_fd(1, tmp);
+	ft_putchar_fd(fd, tmp);
 }
 
-int	ft_print_unsigned(unsigned int n)
+int	ft_print_unsigned(int fd, unsigned int n)
 {
 	char	*tab;
 	int		count;
 
-	ft_putunbr(n);
+	ft_putunbr(fd, n);
 	tab = ft_utoa(n);
 	count = ft_strlen(tab);
 	free(tab);

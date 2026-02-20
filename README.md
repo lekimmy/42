@@ -109,7 +109,9 @@ Command to execute tester.py:
 > listing classic references related to the topic (documentation, articles, tutorials, etc.)
 > a description of how AI was used — which tasks and which parts of the project.
 
-* Push Swap subject : <https://cdn.intra.42.fr/pdf/pdf/192339/en.subject.pdf>
+* Signals :
+	* [<https://koor.fr/C/csignal/signal.wp>](https://koor.fr/C/csignal/signal.wp)
+	* [http://brunogarcia.chez.com/Unix/Docs/Signaux.html](http://brunogarcia.chez.com/Unix/Docs/Signaux.html)
 * Linked lists : <https://www.geeksforgeeks.org/c/doubly-linked-list-in-c/>
 * Sorting algorithms : <https://www.linkedin.com/pulse/push-swap-art-sorting-two-stacks-anass-outiskte-bjsje>
 * push swap visualizer : <https://github.com/o-reo/push_swap_visualizer>
