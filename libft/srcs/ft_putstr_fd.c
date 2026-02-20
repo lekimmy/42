@@ -6,13 +6,14 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 16:40:10 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/18 20:22:09 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/20 02:47:49 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(int fd, char *s)
+int	ft_putstr_fd(int fd, char *s)
 {
 	write(fd, s, ft_strlen(s));
+	return (ft_strlen(s));
 }

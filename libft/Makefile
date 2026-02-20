@@ -7,7 +7,10 @@ CFLAGS		= -Wall -Wextra -Werror -fPIC
 
 NAME		= libft.a
 
-SRCS		= ft_isalpha.c \
+SRCS_PATH 	= srcs/
+INCLUDES_PATH = includes/
+
+SRCS_FILES		= ft_isalpha.c \
 			ft_isdigit.c \
 			ft_isalnum.c \
 			ft_isascii.c \
@@ -41,7 +44,9 @@ SRCS		= ft_isalpha.c \
 			ft_putstr_fd.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c
-			
+
+SRCS = $(addprefix $(SRCS_PATH), $(SRCS_FILES))
+
 OBJS		= $(SRCS:.c=.o)
 
 SRCS_BONUS	= ft_lstnew_bonus.c \
@@ -68,8 +73,8 @@ $(NAME): $(OBJS) $(OBJS_BONUS)
 	ar rcs $(NAME) $(OBJS) $(OBJS_BONUS)
 
 # Compilation rule
-%.o: %.c libft.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(SRCS_PATH)%.o: $(SRCS_PATH)%.c $(INCLUDES_PATH)/libft.h
+	$(CC) $(CFLAGS) -I$(INCLUDES_PATH) -c $< -o $@
 
 # Clean
 clean:
