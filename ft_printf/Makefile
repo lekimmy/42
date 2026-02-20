@@ -2,28 +2,28 @@
 # Variables #
 #############
 
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -fPIC
+CC					= cc
+CFLAGS				= -Wall -Wextra -Werror -fPIC
 
-NAME		= libftprintf.a
+NAME				= libftprintf.a
 
-LIBFT_PATH	= ../libft
-LIBFT		= $(LIBFT_PATH)/libft.a
+LIBFT_PATH			= ../libft
+LIBFT				= $(LIBFT_PATH)/libft.a
 
-SRCS_PATH = srcs
-INCLUDES_PATH = includes
+SRCS_PATH 			= srcs
+INCLUDES_PATH 		= includes
 LIBFT_INCLUDES_PATH = $(LIBFT_PATH)/includes
 
-INCLUDES = -I$(INCLUDES_PATH) -I$(LIBFT_INCLUDES_PATH)
+INCLUDES 			= -I$(INCLUDES_PATH) -I$(LIBFT_INCLUDES_PATH)
 
-SRCS_FILES		= ft_printf.c \
-				ft_print_utils.c \
-				ft_print_unsigned.c \
-				ft_print_hex.c \
-				ft_print_ptr.c
+SRCS_FILES			= ft_printf.c \
+						ft_print_utils.c \
+						ft_print_unsigned.c \
+						ft_print_hex.c \
+					ft_print_ptr.c
 
-SRCS 			= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
-OBJS		= $(SRCS:.c=.o)
+SRCS 				= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
+OBJS				= $(SRCS:.c=.o)
 
 #########
 # Rules #
@@ -32,14 +32,14 @@ OBJS		= $(SRCS:.c=.o)
 # Default rule
 all: $(NAME)
 
-# Lib rule : copy libft into lib before archiving it
-$(NAME): $(OBJS) #$(LIBFT)
+# Make Make depend on libft
+$(NAME): $(OBJS) $(LIBFT)
 # cp $(LIBFT) $(NAME)
 	ar rcs $(NAME) $(OBJS)
 
-# libft first
-#$(LIBFT): $(LIBFT_INCLUDES_PATH)/libft.h
-#	$(MAKE) -C $(LIBFT_PATH)
+# Define how to build libft
+$(LIBFT): $(LIBFT_INCLUDES_PATH)/libft.h
+	$(MAKE) -C $(LIBFT_PATH)
 
 # Compilation rule
 $(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES_PATH)/ft_printf.h $(LIBFT_INCLUDES_PATH)/libft.h
