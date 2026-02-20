@@ -2,29 +2,27 @@
 # Variables #
 #############
 
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -fPIC -g3 #-fsanitize=address
+CC				= cc
+CFLAGS			= -Wall -Wextra -Werror -fPIC -g3 #-fsanitize=address
 
-NAME		= minitalk
+NAME			= minitalk
+
+LIBFT_PATH		= libft
+LIBFT 			= $(LIBFT_PATH)/libft.a
 
 FT_PRINTF_PATH	= ft_printf
 FT_PRINTF		= $(FT_PRINTF_PATH)/libftprintf.a
 
-SRCS		= parser.c \
-				push_swap.c \
-				utils.c \
-				list_init.c \
-				list_utils.c \
-				op_push.c \
-				op_swap.c \
-				op_rotate.c \
-				op_reverse_rotate.c \
-				algo_mini.c \
-				algo_chunk.c \
-				algo_ops.c \
-				algo_utils.c 
+SRCS_PATH 		= srcs
+SRCS_FILES		= minitalk.c
 
-OBJS		= $(SRCS:.c=.o)
+INCLUDES_PATH 	= includes
+FT_PRINTF_INCLUDES_PATH = $(FT_PRINTF_PATH)/includes
+LIBFT_INCLUDES_PATH = libft/includes
+INCLUDES 		= -I$(INCLUDES_PATH) -I$(FT_PRINTF_INCLUDES_PATH) -I$(LIBFT_INCLUDES_PATH)
+
+SRCS 			= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
+OBJS			= $(SRCS:.c=.o)
 
 #########
 # Rules #
@@ -33,12 +31,14 @@ OBJS		= $(SRCS:.c=.o)
 # Default rule
 all: $(NAME)
 
-# Lib rule : copy libft & ft_printf into lib before archiving it
 $(NAME): $(OBJS) $(FT_PRINTF)
-	$(CC) $(CFLAGS) $(OBJS) -Iincludes -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FT_PRINTF) -o $(NAME)
 
-# ft_printf first
-$(FT_PRINTF): $(FT_PRINTF_PATH)/ft_printf.h
+# Pattern rule for .o files
+$(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES_PATH)/minitalk.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(FT_PRINTF): $(FT_PRINTF_INCLUDES_PATH)/ft_printf.h
 	$(MAKE) -C $(FT_PRINTF_PATH)
 
 # Clean

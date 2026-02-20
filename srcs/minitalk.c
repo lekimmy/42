@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   minitalk.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/18 17:56:16 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/20 03:32:41 by ls-phabm         ###   ########.fr       */
+/*   Created: 2026/02/20 03:12:29 by ls-phabm          #+#    #+#             */
+/*   Updated: 2026/02/20 03:32:21 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include "ft_printf.h"
-# include "libft.h"
-
-int	minitalk(void);
-
-#endif
+int	minitalk(void)
+{
+	ft_printf("wesh\n");
+	return (0);
+}
