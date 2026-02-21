@@ -6,13 +6,14 @@
 ### Project
 Create a communication program in the form of a client and a server.
 
-### Means
+### Goal
+Develop a simple program that allows processes (= programs running on a computer) to communicate with each other using a communication protocol called "minitalk", using a series of signals over a single wire. 
 
+### Means
 - Communication between the client and server must exclusively use UNIX signals
 - Only use these two signals: SIGUSR1 and SIGUSR2
 
 ### Constraints 
-
 - 2 programs / execs : client + server
 - Error handling : under no circumstances should the program quit unexpectedly (segmentation fault, bus error, double free, and so forth)
 - One global var per program
