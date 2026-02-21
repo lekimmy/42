@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/21 18:55:49 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/21 19:30:11 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	parsing(char **argv)
 {
 	int	pid;
 
+	if (!argv[1] || !argv[1][0])
+		return (0);
 	pid = ft_atoi(argv[1]);
 	if (!is_digit(pid))
 		return (0);
