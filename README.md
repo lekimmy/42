@@ -44,4 +44,4 @@ Commands to execute program:
 	* [http://brunogarcia.chez.com/Unix/Docs/Signaux.html](http://brunogarcia.chez.com/Unix/Docs/Signaux.html)
 * funcheck : <https://github.com/froz42/funcheck>
 
-AI was used to break down *...*
+AI was used to break down *... and understand bit shifting.*
