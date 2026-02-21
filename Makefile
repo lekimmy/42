@@ -5,7 +5,8 @@
 CC						= cc
 CFLAGS					= -Wall -Wextra -Werror -fPIC -g3 #-fsanitize=address
 
-NAME					= minitalk
+NAME_CLIENT				= client
+NAME_SERVER				= server
 
 LIBFT_PATH				= libft
 LIBFT 					= $(LIBFT_PATH)/libft.a
@@ -14,25 +15,35 @@ FT_PRINTF_PATH			= ft_printf
 FT_PRINTF				= $(FT_PRINTF_PATH)/libftprintf.a
 
 SRCS_PATH 				= srcs
-SRCS_FILES				= minitalk.c
+SRCS_FILES_CLIENT		= client.c \
+							utils.c
+
+SRCS_FILES_SERVER		= server.c \
+							utils.c
 
 INCLUDES_PATH 			= includes
 FT_PRINTF_INCLUDES_PATH = $(FT_PRINTF_PATH)/includes
 LIBFT_INCLUDES_PATH		= libft/includes
 INCLUDES 				= -I$(INCLUDES_PATH) -I$(FT_PRINTF_INCLUDES_PATH) -I$(LIBFT_INCLUDES_PATH)
 
-SRCS 					= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
-OBJS					= $(SRCS:.c=.o)
+SRCS_CLIENT 			= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES_CLIENT))
+SRCS_SERVER 			= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES_SERVER))
+
+OBJS_CLIENT				= $(SRCS_CLIENT:.c=.o)
+OBJS_SERVER				= $(SRCS_SERVER:.c=.o)
 
 #########
 # Rules #
 #########
 
 # Default rule
-all: $(NAME)
+all: $(NAME_CLIENT) $(NAME_SERVER)
 
-$(NAME): $(OBJS) $(FT_PRINTF) $(LIBFT)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(FT_PRINTF) $(LIBFT) -o $(NAME)
+$(NAME_CLIENT): $(OBJS) $(FT_PRINTF) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_CLIENT) $(FT_PRINTF) $(LIBFT) -o $(NAME_CLIENT)
+
+$(NAME_SERVER): $(OBJS) $(FT_PRINTF) $(LIBFT)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER)
 
 $(FT_PRINTF): $(FT_PRINTF_INCLUDES_PATH)/ft_printf.h $(LIBFT)
 	$(MAKE) -C $(FT_PRINTF_PATH)
@@ -50,7 +61,7 @@ clean:
 	$(MAKE) -C $(FT_PRINTF_PATH) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME_CLIENT) $(NAME_SERVER)
 	$(MAKE) -C $(FT_PRINTF_PATH) fclean
 
 re: fclean 
