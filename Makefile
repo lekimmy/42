@@ -61,7 +61,7 @@ $(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES_PATH)/minitalk.h $(FT_PRINTF_INCLU
 
 # Clean
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS_CLIENT) $(OBJS_SERVER)
 	$(MAKE) -C $(FT_PRINTF_PATH) clean
 
 fclean: clean
