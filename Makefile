@@ -39,15 +39,19 @@ OBJS_SERVER				= $(SRCS_SERVER:.c=.o)
 # Default rule
 all: $(NAME_CLIENT) $(NAME_SERVER)
 
+# Client
 $(NAME_CLIENT): $(OBJS) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_CLIENT) $(FT_PRINTF) $(LIBFT) -o $(NAME_CLIENT)
 
+# Server
 $(NAME_SERVER): $(OBJS) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER)
 
+# ft_printf
 $(FT_PRINTF): $(FT_PRINTF_INCLUDES_PATH)/ft_printf.h $(LIBFT)
 	$(MAKE) -C $(FT_PRINTF_PATH)
 
+# libft
 $(LIBFT): $(LIBFT_INCLUDES_PATH)/libft.h
 	$(MAKE) -C $(LIBFT_PATH)
 
