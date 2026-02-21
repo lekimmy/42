@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 03:12:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/20 09:53:21 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/21 16:03:39 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,36 @@ void	sig_term(int code)
 	exit(EXIT_SUCCESS);
 }
 
+void signal_handler(int signum)
+{
+	ft_printf(1, "Received SIGINT\n", signum);
+	exit(0);
+}
+
 // Functions to execute
 void exit_function()
 {
 	ft_printf(1, "Exiting...\n");
 }
 
+// Initialize empty signal set
+// Add SIGINT to the signal set
+// Set sig handler for SIGINT & SIGTERM signals
 int	main()
 {
+	sigset_t	signal_set;
+	
 	ft_printf(1, "PID = %d\n", getpid());
+	sigemptyset(&signal_set);
+	sigaddset(&signal_set, SIGINT);
+	signal(SIGINT, signal_handler);
+	signal(SIGTERM, signal_handler);
+
+	while (1)
+	{
+		ft_printf(1, "wsh\n");
+		return (EXIT_SUCCESS);
+	}
 	return (EXIT_SUCCESS);
 }
 
