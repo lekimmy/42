@@ -6,17 +6,21 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/21 17:50:18 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/21 18:36:21 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-// Decrypt signal received from client as bit 1 or 0
-// Char = 8 bits
-// Initialize bit & char
-// Decode and print each char one by one
-// Reinitialize bit & char
+// Decrypt signal received from client as single bit 1 or 0
+// Prints char 1 by 1
+// - Initialize bit & char
+// - Char = 8 bits
+// - Decode : each signal is treated to rebuild char until 8 bits
+// - Progressive bit shifting
+// - Print each single built char
+// - Reinitialize bit & char
+// Use static for variables to survive between signals
 static void	handler(int signal)
 {
 	static int	bit;
@@ -24,9 +28,10 @@ static void	handler(int signal)
 
 	bit = 0;
 	c = 0;
+	c << 1;
 	if (signal == SIGUSR1)
-		// decryption logic
-		bit++;
+		c |= 1;
+	bit++;
 	if (bit == 8)
 	{
 		write(1, &c, 1);
