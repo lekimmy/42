@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 20:04:20 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:46:16 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // 0 sends the signal to every process of the same group
 static pid_t	parsing(char *s)
 {
-	int	pid;
+	pid_t	pid;
 
 	if (!s || !s[0])
 		return (-1);
@@ -25,7 +25,7 @@ static pid_t	parsing(char *s)
 		ft_printf(2, "Invalid pid\n");
 		return (-1);
 	}
-	return ((pid_t)pid);
+	return (pid);
 }
 
 static void	KillSignal(pid_t pid, int sigusr)
@@ -50,9 +50,9 @@ static void	send_char(pid_t pid, char c)
 	while (bit >= 0)
 	{
 		if ((c >> bit) & 1)
-			KillSignal(pid, SIGUSR1);
-		else
 			KillSignal(pid, SIGUSR2);
+		else
+			KillSignal(pid, SIGUSR1);
 		usleep(1000);
 		bit--;
 	}

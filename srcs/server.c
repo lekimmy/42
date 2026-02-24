@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 19:57:03 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:47:59 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Decrypt signal received from client as single bit 1 or 0
 // Prints char 1 by 1
-// - Initialize bit & char
+// - Static bit & char are already initialized at 0
 // - Char = 8 bits
 // - Decode : each signal is treated to rebuild char until 8 bits
 // - Progressive bit shifting
@@ -26,10 +26,8 @@ static void	handler(int signal)
 	static int	bit;
 	static char	c;
 
-	bit = 0;
-	c = 0;
 	c <<= 1;
-	if (signal == SIGUSR1)
+	if (signal == SIGUSR2)
 		c |= 1;
 	bit++;
 	if (bit == CHAR_BIT)
