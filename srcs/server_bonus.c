@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 23:10:14 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 23:39:17 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@
 // - Print each single built char
 // - Reinitialize bit & char
 // - Print \n at message end
+// - Send ACK to client after receiving signal
 // Use static for variables to survive between signals
-static void	signal_handler(int signal)
+static void	signal_handler(int signal, siginfo_t *info, void *context)
 {
 	static int	bit;
 	static char	c;
+	pid_t		client_pid;
 
+	(void)context;
+	client_pid = info->si_pid;
 	c <<= 1;
 	if (signal == SIGUSR2)
 		c |= 1;
@@ -45,6 +49,7 @@ static void	signal_handler(int signal)
 			write(1, "\n", 1);
 		else
 			write(1, &c, 1);
+		kill(client_pid, SIGUSR1);
 		bit = 0;
 		c = 0;
 	}
@@ -63,7 +68,7 @@ int	main(void)
 
 	// sigset_t			signal_set;
 	ft_printf(1, "PID = %d\n", getpid());
-	sa.sa_handler = signal_handler;
+	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
 	sigaction(SIGUSR1, &sa, NULL);
