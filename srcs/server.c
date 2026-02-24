@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 20:47:59 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 22:18:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 // - Progressive bit shifting
 // - Print each single built char
 // - Reinitialize bit & char
+// - Print \n at message end
 // Use static for variables to survive between signals
 static void	handler(int signal)
 {
@@ -32,7 +33,10 @@ static void	handler(int signal)
 	bit++;
 	if (bit == CHAR_BIT)
 	{
-		write(1, &c, 1);
+		if (c == '\0')
+			write(1, "\n", 1);
+		else
+			write(1, &c, 1);
 		bit = 0;
 		c = 0;
 	}
