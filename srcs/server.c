@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 23:09:19 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 23:10:22 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 // - Reinitialize bit & char
 // - Print \n at message end
 // Use static for variables to survive between signals
-static void	handler(int signal)
+static void	signal_handler(int signal)
 {
 	static int	bit;
 	static char	c;
@@ -48,8 +48,8 @@ static void	handler(int signal)
 int	main(void)
 {
 	ft_printf(1, "PID = %d\n", getpid());
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
+	signal(SIGUSR1, signal_handler);
+	signal(SIGUSR2, signal_handler);
 	while (1)
 		pause();
 	return (0);
