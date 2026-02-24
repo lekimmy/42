@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 23:09:19 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 23:09:21 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+// static void	signal_handler(int signum)
+// {
+// 	if (signum == SIGUSR1)
+// 		ft_printf(1, "Received bit 0\n");
+// 	else if (signum == SIGUSR2)
+// 		ft_printf(1, "Received bit 1\n");
+// }
 
 // Decrypt signal received from client as single bit 1 or 0
 // Prints char 1 by 1
@@ -43,13 +51,23 @@ static void	handler(int signal)
 }
 
 // Get process id
-// Set disposition to treat SIGUSR1 & SIGUSR2 with handler
+// sigaction :
+// - Assign signal handler function
+// - sa_mask = no signal blocking
+// - sa_flags = default behavior
+// Set up signal handlers to treat SIGUSR1 & SIGUSR2
 // Pause to wait for signal
 int	main(void)
 {
+	struct sigaction	sa;
+
+	// sigset_t			signal_set;
 	ft_printf(1, "PID = %d\n", getpid());
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
+	sa.sa_handler = handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = 0;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while (1)
 		pause();
 	return (0);
