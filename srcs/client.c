@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 20:46:16 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:52:30 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static pid_t	parsing(char *s)
 	return (pid);
 }
 
+// Wrapper function to abstract error handling
 static void	KillSignal(pid_t pid, int sigusr)
 {
 	if (kill(pid, sigusr) == -1)
@@ -46,16 +47,25 @@ static void	send_char(pid_t pid, char c)
 	int	bit;
 
 	bit = 7;
-	ft_printf(1, "Sending char: %c\n", c);
 	while (bit >= 0)
 	{
 		if ((c >> bit) & 1)
 			KillSignal(pid, SIGUSR2);
 		else
 			KillSignal(pid, SIGUSR1);
-		usleep(1000);
+		usleep(500);
 		bit--;
 	}
+}
+
+static int valid_process(pid)
+{
+	if (kill(pid, 0) == -1)
+	{
+		ft_printf(2, "No such process\n");
+		return (0);
+	}
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -72,11 +82,8 @@ int	main(int argc, char **argv)
 	i = 0;
 	msg = argv[2];
 	pid = parsing(argv[1]);
-	if (kill(pid, 0) == -1)
-	{
-		ft_printf(2, "No such process\n");
+	if (!valid_process(pid))
 		return (1);
-	}
 	while (msg[i])
 	{
 		send_char(pid, msg[i]);
