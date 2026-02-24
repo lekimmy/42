@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 18:33:31 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 18:52:57 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	parsing(char *s)
 	if (!ft_isdigit(pid))
 		return (-1);
 	if (pid <= 0)
+	{
+		exit(EXIT_FAILURE);
 		return (-1);
+	}
 	return (pid);
 }
 
@@ -59,11 +62,6 @@ int	main(int argc, char **argv)
 		return (1);
 	msg = argv[2];
 	pid = parsing(argv[1]);
-	if (pid < 0)
-	{
-		exit(EXIT_FAILURE);
-		return (1);
-	}	
 	while (*msg)
 	{
 		send_char(pid, *msg);
