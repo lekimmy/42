@@ -11,7 +11,7 @@ Develop a simple program that allows processes (= programs running on a computer
 
 ### Means
 - Communication between the client and server must exclusively use UNIX signals
-- Only use these two signals: SIGUSR1 and SIGUSR2
+- Only use these two signals: SIGUSR1=0 and SIGUSR2=1
 
 ### Constraints 
 - 2 programs / execs : client + server
@@ -26,14 +26,15 @@ Develop a simple program that allows processes (= programs running on a computer
 3. The client must send the specified string to the server
 4. Once received, the server must print it without delay -if it seems slow, it is likely too slow
     1. ⚠️ If displaying 100 characters takes 1 second, the program is too slow!
-5. server should be able to receive strings from several clients in a row without
+5. Server should be able to receive strings from several clients in a row without
 needing to restart
     1. Linux system does NOT queue signals when you already have pending
     signals of this type! Bonus time?
 
 Commands to execute program:
 
-
+`./server`
+`./client <pid> "<message>"`
 
 # Resources
 > listing classic references related to the topic (documentation, articles, tutorials, etc.)

@@ -6,13 +6,15 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 21:57:16 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 22:22:35 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+// Protect against no & empty string
 // 0 sends the signal to every process of the same group
+// Check if process exists
 static pid_t	valid_pid(char *s)
 {
 	pid_t	pid;
@@ -63,6 +65,7 @@ static void	send_char(pid_t pid, char c)
 	}
 }
 
+// Send '\0' to signal end of message
 int	main(int argc, char **argv)
 {
 	pid_t	pid;
@@ -71,7 +74,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_printf(2, "Usage : ./client pid message\n");
+		ft_printf(2, "Usage : ./client <pid> <\"message\">\n");
 		return (1);
 	}
 	i = 0;
@@ -84,5 +87,6 @@ int	main(int argc, char **argv)
 		send_char(pid, msg[i]);
 		i++;
 	}
+	send_char(pid, '\0');
 	return (0);
 }
