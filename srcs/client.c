@@ -6,66 +6,81 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 18:52:57 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 20:04:20 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	parsing(char *s)
+// 0 sends the signal to every process of the same group
+static pid_t	parsing(char *s)
 {
 	int	pid;
 
 	if (!s || !s[0])
 		return (-1);
 	pid = ft_atoi(s);
-	if (!ft_isdigit(pid))
-		return (-1);
 	if (pid <= 0)
 	{
-		exit(EXIT_FAILURE);
+		ft_printf(2, "Invalid pid\n");
 		return (-1);
 	}
-	return (pid);
+	return ((pid_t)pid);
 }
 
-// int	encrpyt_msg(void)
-// {
-// }
+static void	KillSignal(pid_t pid, int sigusr)
+{
+	if (kill(pid, sigusr) == -1)
+	{
+		ft_printf(2, "Error\n");
+		exit(1);
+	}
+}
 
 // If bit exists, send SIGUSR1 (1)
 // else send SIGUSR2 (0)
 // kill = send sig
 // usleep not to lose any signal
-void	send_char(int pid, char c)
+static void	send_char(pid_t pid, char c)
 {
 	int	bit;
 
 	bit = 7;
+	ft_printf(1, "Sending char: %c\n", c);
 	while (bit >= 0)
 	{
 		if ((c >> bit) & 1)
-			kill(pid, SIGUSR1);
+			KillSignal(pid, SIGUSR1);
 		else
-			kill(pid, SIGUSR2);
-		usleep(500);
+			KillSignal(pid, SIGUSR2);
+		usleep(1000);
 		bit--;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int		pid;
+	pid_t	pid;
+	int		i;
 	char	*msg;
 
 	if (argc != 3)
+	{
+		ft_printf(2, "Usage : ./client pid message\n");
 		return (1);
+	}
+	i = 0;
 	msg = argv[2];
 	pid = parsing(argv[1]);
-	while (*msg)
+	if (kill(pid, 0) == -1)
 	{
-		send_char(pid, *msg);
-		msg++;
+		ft_printf(2, "No such process\n");
+		return (1);
+	}
+	while (msg[i])
+	{
+		send_char(pid, msg[i]);
+		i++;
 	}
 	return (0);
 }

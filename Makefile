@@ -15,11 +15,9 @@ FT_PRINTF_PATH			= ft_printf
 FT_PRINTF				= $(FT_PRINTF_PATH)/libftprintf.a
 
 SRCS_PATH 				= srcs
-SRCS_FILES_CLIENT		= client.c \
-							utils.c
+SRCS_FILES_CLIENT		= client.c 
 
-SRCS_FILES_SERVER		= server.c \
-							utils.c
+SRCS_FILES_SERVER		= server.c
 
 INCLUDES_PATH 			= includes
 FT_PRINTF_INCLUDES_PATH = $(FT_PRINTF_PATH)/includes
