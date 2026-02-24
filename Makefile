@@ -7,8 +7,8 @@ CFLAGS						= -Wall -Wextra -Werror -fPIC -g3 #-fsanitize=address
 
 NAME_CLIENT					= client
 NAME_SERVER					= server
-NAME_CLIENT					= client_bonus
-NAME_SERVER					= server_bonus
+NAME_CLIENT_BONUS			= client_bonus
+NAME_SERVER_BONUS			= server_bonus
 
 LIBFT_PATH					= libft
 LIBFT 						= $(LIBFT_PATH)/libft.a
@@ -39,7 +39,6 @@ OBJS_CLIENT_BONUS			= $(SRCS_CLIENT_BONUS:.c=.o)
 OBJS_SERVER_BONUS			= $(SRCS_SERVER_BONUS:.c=.o)
 
 MANDATORY					= mandatory
-BONUS						= bonus
 
 #########
 # Rules #
@@ -49,23 +48,14 @@ BONUS						= bonus
 all: $(MANDATORY)
 
 # Bonus
-bonus: $(BONUS)
-
-$(BONUS): $(OBJS_CLIENT_BONUS) $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT)
+bonus: $(OBJS_CLIENT_BONUS) $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_CLIENT_BONUS) $(FT_PRINTF) $(LIBFT) -o $(NAME_CLIENT_BONUS)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER_BONUS)
 
-# Server Bonus
-# $(NAME_SERVER_BONUS): $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT)
-# 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER_BONUS)
-
+# Mandatory
 $(MANDATORY): $(NAME_CLIENT) $(NAME_SERVER) $(OBJS_CLIENT) $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_CLIENT) $(FT_PRINTF) $(LIBFT) -o $(NAME_CLIENT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER)
-
-# Server
-# $(NAME_SERVER): $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT)
-# 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER)
 
 # ft_printf
 $(FT_PRINTF): $(FT_PRINTF_INCLUDES_PATH)/ft_printf.h $(LIBFT)
@@ -82,10 +72,12 @@ $(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c $(INCLUDES_PATH)/minitalk.h $(FT_PRINTF_INCLU
 # Clean
 clean:
 	rm -f $(OBJS_CLIENT) $(OBJS_SERVER)
+	rm -f $(OBJS_CLIENT_BONUS) $(OBJS_SERVER_BONUS)
 	$(MAKE) -C $(FT_PRINTF_PATH) clean
 
 fclean: clean
 	rm -f $(NAME_CLIENT) $(NAME_SERVER)
+	rm -f $(NAME_CLIENT_BONUS) $(NAME_SERVER_BONUS)
 	$(MAKE) -C $(FT_PRINTF_PATH) fclean
 
 re: fclean 
