@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/21 19:30:49 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 18:49:47 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static void	handler(int signal)
 
 	bit = 0;
 	c = 0;
-	c << 1;
+	c = c << 1;
 	if (signal == SIGUSR1)
 		c |= 1;
 	bit++;
-	if (bit == 8)
+	if (bit == CHAR_BIT)
 	{
 		write(1, &c, 1);
 		bit = 0;

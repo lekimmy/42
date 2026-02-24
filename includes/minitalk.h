@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 17:56:16 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 18:34:14 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 18:49:09 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void		send_char(int pid, char c);
 /************************************
  * SERVER
  ************************************/
-void	handler(int signal);
+// static void	handler(int signal);
 
 #endif
