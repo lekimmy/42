@@ -6,24 +6,29 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 20:52:30 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/24 21:57:16 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
 // 0 sends the signal to every process of the same group
-static pid_t	parsing(char *s)
+static pid_t	valid_pid(char *s)
 {
 	pid_t	pid;
 
 	if (!s || !s[0])
-		return (-1);
+		return (0);
 	pid = ft_atoi(s);
 	if (pid <= 0)
 	{
 		ft_printf(2, "Invalid pid\n");
-		return (-1);
+		return (0);
+	}
+	if (kill(pid, 0) == -1)
+	{
+		ft_printf(2, "No such process\n");
+		return (0);
 	}
 	return (pid);
 }
@@ -58,16 +63,6 @@ static void	send_char(pid_t pid, char c)
 	}
 }
 
-static int valid_process(pid)
-{
-	if (kill(pid, 0) == -1)
-	{
-		ft_printf(2, "No such process\n");
-		return (0);
-	}
-	return (1);
-}
-
 int	main(int argc, char **argv)
 {
 	pid_t	pid;
@@ -81,8 +76,8 @@ int	main(int argc, char **argv)
 	}
 	i = 0;
 	msg = argv[2];
-	pid = parsing(argv[1]);
-	if (!valid_process(pid))
+	pid = valid_pid(argv[1]);
+	if (!pid)
 		return (1);
 	while (msg[i])
 	{
