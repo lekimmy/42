@@ -22,8 +22,7 @@
 // - data type that you are allowed to use in the context of a signal handler
 // - read the name as "atomic relative to signal handling".
 // initiliaze to busy
-volatile sig_atomic_t ack_received;
-ack_received = 0;
+volatile int ack_received = 0;
 
 // Protect against no & empty string
 // + 0 = sends the signal to every process of the same group
@@ -48,6 +47,12 @@ static pid_t valid_pid(char *s)
 	return (pid);
 }
 
+void ack_handler(int sigusr)
+{
+	if (sigusr == SIGUSR2)
+		ack_received = 1;
+}
+
 // Wrapper function to abstract error handling
 static void KillSignal(pid_t pid, int sigusr)
 {
@@ -61,7 +66,8 @@ static void KillSignal(pid_t pid, int sigusr)
 // If bit exists, send SIGUSR1 (1)
 // else send SIGUSR2 (0)
 // kill = send sig
-// usleep not to lose any signal
+// pause until ACK received vs. usleep
+// reset ACK to 0 to send next char
 static void send_char(pid_t pid, char c)
 {
 	int bit;
@@ -73,16 +79,15 @@ static void send_char(pid_t pid, char c)
 			KillSignal(pid, SIGUSR2);
 		else
 			KillSignal(pid, SIGUSR1);
-		usleep(500);
+		while (!ack_received)
+			pause();
+		ack_received = 0;
 		bit--;
 	}
 }
 
 // Acknowledgement of signal received by server
-void ack_handler(int sigusr)
-{
-	ack_received = 1;
-}
+
 // End of signal received by server
 // void end_handler()
 // {
@@ -105,6 +110,7 @@ int main(int argc, char **argv)
 	pid = valid_pid(argv[1]);
 	if (!pid)
 		return (1);
+	signal(SIGUSR2, ack_handler);
 	while (msg[i])
 	{
 		send_char(pid, msg[i]);
