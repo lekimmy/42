@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 22:46:30 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:48:34 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	signal_handler(int signal, siginfo_t *info, void *context)
 // Pause to wait for signal
 int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	ft_printf(1, "PID = %d\n", getpid());
 	sa.sa_sigaction = signal_handler;

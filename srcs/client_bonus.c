@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 22:45:32 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:53:52 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,27 @@
 
 // global variable to watch server status
 // ** volatile object**
-//	- its value can be read or modified asynchronously by something other than the current thread of execution
-//	- its value can be spontanesouly changed by code outside the scope of current code at any time for reasons such as:
-//	- sharing values with other threads; sharing values with asynchronous signal handlers; accessing hardware devices via memory-mapped I/O
+//	- its value can be read or modified asynchronously by something 
+//		other than the current thread of execution
+//	- its value can be spontanesouly changed by code outside the scope of 
+//		current code at any time for reasons such as:
+//	- sharing values with other threads; 
+//	- sharing values with asynchronous signal handlers; 
+//	- accessing hardware devices via memory-mapped I/O
 // ** sig_atomic_t **
-//	- integer type which can be accessed as an atomic entity even in the presence of asynchronous interrupts made by signals.
+//	- integer type which can be accessed as an atomic entity 
+//		even in the presence of asynchronous interrupts made by signals.
 // - data type that you are allowed to use in the context of a signal handler
 // - read the name as "atomic relative to signal handling".
 // initiliaze to busy
-static volatile sig_atomic_t	ack_received = 0;
+static volatile sig_atomic_t	g_ack_received = 0;
 
 // Acknowledgement of signal received by server
 // End of message received by server
 static void	ack_end_handler(int signal)
 {
 	if (signal == SIGUSR1)
-		ack_received = 1;
+		g_ack_received = 1;
 	else if (signal == SIGUSR2)
 	{
 		ft_printf("Message received by server ✅\n");
@@ -61,9 +66,9 @@ static pid_t	valid_pid(char *s)
 }
 
 // Wrapper function to abstract error handling
-static void	KillSignal(pid_t pid, int sigusr)
+static void	kill_signal(pid_t pid, int signal)
 {
-	if (kill(pid, sigusr) == -1)
+	if (kill(pid, signal) == -1)
 	{
 		ft_perror("Error\n");
 		exit(1);
@@ -83,13 +88,13 @@ static void	send_char(pid_t pid, char c)
 	while (bit >= 0)
 	{
 		if ((c >> bit) & 1)
-			KillSignal(pid, SIGUSR2);
+			kill_signal(pid, SIGUSR2);
 		else
-			KillSignal(pid, SIGUSR1);
+			kill_signal(pid, SIGUSR1);
 		bit--;
-		while (!ack_received)
+		while (!g_ack_received)
 			pause();
-		ack_received = 0;
+		g_ack_received = 0;
 	}
 }
 
