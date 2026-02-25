@@ -64,4 +64,4 @@ Commands to execute program:
   - [https://en.cppreference.com/w/c/program/sig_atomic_t]<https://en.cppreference.com/w/c/program/sig_atomic_t>
 - funcheck : <https://github.com/froz42/funcheck>
 
-AI was used to break down _signal & sigaction handling and understand bit shifting, Unicode support._
+AI was used to break down _signal, sigaction handling, Makefile logic, set up a bash tester and understand bit shifting, Unicode support._
