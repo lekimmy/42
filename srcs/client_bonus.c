@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 23:26:03 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 23:48:59 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,17 @@
 //		even in the presence of asynchronous interrupts made by signals.
 // - data type that you are allowed to use in the context of a signal handler
 // - read the name as "atomic relative to signal handling".
-// initiliaze to busy
-static volatile sig_atomic_t	g_ack = 0;
+// initiliaze to 0 = waiting ; 1 = bit ACK received ; 2 = end ACK received
+static volatile sig_atomic_t	g_state = 0;
 
 // Acknowledgement of signal received by server
 // End of message received by server
 static void	ack_end_handler(int signal)
 {
 	if (signal == SIGUSR2)
-		g_ack = 1;
+		g_state = 1;
 	else if (signal == SIGUSR1)
-	{
-		ft_printf("Message received by server ✅\n");
-		exit(0);
-	}
+		g_state = 2;
 }
 
 // Protect against no & empty string
@@ -87,14 +84,14 @@ static void	send_char(pid_t pid, char c)
 	bit = 7;
 	while (bit >= 0)
 	{
+		g_state = 0;
 		if ((c >> bit) & 1)
 			kill_signal(pid, SIGUSR2);
 		else
 			kill_signal(pid, SIGUSR1);
 		bit--;
-		while (!g_ack)
+		while (!g_state)
 			pause();
-		g_ack = 0;
 	}
 }
 
@@ -107,10 +104,7 @@ int	main(int argc, char **argv)
 	struct sigaction	sa;
 
 	if (argc != 3)
-	{
-		ft_perror("Usage : ./client <pid> <\"message\">\n");
-		return (1);
-	}
+		return (ft_perror("Usage : ./client <pid> <\"message\">\n"), 1);
 	sa.sa_handler = ack_end_handler;
 	sa.sa_flags = 0;
 	sigemptyset(&sa.sa_mask);
@@ -124,5 +118,7 @@ int	main(int argc, char **argv)
 	while (msg[i])
 		send_char(server_pid, (unsigned char)msg[i++]);
 	send_char(server_pid, '\0');
-	return (0);
+	while (g_state != 2)
+		pause();
+	return (ft_printf("Message received by server ✅\n"), 0);
 }
