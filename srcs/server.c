@@ -22,10 +22,10 @@
 // - Reinitialize bit & char
 // - Print \n at message end
 // Use static for variables to survive between signals
-static void	signal_handler(int signal)
+static void signal_handler(int signal)
 {
-	static int	bit;
-	static char	c;
+	static int bit;
+	static char c;
 
 	c <<= 1;
 	if (signal == SIGUSR2)
@@ -45,9 +45,9 @@ static void	signal_handler(int signal)
 // Get process id
 // Set disposition to treat SIGUSR1 & SIGUSR2 with handler
 // Pause to wait for signal
-int	main(void)
+int main(void)
 {
-	ft_printf(1, "PID = %d\n", getpid());
+	ft_printf("PID = %d\n", getpid());
 	signal(SIGUSR1, signal_handler);
 	signal(SIGUSR2, signal_handler);
 	while (1)
