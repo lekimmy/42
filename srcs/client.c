@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 22:45:40 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:54:09 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static pid_t	valid_pid(char *s)
 }
 
 // Wrapper function to abstract error handling
-static void	KillSignal(pid_t pid, int sigusr)
+static void	kill_signal(pid_t pid, int signal)
 {
-	if (kill(pid, sigusr) == -1)
+	if (kill(pid, signal) == -1)
 	{
 		ft_perror("Error\n");
 		exit(1);
@@ -57,9 +57,9 @@ static void	send_char(pid_t pid, char c)
 	while (bit >= 0)
 	{
 		if ((c >> bit) & 1)
-			KillSignal(pid, SIGUSR2);
+			kill_signal(pid, SIGUSR2);
 		else
-			KillSignal(pid, SIGUSR1);
+			kill_signal(pid, SIGUSR1);
 		usleep(500);
 		bit--;
 	}
