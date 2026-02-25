@@ -32,10 +32,11 @@ static void KillSignal(pid_t pid, int sigusr)
 // - Print \n at message end
 // - Send ACK to client after receiving signal
 // Use static for variables to survive between signals
+// Unsigned char for Unicode / UTF-8
 static void signal_handler(int signal, siginfo_t *info, void *context)
 {
 	static int bit;
-	static char c;
+	static unsigned char c;
 
 	(void)context;
 	c <<= 1;

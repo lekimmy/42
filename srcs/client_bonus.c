@@ -15,7 +15,7 @@
 // global variable to watch server status
 // ** volatile object**
 // - its value can be read or modified asynchronously by something other than the current thread of execution
-// - its alue can be spontanesouly changed by code outside the scope of current code at any time for reasons such as:
+// - its value can be spontanesouly changed by code outside the scope of current code at any time for reasons such as:
 // - sharing values with other threads; sharing values with asynchronous signal handlers; accessing hardware devices via memory-mapped I/O
 // ** sig_atomic_t **
 // - integer type which can be accessed as an atomic entity even in the presence of asynchronous interrupts made by signals.
@@ -45,17 +45,17 @@ static pid_t valid_pid(char *s)
 	pid_t pid;
 
 	if (!s || !s[0])
-		return (0);
+		exit(1);
 	pid = ft_atoi(s);
 	if (pid <= 0)
 	{
 		ft_perror("Invalid pid\n");
-		return (0);
+		exit(1);
 	}
 	if (kill(pid, 0) == -1)
 	{
 		ft_perror("No such process\n");
-		return (0);
+		exit(1);
 	}
 	return (pid);
 }
@@ -114,13 +114,8 @@ int main(int argc, char **argv)
 	i = 0;
 	msg = argv[2];
 	server_pid = valid_pid(argv[1]);
-	if (!server_pid)
-		return (1);
 	while (msg[i])
-	{
-		send_char(server_pid, msg[i]);
-		i++;
-	}
+		send_char(server_pid, (unsigned char)msg[i++]);
 	send_char(server_pid, '\0');
 	return (0);
 }

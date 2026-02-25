@@ -18,9 +18,8 @@ FT_PRINTF					= $(FT_PRINTF_PATH)/libftprintf.a
 
 SRCS_PATH 					= srcs
 SRCS_FILES_CLIENT			= client.c 
-SRCS_FILES_CLIENT_BONUS		= client_bonus.c 
-
 SRCS_FILES_SERVER			= server.c
+SRCS_FILES_CLIENT_BONUS		= client_bonus.c 
 SRCS_FILES_SERVER_BONUS		= server_bonus.c
 
 INCLUDES_PATH 				= includes
@@ -38,23 +37,28 @@ OBJS_SERVER					= $(SRCS_SERVER:.c=.o)
 OBJS_CLIENT_BONUS			= $(SRCS_CLIENT_BONUS:.c=.o)
 OBJS_SERVER_BONUS			= $(SRCS_SERVER_BONUS:.c=.o)
 
-MANDATORY					= mandatory
-
 #########
 # Rules #
 #########
 
 # Default rule
-all: $(MANDATORY)
+all: $(NAME_CLIENT) $(NAME_SERVER)
 
-# Bonus
-bonus: $(OBJS_CLIENT_BONUS) $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT)
+bonus: $(NAME_CLIENT_BONUS) $(NAME_SERVER_BONUS)
+
+# Bonus client
+$(NAME_CLIENT_BONUS): $(OBJS_CLIENT_BONUS) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_CLIENT_BONUS) $(FT_PRINTF) $(LIBFT) -o $(NAME_CLIENT_BONUS)
+
+# Bonus server
+$(NAME_SERVER_BONUS): $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER_BONUS) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER_BONUS)
 
-# Mandatory
-$(MANDATORY): $(OBJS_CLIENT) $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT)
+# Mandatory client
+$(NAME_CLIENT): $(OBJS_CLIENT) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_CLIENT) $(FT_PRINTF) $(LIBFT) -o $(NAME_CLIENT)
+# Mandatory server
+$(NAME_SERVER): $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_SERVER) $(FT_PRINTF) $(LIBFT) -o $(NAME_SERVER)
 
 # ft_printf
