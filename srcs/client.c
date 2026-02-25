@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 23:09:22 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:45:40 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 // Protect against no & empty string
 // 0 sends the signal to every process of the same group
 // Check if process exists
-static pid_t valid_pid(char *s)
+static pid_t	valid_pid(char *s)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	if (!s || !s[0])
 		return (0);
@@ -36,7 +36,7 @@ static pid_t valid_pid(char *s)
 }
 
 // Wrapper function to abstract error handling
-static void KillSignal(pid_t pid, int sigusr)
+static void	KillSignal(pid_t pid, int sigusr)
 {
 	if (kill(pid, sigusr) == -1)
 	{
@@ -49,9 +49,9 @@ static void KillSignal(pid_t pid, int sigusr)
 // else send SIGUSR2 (0)
 // kill = send sig
 // usleep not to lose any signal
-static void send_char(pid_t pid, char c)
+static void	send_char(pid_t pid, char c)
 {
-	int bit;
+	int	bit;
 
 	bit = 7;
 	while (bit >= 0)
@@ -66,11 +66,11 @@ static void send_char(pid_t pid, char c)
 }
 
 // Send '\0' to signal end of message
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	pid_t server_pid;
-	int i;
-	char *msg;
+	pid_t	server_pid;
+	int		i;
+	char	*msg;
 
 	if (argc != 3)
 	{

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 23:10:22 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:46:25 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 // - Reinitialize bit & char
 // - Print \n at message end
 // Use static for variables to survive between signals
-static void signal_handler(int signal)
+static void	signal_handler(int signal)
 {
-	static int bit;
-	static char c;
+	static int	bit;
+	static char	c;
 
 	c <<= 1;
 	if (signal == SIGUSR2)
@@ -45,7 +45,7 @@ static void signal_handler(int signal)
 // Get process id
 // Set disposition to treat SIGUSR1 & SIGUSR2 with handler
 // Pause to wait for signal
-int main(void)
+int	main(void)
 {
 	ft_printf("PID = %d\n", getpid());
 	signal(SIGUSR1, signal_handler);

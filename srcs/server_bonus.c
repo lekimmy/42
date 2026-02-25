@@ -6,21 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/24 23:39:17 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:46:30 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-// Wrapper function to abstract error handling
-static void KillSignal(pid_t pid, int sigusr)
-{
-	if (kill(pid, sigusr) == -1)
-	{
-		ft_perror("Error\n");
-		exit(1);
-	}
-}
 // Decrypt signal received from client as single bit 1 or 0
 // Prints char 1 by 1
 // - Static bit & char are already initialized at 0
@@ -32,13 +23,14 @@ static void KillSignal(pid_t pid, int sigusr)
 // - Print \n at message end
 // - Send ACK to client after receiving signal
 // Use static for variables to survive between signals
-// Unsigned char for Unicode / UTF-8
-static void signal_handler(int signal, siginfo_t *info, void *context)
+static void	signal_handler(int signal, siginfo_t *info, void *context)
 {
-	static int bit;
-	static unsigned char c;
+	static int	bit;
+	static char	c;
+	pid_t		client_pid;
 
 	(void)context;
+	client_pid = info->si_pid;
 	c <<= 1;
 	if (signal == SIGUSR2)
 		c |= 1;
@@ -46,16 +38,13 @@ static void signal_handler(int signal, siginfo_t *info, void *context)
 	if (bit == CHAR_BIT)
 	{
 		if (c == '\0')
-		{
 			write(1, "\n", 1);
-			KillSignal(info->si_pid, SIGUSR2);
-		}
 		else
 			write(1, &c, 1);
+		kill(client_pid, SIGUSR1);
 		bit = 0;
 		c = 0;
 	}
-	KillSignal(info->si_pid, SIGUSR1);
 }
 
 // Get process id
@@ -65,11 +54,11 @@ static void signal_handler(int signal, siginfo_t *info, void *context)
 // - sa_flags = default behavior
 // Set up signal handlers to treat SIGUSR1 & SIGUSR2
 // Pause to wait for signal
-int main(void)
+int	main(void)
 {
 	struct sigaction sa;
 
-	ft_printf("PID = %d\n", getpid());
+	ft_printf(1, "PID = %d\n", getpid());
 	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;
