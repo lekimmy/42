@@ -113,6 +113,8 @@ int main(int argc, char **argv)
 	sigaction(SIGUSR2, &sa, NULL);
 	i = 0;
 	msg = argv[2];
+	if (!msg || !msg[0])
+		return (1);
 	server_pid = valid_pid(argv[1]);
 	while (msg[i])
 		send_char(server_pid, (unsigned char)msg[i++]);
