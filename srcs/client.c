@@ -68,7 +68,7 @@ static void send_char(pid_t pid, char c)
 // Send '\0' to signal end of message
 int main(int argc, char **argv)
 {
-	pid_t pid;
+	pid_t server_pid;
 	int i;
 	char *msg;
 
@@ -79,14 +79,11 @@ int main(int argc, char **argv)
 	}
 	i = 0;
 	msg = argv[2];
-	pid = valid_pid(argv[1]);
-	if (!pid)
+	if (!msg || !msg[0])
 		return (1);
+	server_pid = valid_pid(argv[1]);
 	while (msg[i])
-	{
-		send_char(pid, msg[i]);
-		i++;
-	}
-	send_char(pid, '\0');
+		send_char(server_pid, msg[i++]);
+	send_char(server_pid, '\0');
 	return (0);
 }
