@@ -13,13 +13,17 @@
 #include "minitalk.h"
 
 // global variable to watch server status
-// volatile object
+// ** volatile object**
 // - its value can be read or modified asynchronously by something other than the current thread of execution
 // - its alue can be spontanesouly changed by code outside the scope of current code at any time for reasons such as:
 // - sharing values with other threads; sharing values with asynchronous signal handlers; accessing hardware devices via memory-mapped I/O
+// ** sig_atomic_t **
+// - integer type which can be accessed as an atomic entity even in the presence of asynchronous interrupts made by signals.
+// - data type that you are allowed to use in the context of a signal handler
+// - read the name as "atomic relative to signal handling".
 // initiliaze to busy
-volatile sig_atomic_t server_status;
-server_status = "BUSY";
+volatile sig_atomic_t ack_received;
+ack_received = 0;
 
 // Protect against no & empty string
 // + 0 = sends the signal to every process of the same group
@@ -77,11 +81,12 @@ static void send_char(pid_t pid, char c)
 // Acknowledgement of signal received by server
 void ack_handler(int sigusr)
 {
+	ack_received = 1;
 }
 // End of signal received by server
-void end_handler()
-{
-}
+// void end_handler()
+// {
+// }
 
 // Send '\0' to signal end of message
 int main(int argc, char **argv)
