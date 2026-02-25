@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 14:57:16 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/20 07:55:15 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 22:45:10 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // Must return -1 or ignore safely
 // glibc's output is an implementation choice, not a rule
 // Input value instead of pointer, otherwise UB
-static int ft_format(int fd, va_list args, const char *format)
+static int	ft_format(int fd, va_list args, const char *format)
 {
 	if (*format == 'c')
 		return (ft_print_char(fd, va_arg(args, int)));
@@ -38,7 +38,7 @@ static int ft_format(int fd, va_list args, const char *format)
 // In C standard, printf should stop at invalid or incomplete conversion -> UB
 // Must return -1 or ignore safely
 // glibc's output is an implementation choice, not a rule
-static int ft_handle_percent(int fd, va_list args, const char *format)
+static int	ft_handle_percent(int fd, va_list args, const char *format)
 {
 	format++;
 	if (!*format)
@@ -51,10 +51,10 @@ static int ft_handle_percent(int fd, va_list args, const char *format)
 // - va_start can only be used inside a function that has ... in its parameters.
 // - but need va_list for wrapper functions > remove va_start
 // internal engine version with va_list vs. variadic ... in header
-static int ft_vprintf_fd(int fd, const char *format, va_list args)
+static int	ft_vprintf_fd(int fd, const char *format, va_list args)
 {
-	int count_chars;
-	int ret;
+	int	count_chars;
+	int	ret;
 
 	if (!*format)
 		return (-1);
@@ -79,10 +79,10 @@ static int ft_vprintf_fd(int fd, const char *format, va_list args)
 // Public wrapper function
 // printf on stdout
 // internal engine version with va_list vs. variadic ... header
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
-	int ret;
+	va_list	args;
+	int		ret;
 
 	if (!format)
 		return (-1);
@@ -95,10 +95,10 @@ int ft_printf(const char *format, ...)
 // Public wrapper function
 // printf on stderr
 // internal engine version with va_list vs. variadic ... header
-int ft_perror(const char *format, ...)
+int	ft_perror(const char *format, ...)
 {
-	va_list args;
-	int ret;
+	va_list	args;
+	int		ret;
 
 	if (!format)
 		return (-1);
