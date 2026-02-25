@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 22:54:09 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 23:06:02 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static pid_t	valid_pid(char *s)
 	if (pid <= 0)
 	{
 		ft_perror("Invalid pid\n");
-		return (0);
+		exit(1);
 	}
 	if (kill(pid, 0) == -1)
 	{
 		ft_perror("No such process\n");
-		return (0);
+		exit(1);
 	}
 	return (pid);
 }
