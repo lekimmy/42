@@ -49,7 +49,7 @@ static void signal_handler(int signal, siginfo_t *info, void *context)
 			write(1, "\n", 1);
 		else
 			write(1, &c, 1);
-		kill(client_pid, SIGUSR1);
+		kill(client_pid, SIGUSR2);
 		bit = 0;
 		c = 0;
 	}

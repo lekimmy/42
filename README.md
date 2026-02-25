@@ -56,6 +56,9 @@ Commands to execute program:
   - [http://brunogarcia.chez.com/Unix/Docs/Signaux.html](http://brunogarcia.chez.com/Unix/Docs/Signaux.html)
 - Volatile /
   - [https://www.geeksforgeeks.org/c/understanding-volatile-qualifier-in-c/]<https://www.geeksforgeeks.org/c/understanding-volatile-qualifier-in-c/>
+  - [https://en.wikipedia.org/wiki/Volatile_(computer_programming)]<https://en.wikipedia.org/wiki/Volatile_(computer_programming)>
+- Sig_atomic_t :
+  - [https://en.cppreference.com/w/c/program/sig_atomic_t]<https://en.cppreference.com/w/c/program/sig_atomic_t>
 - funcheck : <https://github.com/froz42/funcheck>
 
 AI was used to break down _... and understand bit shifting._
