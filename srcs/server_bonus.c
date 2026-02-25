@@ -12,14 +12,15 @@
 
 #include "minitalk.h"
 
-// static void	signal_handler(int signum)
-// {
-// 	if (signum == SIGUSR1)
-// 		ft_printf(1, "Received bit 0\n");
-// 	else if (signum == SIGUSR2)
-// 		ft_printf(1, "Received bit 1\n");
-// }
-
+// Wrapper function to abstract error handling
+static void KillSignal(pid_t pid, int sigusr)
+{
+	if (kill(pid, sigusr) == -1)
+	{
+		ft_perror("Error\n");
+		exit(1);
+	}
+}
 // Decrypt signal received from client as single bit 1 or 0
 // Prints char 1 by 1
 // - Static bit & char are already initialized at 0
@@ -35,10 +36,8 @@ static void signal_handler(int signal, siginfo_t *info, void *context)
 {
 	static int bit;
 	static char c;
-	pid_t client_pid;
 
 	(void)context;
-	client_pid = info->si_pid;
 	c <<= 1;
 	if (signal == SIGUSR2)
 		c |= 1;
@@ -46,13 +45,16 @@ static void signal_handler(int signal, siginfo_t *info, void *context)
 	if (bit == CHAR_BIT)
 	{
 		if (c == '\0')
+		{
 			write(1, "\n", 1);
+			KillSignal(info->si_pid, SIGUSR2);
+		}
 		else
 			write(1, &c, 1);
-		kill(client_pid, SIGUSR2);
 		bit = 0;
 		c = 0;
 	}
+	KillSignal(info->si_pid, SIGUSR1);
 }
 
 // Get process id
@@ -66,7 +68,6 @@ int main(void)
 {
 	struct sigaction sa;
 
-	// sigset_t			signal_set;
 	ft_printf("PID = %d\n", getpid());
 	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
