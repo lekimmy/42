@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 22:53:52 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/25 23:26:03 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 // global variable to watch server status
 // ** volatile object**
-//	- its value can be read or modified asynchronously by something 
+//	- its value can be read or modified asynchronously by something
 //		other than the current thread of execution
-//	- its value can be spontanesouly changed by code outside the scope of 
+//	- its value can be spontanesouly changed by code outside the scope of
 //		current code at any time for reasons such as:
-//	- sharing values with other threads; 
-//	- sharing values with asynchronous signal handlers; 
+//	- sharing values with other threads;
+//	- sharing values with asynchronous signal handlers;
 //	- accessing hardware devices via memory-mapped I/O
 // ** sig_atomic_t **
-//	- integer type which can be accessed as an atomic entity 
+//	- integer type which can be accessed as an atomic entity
 //		even in the presence of asynchronous interrupts made by signals.
 // - data type that you are allowed to use in the context of a signal handler
 // - read the name as "atomic relative to signal handling".
 // initiliaze to busy
-static volatile sig_atomic_t	g_ack_received = 0;
+static volatile sig_atomic_t	g_ack = 0;
 
 // Acknowledgement of signal received by server
 // End of message received by server
 static void	ack_end_handler(int signal)
 {
-	if (signal == SIGUSR1)
-		g_ack_received = 1;
-	else if (signal == SIGUSR2)
+	if (signal == SIGUSR2)
+		g_ack = 1;
+	else if (signal == SIGUSR1)
 	{
 		ft_printf("Message received by server ✅\n");
 		exit(0);
@@ -92,9 +92,9 @@ static void	send_char(pid_t pid, char c)
 		else
 			kill_signal(pid, SIGUSR1);
 		bit--;
-		while (!g_ack_received)
+		while (!g_ack)
 			pause();
-		g_ack_received = 0;
+		g_ack = 0;
 	}
 }
 
