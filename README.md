@@ -25,8 +25,10 @@ Develop a simple program that allows processes (= programs running on a computer
 
 ### Bonus
 
-- Handle multiple clients : separate state per client PID
+- The server must acknowledge each received message by sending a signal to the client.
 - Unicode support : correctly transmit and display UTF-8 characters
+  - This just means treat each byte as unsigned char otherwise bytes ≥128 may behave incorrectly due to sign extension.
+  - Send it MSB-first.
 
 # Instructions
 
@@ -44,6 +46,7 @@ Develop a simple program that allows processes (= programs running on a computer
 Commands to execute program:
 
 `./server`
+
 `./client <pid> "<message>"`
 
 # Resources
@@ -61,4 +64,4 @@ Commands to execute program:
   - [https://en.cppreference.com/w/c/program/sig_atomic_t]<https://en.cppreference.com/w/c/program/sig_atomic_t>
 - funcheck : <https://github.com/froz42/funcheck>
 
-AI was used to break down _... and understand bit shifting._
+AI was used to break down _signal & sigaction handling and understand bit shifting, Unicode support._
