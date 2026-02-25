@@ -12,8 +12,11 @@
 
 #include "ft_printf.h"
 
+// In C standard, printf should stop at invalid or incomplete conversion -> UB
+// Must return -1 or ignore safely
+// glibc's output is an implementation choice, not a rule
 // Input value instead of pointer, otherwise UB
-static int	ft_format(int fd, va_list args, const char *format)
+static int ft_format(int fd, va_list args, const char *format)
 {
 	if (*format == 'c')
 		return (ft_print_char(fd, va_arg(args, int)));
@@ -35,37 +38,34 @@ static int	ft_format(int fd, va_list args, const char *format)
 // In C standard, printf should stop at invalid or incomplete conversion -> UB
 // Must return -1 or ignore safely
 // glibc's output is an implementation choice, not a rule
-int	ft_handle_percent(int fd, va_list args, const char *format)
+static int ft_handle_percent(int fd, va_list args, const char *format)
 {
-	int	ret;
-
 	format++;
-	if (!format)
-		return (va_end(args), -1);
-	ret = ft_format(fd, args, (const char *)format);
-	if (ret == -1)
+	if (!*format)
 		return (-1);
-	return (ret);
+	return (ft_format(fd, args, (const char *)format));
 }
 
+// Main private printf with fd
 // Reject invalid or incomplete conversion to avoid UB
-int	ft_printf(int fd, const char *format, ...)
+// - va_start can only be used inside a function that has ... in its parameters.
+// - but need va_list for wrapper functions > remove va_start
+// internal engine version with va_list vs. variadic ... in header
+static int ft_vprintf_fd(int fd, const char *format, va_list args)
 {
-	va_list	args;
-	int		count_chars;
-	int		ret;
+	int count_chars;
+	int ret;
 
-	if (!format)
+	if (!*format)
 		return (-1);
 	count_chars = 0;
-	va_start(args, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			ret = ft_handle_percent(fd, args, (const char *)format);
 			if (ret == -1)
-				return (va_end(args), -1);
+				return (-1);
 			count_chars += ret;
 			format++;
 		}
@@ -73,5 +73,37 @@ int	ft_printf(int fd, const char *format, ...)
 			count_chars += ft_print_char(fd, *format);
 		format++;
 	}
-	return (va_end(args), count_chars);
+	return (count_chars);
+}
+
+// Public wrapper function
+// printf on stdout
+// internal engine version with va_list vs. variadic ... header
+int ft_printf(const char *format, ...)
+{
+	va_list args;
+	int ret;
+
+	if (!format)
+		return (-1);
+	va_start(args, format);
+	ret = ft_vprintf_fd(1, format, args);
+	va_end(args);
+	return (ret);
+}
+
+// Public wrapper function
+// printf on stderr
+// internal engine version with va_list vs. variadic ... header
+int ft_perror(const char *format, ...)
+{
+	va_list args;
+	int ret;
+
+	if (!format)
+		return (-1);
+	va_start(args, format);
+	ret = ft_vprintf_fd(2, format, args);
+	va_end(args);
+	return (ret);
 }

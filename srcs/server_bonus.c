@@ -31,11 +31,11 @@
 // - Print \n at message end
 // - Send ACK to client after receiving signal
 // Use static for variables to survive between signals
-static void	signal_handler(int signal, siginfo_t *info, void *context)
+static void signal_handler(int signal, siginfo_t *info, void *context)
 {
-	static int	bit;
-	static char	c;
-	pid_t		client_pid;
+	static int bit;
+	static char c;
+	pid_t client_pid;
 
 	(void)context;
 	client_pid = info->si_pid;
@@ -62,12 +62,12 @@ static void	signal_handler(int signal, siginfo_t *info, void *context)
 // - sa_flags = default behavior
 // Set up signal handlers to treat SIGUSR1 & SIGUSR2
 // Pause to wait for signal
-int	main(void)
+int main(void)
 {
-	struct sigaction	sa;
+	struct sigaction sa;
 
 	// sigset_t			signal_set;
-	ft_printf(1, "PID = %d\n", getpid());
+	ft_printf("PID = %d\n", getpid());
 	sa.sa_sigaction = signal_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = 0;

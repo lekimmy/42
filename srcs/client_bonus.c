@@ -13,34 +13,34 @@
 #include "minitalk.h"
 
 // Protect against no & empty string
-// 0 sends the signal to every process of the same group
+// + 0 = sends the signal to every process of the same group
 // Check if process exists
-static pid_t	valid_pid(char *s)
+static pid_t valid_pid(char *s)
 {
-	pid_t	pid;
+	pid_t pid;
 
 	if (!s || !s[0])
 		return (0);
 	pid = ft_atoi(s);
 	if (pid <= 0)
 	{
-		ft_printf(2, "Invalid pid\n");
+		ft_perror("Invalid pid\n");
 		return (0);
 	}
 	if (kill(pid, 0) == -1)
 	{
-		ft_printf(2, "No such process\n");
+		ft_perror("No such process\n");
 		return (0);
 	}
 	return (pid);
 }
 
 // Wrapper function to abstract error handling
-static void	KillSignal(pid_t pid, int sigusr)
+static void KillSignal(pid_t pid, int sigusr)
 {
 	if (kill(pid, sigusr) == -1)
 	{
-		ft_printf(2, "Error\n");
+		ft_perror("Error\n");
 		exit(1);
 	}
 }
@@ -49,9 +49,9 @@ static void	KillSignal(pid_t pid, int sigusr)
 // else send SIGUSR2 (0)
 // kill = send sig
 // usleep not to lose any signal
-static void	send_char(pid_t pid, char c)
+static void send_char(pid_t pid, char c)
 {
-	int	bit;
+	int bit;
 
 	bit = 7;
 	while (bit >= 0)
@@ -66,15 +66,15 @@ static void	send_char(pid_t pid, char c)
 }
 
 // Send '\0' to signal end of message
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	pid_t	pid;
-	int		i;
-	char	*msg;
+	pid_t pid;
+	int i;
+	char *msg;
 
 	if (argc != 3)
 	{
-		ft_printf(2, "Usage : ./client <pid> <\"message\">\n");
+		ft_perror("Usage : ./client <pid> <\"message\">\n");
 		return (1);
 	}
 	i = 0;

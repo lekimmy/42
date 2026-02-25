@@ -12,13 +12,13 @@
 
 #include "ft_printf.h"
 
-int	ft_print_char(int fd, int c)
+int ft_print_char(int fd, int c)
 {
 	ft_putchar_fd(fd, c);
 	return (1);
 }
 
-int	ft_print_str(int fd, char *str)
+int ft_print_str(int fd, char *str)
 {
 	if (!str)
 	{
@@ -32,15 +32,15 @@ int	ft_print_str(int fd, char *str)
 	}
 }
 
-int	ft_print_perc(int fd)
+int ft_print_perc(int fd)
 {
 	ft_putchar_fd(fd, '%');
 	return (1);
 }
 
-int	ft_print_nbr(int fd, int i)
+int ft_print_nbr(int fd, int i)
 {
-	int		n;
+	int n;
 
 	ft_putnbr_fd(fd, i);
 	n = (i <= 0);
