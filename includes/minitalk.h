@@ -11,18 +11,10 @@
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
-# define MINITALK_H
+#define MINITALK_H
 
-# include "ft_printf.h"
-# include "libft.h"
-# include <signal.h>
-
-/************************************
- * CLIENT
- ************************************/
-
-/************************************
- * SERVER
- ************************************/
+#include "ft_printf.h"
+#include "libft.h"
+#include <signal.h>
 
 #endif

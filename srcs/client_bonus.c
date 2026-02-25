@@ -22,7 +22,20 @@
 // - data type that you are allowed to use in the context of a signal handler
 // - read the name as "atomic relative to signal handling".
 // initiliaze to busy
-volatile int ack_received = 0;
+static volatile sig_atomic_t ack_received = 0;
+
+// Acknowledgement of signal received by server
+// End of message received by server
+static void ack_end_handler(int signal)
+{
+	if (signal == SIGUSR1)
+		ack_received = 1;
+	else if (signal == SIGUSR2)
+	{
+		ft_printf("Message received by server ✅\n");
+		exit(0);
+	}
+}
 
 // Protect against no & empty string
 // + 0 = sends the signal to every process of the same group
@@ -47,12 +60,6 @@ static pid_t valid_pid(char *s)
 	return (pid);
 }
 
-void ack_handler(int sigusr)
-{
-	if (sigusr == SIGUSR2)
-		ack_received = 1;
-}
-
 // Wrapper function to abstract error handling
 static void KillSignal(pid_t pid, int sigusr)
 {
@@ -65,9 +72,9 @@ static void KillSignal(pid_t pid, int sigusr)
 
 // If bit exists, send SIGUSR1 (1)
 // else send SIGUSR2 (0)
+// reset ACK flag to 0 before sending bit
 // kill = send sig
 // pause until ACK received vs. usleep
-// reset ACK to 0 to send next char
 static void send_char(pid_t pid, char c)
 {
 	int bit;
@@ -79,43 +86,41 @@ static void send_char(pid_t pid, char c)
 			KillSignal(pid, SIGUSR2);
 		else
 			KillSignal(pid, SIGUSR1);
+		bit--;
 		while (!ack_received)
 			pause();
 		ack_received = 0;
-		bit--;
 	}
 }
-
-// Acknowledgement of signal received by server
-
-// End of signal received by server
-// void end_handler()
-// {
-// }
 
 // Send '\0' to signal end of message
 int main(int argc, char **argv)
 {
-	pid_t pid;
+	pid_t server_pid;
 	int i;
 	char *msg;
+	struct sigaction sa;
 
 	if (argc != 3)
 	{
 		ft_perror("Usage : ./client <pid> <\"message\">\n");
 		return (1);
 	}
+	sa.sa_handler = ack_end_handler;
+	sa.sa_flags = 0;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	i = 0;
 	msg = argv[2];
-	pid = valid_pid(argv[1]);
-	if (!pid)
+	server_pid = valid_pid(argv[1]);
+	if (!server_pid)
 		return (1);
-	signal(SIGUSR2, ack_handler);
 	while (msg[i])
 	{
-		send_char(pid, msg[i]);
+		send_char(server_pid, msg[i]);
 		i++;
 	}
-	send_char(pid, '\0');
+	send_char(server_pid, '\0');
 	return (0);
 }
