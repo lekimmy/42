@@ -49,6 +49,9 @@ Commands to execute program:
 
 `./client <pid> "<message>"`
 
+`MSG=$(head -c 10000 /dev/zero | tr '\0' 'A')`
+`./client 211684 "$MSG"`
+
 # Resources
 
 > listing classic references related to the topic (documentation, articles, tutorials, etc.)
