@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 23:06:02 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/26 02:00:44 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,6 @@ static pid_t	valid_pid(char *s)
 		exit(1);
 	}
 	return (pid);
-}
-
-// Wrapper function to abstract error handling
-static void	kill_signal(pid_t pid, int signal)
-{
-	if (kill(pid, signal) == -1)
-	{
-		ft_perror("Error\n");
-		exit(1);
-	}
 }
 
 // If bit exists, send SIGUSR1 (1)
