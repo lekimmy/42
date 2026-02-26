@@ -6,21 +6,11 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 23:44:54 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/26 01:55:22 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
-
-// Wrapper function to abstract error handling
-static void	kill_signal(pid_t pid, int signal)
-{
-	if (kill(pid, signal) == -1)
-	{
-		ft_perror("Error\n");
-		exit(1);
-	}
-}
+#include "minitalk_bonus.h"
 
 // Decrypt signal received from client as single bit 1 or 0
 // Prints char 1 by 1
@@ -70,14 +60,8 @@ static void	signal_handler(int signal, siginfo_t *info, void *context)
 // Pause to wait for signal
 int	main(void)
 {
-	struct sigaction	sa;
-
 	ft_printf("PID = %d\n", getpid());
-	sa.sa_sigaction = signal_handler;
-	sa.sa_flags = SA_SIGINFO;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	init_sigaction(signal_handler, SA_SIGINFO);
 	while (1)
 		pause();
 	return (0);

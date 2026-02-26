@@ -6,11 +6,11 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/21 16:39:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/02/25 23:48:59 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/02/26 01:55:55 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 // global variable to watch server status
 // ** volatile object**
@@ -27,16 +27,16 @@
 // - data type that you are allowed to use in the context of a signal handler
 // - read the name as "atomic relative to signal handling".
 // initiliaze to 0 = waiting ; 1 = bit ACK received ; 2 = end ACK received
-static volatile sig_atomic_t	g_state = 0;
+static volatile sig_atomic_t	g_ack = 0;
 
 // Acknowledgement of signal received by server
 // End of message received by server
 static void	ack_end_handler(int signal)
 {
 	if (signal == SIGUSR2)
-		g_state = 1;
+		g_ack = 1;
 	else if (signal == SIGUSR1)
-		g_state = 2;
+		g_ack = 2;
 }
 
 // Protect against no & empty string
@@ -62,16 +62,6 @@ static pid_t	valid_pid(char *s)
 	return (pid);
 }
 
-// Wrapper function to abstract error handling
-static void	kill_signal(pid_t pid, int signal)
-{
-	if (kill(pid, signal) == -1)
-	{
-		ft_perror("Error\n");
-		exit(1);
-	}
-}
-
 // If bit exists, send SIGUSR1 (1)
 // else send SIGUSR2 (0)
 // reset ACK flag to 0 before sending bit
@@ -84,32 +74,31 @@ static void	send_char(pid_t pid, char c)
 	bit = 7;
 	while (bit >= 0)
 	{
-		g_state = 0;
+		g_ack = 0;
 		if ((c >> bit) & 1)
 			kill_signal(pid, SIGUSR2);
 		else
 			kill_signal(pid, SIGUSR1);
 		bit--;
-		while (!g_state)
+		while (!g_ack)
 			pause();
+		usleep(50);
 	}
 }
 
 // Send '\0' to signal end of message
 int	main(int argc, char **argv)
 {
-	pid_t				server_pid;
-	int					i;
-	char				*msg;
-	struct sigaction	sa;
+	pid_t	server_pid;
+	int		i;
+	char	*msg;
 
 	if (argc != 3)
-		return (ft_perror("Usage : ./client <pid> <\"message\">\n"), 1);
-	sa.sa_handler = ack_end_handler;
-	sa.sa_flags = 0;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	{
+		ft_perror("Usage : ./client <pid> <\"message\">\n");
+		return (1);
+	}
+	init_sigaction(ack_end_handler, 0);
 	i = 0;
 	msg = argv[2];
 	if (!msg || !msg[0])
@@ -118,7 +107,8 @@ int	main(int argc, char **argv)
 	while (msg[i])
 		send_char(server_pid, (unsigned char)msg[i++]);
 	send_char(server_pid, '\0');
-	while (g_state != 2)
+	while (g_ack != 2)
 		pause();
-	return (ft_printf("Message received by server ✅\n"), 0);
+	ft_printf("Message received by server ✅\n");
+	return (0);
 }
