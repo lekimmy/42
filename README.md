@@ -50,7 +50,7 @@ Commands to execute program:
 `./client <pid> "<message>"`
 
 `MSG=$(head -c 10000 /dev/zero | tr '\0' 'A')`
-`./client 211684 "$MSG"`
+`./client <pid> "$MSG"`
 
 # Resources
 
