@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/30 21:39:20 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 15:27:23 by ls-phabm         ###   ########.fr       */
+/*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
+/*   Updated: 2026/05/05 15:27:12 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// !line == ctrl+D
-int main (int argc, char **argv, char **envp)
+void tokenize(char *line)
 {
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	
-	char *line;
-	
-	while (1)
-	{
-		line = readline("minishell> ");
-		if (!line)
-		{
-			printf("exit\n");
-			break ;
-		}
-		if (*line)
-			add_history(line);
-		tokenize(line);
-		free(line);
-	}
-	return (0);
+	printf("You typed: %s\n", line);
 }
