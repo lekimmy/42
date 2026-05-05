@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 19:58:47 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 20:00:50 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void tokenize(t_token **head, char *line)
 	t_token		*t;
 
 	i = 0;
+	t = NULL;
 	while (line[i])
 	{
 		if (ft_isspace(line[i]))
@@ -92,7 +93,8 @@ void tokenize(t_token **head, char *line)
 			t = new_token(TOKEN_REDIRECT_OUT, ">");
 		else
 			t = read_word(line, &i);
-		add_token(head, t);
+		if (t)
+			add_token(head, t);
 		i++;
 	}
 	printf("You typed: %s\n", line);
