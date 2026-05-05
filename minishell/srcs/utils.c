@@ -5,83 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 23:30:57 by ls-phabm         ###   ########.fr       */
+/*   Created: 2026/05/05 23:34:32 by ls-phabm          #+#    #+#             */
+/*   Updated: 2026/05/05 23:34:40 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isspace(char c)
-{
-	if ((c >= '\t' && c <= '\r') || c == ' ')
-		return (1);
-	return (0);
-}
-
 // abstract for read_word()
 int	is_separator(char c)
 {
 	return (ft_isspace(c) || c == '|' || c == '<' || c == '>');
-}
-
-size_t	ft_strlen(char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	char	*sub;
-	size_t	i;
-	size_t	s_len;
-	size_t	cpy_len;
-
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		cpy_len = 0;
-	else if (len > s_len - start)
-		cpy_len = s_len - start;
-	else
-		cpy_len = len;
-	sub = malloc(cpy_len + 1);
-	if (!sub)
-		return (NULL);
-	i = 0;
-	while (i < cpy_len)
-	{
-		sub[i] = s[start + i];
-		i++;
-	}
-	sub[i] = '\0';
-	return (sub);
-}
-
-char	*ft_strdup(char *s)
-{
-	char	*dup;
-	size_t		n;
-	size_t		i;
-
-	if (!s)
-		return (NULL);
-	n = ft_strlen(s);
-	dup = malloc(n + 1);
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (s[i])
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
 }
