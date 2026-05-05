@@ -8,7 +8,7 @@ CFLAGS						= -Wall -Wextra -Werror -fPIC #-fsanitize=address #-g3
 NAME						= minishell
 
 SRCS_PATH 					= srcs
-SRCS_FILES					= main.c parser.c utils.c init.c monitor.c philos.c dinner.c threads.c
+SRCS_FILES					= main.c
 
 INCLUDES_PATH 				= includes
 INCLUDES 					= -I$(INCLUDES_PATH)
@@ -30,7 +30,7 @@ $(NAME): $(OBJS)
 
 # Pattern rule for .o files
 $(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES)  -c $< -o $@
 
 # Clean
 clean:
