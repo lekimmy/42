@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 17:44:09 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:59:14 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_token
 }	t_token;
 
 int	ft_isspace(char c);
+int	ft_strlen(char *s);
 
 void tokenize(t_token **head, char *line);
 

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 17:53:23 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 18:03:09 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ static void	add_token(t_token **head, t_token *new_token)
 	current->next = new_token;
 }
 
-static void read_word(char *s)
+static t_token *read_word(char *s)
 {
-	(void)s;
-	return;
+	return new_token(TOKEN_WORD, s);
 }
 
 void tokenize(t_token **head, char *line)
 {
 	int		i;
+	t_token	*t;
 
 	i = 0;
 	while (line[i])
@@ -60,18 +60,19 @@ void tokenize(t_token **head, char *line)
 		if (ft_isspace(line[i]))
 			;
 		else if (line[i] == '|')
-			add_token(head, new_token(TOKEN_PIPE, "|"));
+			t = new_token(TOKEN_PIPE, "|");
 		else if (line[i] == '>' && line[i + 1] == '>')
-			add_token(head, new_token(TOKEN_REDIRECT_APPEND, ">>"));
+			t = new_token(TOKEN_REDIRECT_APPEND, ">>");
 		else if (line[i] == '<' && line[i + 1] == '<')
-			add_token(head, new_token(TOKEN_HEREDOC, "<<"));
+			t = new_token(TOKEN_HEREDOC, "<<");
 		else if (line[i] == '<')
-			add_token(head, new_token(TOKEN_REDIRECT_IN, "<"));
+			t = new_token(TOKEN_REDIRECT_IN, "<");
 		else if (line[i] == '>')
-			add_token(head, new_token(TOKEN_REDIRECT_OUT, ">"));
+			t = new_token(TOKEN_REDIRECT_OUT, ">");
 		else
-			read_word(&line[i]);
-		i++;
+			t = read_word(&line[i]);
+		add_token(head, t);
+		i += ft_strlen(t->value);
 	}
 	printf("You typed: %s\n", line);
 }
