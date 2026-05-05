@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 23:15:18 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 23:30:45 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 // 2. quotes
 // 3. edge cases
 
+// value : don't store literal pointer
+// passing string litteral points to read-only memory
+// modifying it = crash ; freeing it = UB
+// solution : duplicate the string
+// = full ownership of memory to free & modify values (expansion)
 t_token	*new_token(t_token_type type, char *value)
 {
 	t_token	*token;
@@ -27,7 +32,12 @@ t_token	*new_token(t_token_type type, char *value)
 	if (!token)
 		return (NULL);
 	token->type = type;
-	token->value = value;
+	if (value)
+	{
+		token->value = ft_strdup(value);
+		if (!token->value)
+			return (free(token), NULL);
+	}
 	token->quoted = 0;
 	token->next = NULL;
 	return (token);

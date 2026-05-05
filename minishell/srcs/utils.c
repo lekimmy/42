@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 23:10:17 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 23:30:57 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,26 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	}
 	sub[i] = '\0';
 	return (sub);
+}
+
+char	*ft_strdup(char *s)
+{
+	char	*dup;
+	size_t		n;
+	size_t		i;
+
+	if (!s)
+		return (NULL);
+	n = ft_strlen(s);
+	dup = malloc(n + 1);
+	if (!dup)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
 }

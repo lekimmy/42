@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 23:17:37 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 23:31:07 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ typedef struct s_token
  *************************************/
 
 int		ft_isspace(char c);
+
 size_t	ft_strlen(char *s);
+
 char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_strdup(char *s);
 
 
 /************************************
@@ -59,6 +62,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
  *************************************/
 
 int		is_separator(char c);
+
 void	tokenize(t_token **head, char *line);
 
 
