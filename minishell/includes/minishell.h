@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 19:53:53 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 23:17:37 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 
 typedef enum e_token_type
 {
-	TOKEN_WORD,
-	TOKEN_PIPE,
-	TOKEN_REDIRECT_IN,
-	TOKEN_REDIRECT_OUT,
-	TOKEN_REDIRECT_APPEND,
-	TOKEN_HEREDOC,
-	TOKEN_EOF,
+	TOKEN_WORD, // 0
+	TOKEN_PIPE, // 1
+	TOKEN_REDIRECT_IN, // 2
+	TOKEN_REDIRECT_OUT, // 3
+	TOKEN_REDIRECT_APPEND, // 4
+	TOKEN_HEREDOC, // 5
+	TOKEN_EOF, // 6
 }	t_token_type;
 
 typedef struct s_token
@@ -58,7 +58,8 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
  * LEXER
  *************************************/
 
-void tokenize(t_token **head, char *line);
+int		is_separator(char c);
+void	tokenize(t_token **head, char *line);
 
 
 /************************************

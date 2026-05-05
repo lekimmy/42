@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 22:55:03 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 23:15:18 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,19 @@ static void	add_token(t_token **head, t_token *new_token)
 	current->next = new_token;
 }
 
-static int	is_separator(char c)
+static t_token	*handle_operator(char *s, size_t *i)
 {
-	return (ft_isspace(c) || c == '|' || c == '<' || c == '>');
+	if (s[*i] == '|')
+		return ((*i)++, new_token(TOKEN_PIPE, "|"));
+	else if (s[*i] == '>' && s[*i + 1] == '>')
+		return ((*i) += 2, new_token(TOKEN_REDIRECT_APPEND, ">>"));
+	else if (s[*i] == '<' && s[*i + 1] == '<')
+		return ((*i) += 2, new_token(TOKEN_HEREDOC, "<<"));
+	else if (s[*i] == '<')
+		return ((*i)++, new_token(TOKEN_REDIRECT_IN, "<"));
+	else if (s[*i] == '>')
+		return ((*i)++, new_token(TOKEN_REDIRECT_OUT, ">"));
+	return (NULL);
 }
 
 // must stop at sep = space, |, redirect < >, EOF
@@ -58,7 +68,7 @@ static int	is_separator(char c)
 static t_token *read_word(char *s, size_t *i)
 {
 	size_t		start;
-	char	*value;
+	char		*value;
 	
 	start = *i;
 	while (s[*i] && !is_separator(s[*i]))
@@ -70,44 +80,19 @@ static t_token *read_word(char *s, size_t *i)
 	return new_token(TOKEN_WORD, value);
 }
 
-void tokenize(t_token **head, char *line)
+void tokenize(t_token **head, char *s)
 {
 	size_t		i;
 	t_token		*t;
 
 	i = 0;
-	while (line[i])
+	while (s[i])
 	{
-		t = NULL;
-		if (ft_isspace(line[i]))
+		if (ft_isspace(s[i]))
 			i++;
-		else if (line[i] == '|')
-		{
-			t = new_token(TOKEN_PIPE, "|");
-			i++;
-		}
-		else if (line[i] == '>' && line[i + 1] == '>')
-		{
-			t = new_token(TOKEN_REDIRECT_APPEND, ">>");
-			i += 2;
-		}
-		else if (line[i] == '<' && line[i + 1] == '<')
-		{
-			t = new_token(TOKEN_HEREDOC, "<<");
-			i += 2;
-		}
-		else if (line[i] == '<')
-		{
-			t = new_token(TOKEN_REDIRECT_IN, "<");
-			i++;
-		}
-		else if (line[i] == '>')
-		{
-			t = new_token(TOKEN_REDIRECT_OUT, ">");
-			i++;
-		}
-		else
-			t = read_word(line, &i);
+		t = handle_operator(s, &i);
+		if (!t)
+			t = read_word(s, &i);
 		if (t)
 		{
 			printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);

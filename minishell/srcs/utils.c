@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 19:53:41 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 23:10:17 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int	ft_isspace(char c)
 	if ((c >= '\t' && c <= '\r') || c == ' ')
 		return (1);
 	return (0);
+}
+
+// abstract for read_word()
+int	is_separator(char c)
+{
+	return (ft_isspace(c) || c == '|' || c == '<' || c == '>');
 }
 
 size_t	ft_strlen(char *s)
