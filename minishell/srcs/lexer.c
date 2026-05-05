@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 18:03:09 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 19:58:47 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 // The lexer doesn't see words: it sees chars that slowly become words
 // Scan > build > handle quotes inline > emit tokens
+
+// 1. operators + basic words without quotes
+// 2. quotes
+// 3. edge cases
+
 t_token	*new_token(t_token_type type, char *value)
 {
 	t_token	*token;
@@ -44,15 +49,31 @@ static void	add_token(t_token **head, t_token *new_token)
 	current->next = new_token;
 }
 
-static t_token *read_word(char *s)
+static int	is_separator(char c)
 {
-	return new_token(TOKEN_WORD, s);
+	return (ft_isspace(c) || c == '|' || c == '<' || c == '>');
+}
+
+// must stop at sep = space, |, redirect < >, EOF
+// *i reference vs. i copy
+static t_token *read_word(char *s, size_t *i)
+{
+	size_t		start;
+	char	*value;
+	
+	start = *i;
+	while (s[*i] && !is_separator(s[*i]))
+		(*i)++;
+	value = ft_substr(s, start, *i - start);
+	if (!value)
+		return (NULL);
+	return new_token(TOKEN_WORD, value);
 }
 
 void tokenize(t_token **head, char *line)
 {
-	int		i;
-	t_token	*t;
+	size_t		i;
+	t_token		*t;
 
 	i = 0;
 	while (line[i])
@@ -70,9 +91,9 @@ void tokenize(t_token **head, char *line)
 		else if (line[i] == '>')
 			t = new_token(TOKEN_REDIRECT_OUT, ">");
 		else
-			t = read_word(&line[i]);
+			t = read_word(line, &i);
 		add_token(head, t);
-		i += ft_strlen(t->value);
+		i++;
 	}
 	printf("You typed: %s\n", line);
 }
