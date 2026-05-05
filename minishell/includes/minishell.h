@@ -6,13 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 15:38:37 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/05 17:44:09 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 
 # include <errno.h>
 # include <limits.h>
@@ -41,9 +40,12 @@ typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
+	int				quoted;
 	struct s_token	*next;
 }	t_token;
 
-void tokenize(char *line);
+int	ft_isspace(char c);
+
+void tokenize(t_token **head, char *line);
 
 #endif
