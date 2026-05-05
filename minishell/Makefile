@@ -26,7 +26,7 @@ all: $(NAME)
 
 # Mandatory
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -lreadline -lhistory -o $(NAME)
 
 # Pattern rule for .o files
 $(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c
