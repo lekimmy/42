@@ -8,7 +8,7 @@ CFLAGS						= -Wall -Wextra -Werror -fPIC #-g3 #-fsanitize=address
 NAME						= minishell
 
 SRCS_PATH 					= srcs
-SRCS_FILES					= main.c lexer.c parser.c utils.c
+SRCS_FILES					= main.c lexer.c parser.c utils.c libft.c
 
 INCLUDES_PATH 				= includes
 INCLUDES 					= -I$(INCLUDES_PATH)
