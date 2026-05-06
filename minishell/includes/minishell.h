@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/05 23:31:07 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/06 17:31:03 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,17 @@ size_t	ft_strlen(char *s);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *s);
 
+void	free_all(t_token **head);
 
 /************************************
  * LEXER
  *************************************/
 
 int		is_separator(char c);
+int		is_unsupported(char c);
 
 void	tokenize(t_token **head, char *line);
-
+void 	syntax_error();
 
 /************************************
  * PARSER

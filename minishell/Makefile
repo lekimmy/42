@@ -3,12 +3,12 @@
 #############
 
 CC							= cc
-CFLAGS						= -Wall -Wextra -Werror -fPIC #-g3 #-fsanitize=address
+CFLAGS						= -Wall -Wextra -Werror -fPIC -fsanitize=address
 
 NAME						= minishell
 
 SRCS_PATH 					= srcs
-SRCS_FILES					= main.c lexer.c parser.c utils.c libft.c
+SRCS_FILES					= main.c lexer.c lexer_quotes.c parser.c utils.c libft.c
 
 INCLUDES_PATH 				= includes
 INCLUDES 					= -I$(INCLUDES_PATH)

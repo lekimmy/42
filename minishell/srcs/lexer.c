@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 16:57:37 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/06 17:30:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 // 1. operators + basic words without quotes
 // 2. quotes
 // 3. edge cases
+
+// unclosed quotes + special chars / unsupported ops (\;) = syntax error
+// closer to bash + avoids UB later + easier than trying to support them
 
 // value : don't store literal pointer
 // passing string litteral points to read-only memory
@@ -75,7 +78,7 @@ static t_token	*handle_operator(char *s, size_t *i)
 
 // must stop at sep = space, |, redirect < >, EOF
 // *i reference vs. i copy
-// wesh > wesh >> yolo | ||| | ,,, < <             <<      !!  1
+// wesh > wesh >> yolo | ||| | ,,, < <             <<      !!  1 \ ;
 static t_token *read_word(char *s, size_t *i)
 {
 	size_t		start;
@@ -101,6 +104,8 @@ void tokenize(t_token **head, char *s)
 	{
 		if (ft_isspace(s[i]))
 			i++;
+		if (is_unsupported(s[i]))
+			return (syntax_error(), free_all(head), exit(1));
 		t = handle_operator(s, &i);
 		if (!t)
 			t = read_word(s, &i);
