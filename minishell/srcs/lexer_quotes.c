@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 17:16:16 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:31:01 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 	
 // }
 
-void syntax_error()
+void syntax_error(char c)
 {
-	printf("Syntax error\n");
+	printf("minishell: syntax error near unexpected token '%c'\n", c);
 }

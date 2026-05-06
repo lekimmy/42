@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 17:30:51 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:30:37 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void tokenize(t_token **head, char *s)
 		if (ft_isspace(s[i]))
 			i++;
 		if (is_unsupported(s[i]))
-			return (syntax_error(), free_all(head), exit(1));
+			return (syntax_error(s[i]), free_all(head));
 		t = handle_operator(s, &i);
 		if (!t)
 			t = read_word(s, &i);

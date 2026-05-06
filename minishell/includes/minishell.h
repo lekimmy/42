@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 17:31:03 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/06 18:30:28 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		is_separator(char c);
 int		is_unsupported(char c);
 
 void	tokenize(t_token **head, char *line);
-void 	syntax_error();
+void 	syntax_error(char c);
 
 /************************************
  * PARSER
