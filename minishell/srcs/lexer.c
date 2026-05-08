@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/09 01:29:18 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/09 01:41:46 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ static t_token	*handle_operator(char *s, size_t *i)
 // must stop at sep = space, |, redirect < >, EOF
 // *i reference vs. i copy
 // *i ptr better for shared reference
-// wesh > || . ,,,,      "wesh wesh"
-// wesh > wesh >> yolo | ||| | ,,, < <             <<      !!  1 \ ; " wesh wesh"
+// malloc for cleaner memory management
+// loop while not separator
+// handle quoted & normal word differently
 static t_token *read_word(char *s, size_t *i)
 {
 	char	*buf;
@@ -109,6 +110,7 @@ static t_token *read_word(char *s, size_t *i)
 	return new_token(TOKEN_WORD, buf);
 }
 
+// add token if exists, has value, and value not null
 void tokenize(t_token **head, char *s)
 {
 	size_t		i;

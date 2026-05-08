@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/09 01:29:49 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/09 01:39:28 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 // 3. include content in word
 // 4. (ignore expansion for now)
 
-// first char is quote
-// "h"ello"
-// h"ello
 char	quote_opened(char c)
 {
 	if (c == '"')
@@ -33,6 +30,11 @@ char	quote_opened(char c)
 	return ('\0');
 }
 
+// log quote: single or double
+// move to i real char
+// iter to matching quote
+// if none then syntax error
+// else move i to next char
 size_t	handle_quoted_word(char *s, char *buf, size_t *i, size_t len)
 {
 	char	quote;

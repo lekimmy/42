@@ -6,13 +6,13 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:20 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/09 01:31:48 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/09 01:37:47 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// !line == ctrl+D
+// !line == ctrl+D = stil reachable valgrind
 int main (int argc, char **argv, char **envp)
 {
 	(void)argc;
