@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 18:44:24 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/08 19:46:50 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,50 @@
 // 3. include content in word
 // 4. (ignore expansion for now)
 
-// int	quote_opened()
-// {
-	
-// }
+// first char is quote
+// "h"ello"
+// h"ello
+char	quote_opened(char c)
+{
+	printf("__quote_opened()__\n");
+	// printf("%c\n", c);
+	if (c == '"')
+		return ('"');
+	if (c == '\'')
+		return ('\'');
+	return ('\0');
+}
 
-// int	quote_closed()
-// {
-	
-// }
+// any other quote
+int	quote_closed(char *s, size_t *i, char c)
+{
+	while (s[*i])
+	{
+		if (s[*i] == c)
+			return (1);
+		(*i)++;
+	}
+	return (0);
+}
 
-// int	in_quotes()
+// int	in_quotes(char *s, size_t *i)
 // {
-//		return (quote_opened() + quote_closed == 2);
+// 	if (s[*i] == '"')
+// 	{
+// 		(*i++);
+// 		while (s[*i] != '"')
+// 			(*i++);
+// 		if (s[*i] == '"')
+// 			return (1);
+// 	}
+// 	else if (s[*i] == '\'')
+// 	{
+// 		(*i++);
+// 		while (s[*i] != '\'')
+// 			(*i++);
+// 		if (s[*i] == '\'')
+// 			return (1);
+// 	}
 // }
 
 void syntax_error(char c)

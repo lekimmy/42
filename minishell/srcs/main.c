@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:20 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 18:03:59 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/08 19:49:09 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main (int argc, char **argv, char **envp)
 		line = readline("minishell> ");
 		if (!line)
 		{
+			free_all(&token);
 			printf("exit\n");
 			break ;
 		}
