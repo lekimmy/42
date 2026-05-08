@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/08 22:54:45 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/08 23:45:08 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,11 @@ static t_token *read_word(char *s, size_t *i)
 		else
 		{
 			while (s[*i] && !ft_isspace(s[*i]) && !quote)
+			{
 				buf[j++] = s[(*i)++];
+				if (quote_opened(s[*i]))
+					break;
+			}
 			buf[j] = '\0';
 		}
 	}
