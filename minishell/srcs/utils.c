@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 23:34:32 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 18:06:00 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/08 22:33:56 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,8 @@ void	free_all(t_token **head)
 		*head = current;
 	}
 }
+
+// void	append_char(char *buf, char c)
+// {
+	
+// }

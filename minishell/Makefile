@@ -3,7 +3,7 @@
 #############
 
 CC							= cc
-CFLAGS						= -Wall -Wextra -Werror -fPIC #-g3 #-fsanitize=address
+CFLAGS						= -Wall -Wextra -Werror -fPIC -fsanitize=address
 
 NAME						= minishell
 

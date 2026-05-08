@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/08 19:51:55 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/08 22:54:45 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,39 +82,45 @@ static t_token	*handle_operator(char *s, size_t *i)
 // must stop at sep = space, |, redirect < >, EOF
 // *i reference vs. i copy
 // *i ptr better for shared reference
-// wesh > wesh >> yolo | ||| | ,,, < <             <<      !!  1 \ ;
+// wesh > || . ,,,,      "wesh wesh"
+// wesh > wesh >> yolo | ||| | ,,, < <             <<      !!  1 \ ; " wesh wesh"
 static t_token *read_word(char *s, size_t *i)
 {
-	size_t		start;
-	char		*value;
-	char		quote;
+	size_t	len;
+	char	*value;
+	char	*buf;
+	char	quote;
+	int		j;
 	
-	printf("__read_word()__\n");
-	// start = *i;
-	quote = quote_opened(s[*i]);
-	
-	// printf("%c\n", s[*i]);
-	// printf("start = %zu ; i = %zu\n", start, *i);
-	if (quote)
+	j = 0;
+	len = ft_strlen(s);
+	buf = malloc(len + 1);
+	if (!buf)
+		return (NULL);
+	while (s[*i] && !is_separator(s[*i]))
 	{
-		(*i)++;
-		start = *i;
-		printf("[quote] start = %zu ; i = %zu\n", start, *i);
-		while (s[*i] && !is_separator(s[*i]) && (s[*i] != quote))
-			(*i)++;
-		if (s[*i] == quote)
+		quote = quote_opened(s[*i]);
+		if (quote)
 		{
-			// (*i)--;
-			printf("[quote_closed] start = %zu ; i = %zu\n", start, *i);
+			(*i)++;
+			while (s[*i] && s[*i] != quote)
+				buf[j++] = s[(*i)++];
+			buf[j] = '\0';
+			// printf("s[%zu] = %c ; buf = %s\n", *i, s[*i], buf);
+			if (s[(*i)] != quote)
+				return(free(buf), syntax_error(quote), NULL);
+			(*i)++;
 		}
 		else
-			return(syntax_error(quote), NULL);
+		{
+			while (s[*i] && !ft_isspace(s[*i]) && !quote)
+				buf[j++] = s[(*i)++];
+			buf[j] = '\0';
+		}
 	}
-	value = ft_substr(s, start, *i - start);
-	if (!value || !value[0])
-		return (NULL);
-	(*i)++;
-	// printf("start = %ld --- i = %ld --- value = %s\n", start, *i, value);
+	value = ft_strdup(buf);
+	// printf("value = %s\n", value);
+	free(buf);
 	return new_token(TOKEN_WORD, value);
 }
 
@@ -126,14 +132,14 @@ void tokenize(t_token **head, char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (ft_isspace(s[i]))
+		while (ft_isspace(s[i]))
 			i++;
 		if (is_unsupported(s[i]))
 			return (syntax_error(s[i]), free_all(head));
 		t = handle_operator(s, &i);
 		if (!t)
 			t = read_word(s, &i);
-		if (t->value)
+		if (t && t->value)
 		{
 			printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);
 			add_token(head, t);

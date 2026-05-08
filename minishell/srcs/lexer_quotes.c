@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/08 19:46:50 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/08 21:51:17 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 // h"ello
 char	quote_opened(char c)
 {
-	printf("__quote_opened()__\n");
-	// printf("%c\n", c);
 	if (c == '"')
 		return ('"');
 	if (c == '\'')
 		return ('\'');
 	return ('\0');
 }
+
+
 
 // any other quote
 int	quote_closed(char *s, size_t *i, char c)
