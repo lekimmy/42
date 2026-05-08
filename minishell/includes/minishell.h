@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/09 00:12:22 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/09 01:43:16 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ void	free_all(t_token **head);
 int		is_separator(char c);
 int		is_unsupported(char c);
 
-char	quote_opened(char c);
 size_t	handle_quoted_word(char *s, char *buf, size_t *i, size_t len);
+
+char	quote_opened(char c);
+
 void	tokenize(t_token **head, char *line);
 void 	syntax_error(char c);
 
