@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/08 23:45:08 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/08 23:47:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,12 @@ static t_token	*handle_operator(char *s, size_t *i)
 // wesh > wesh >> yolo | ||| | ,,, < <             <<      !!  1 \ ; " wesh wesh"
 static t_token *read_word(char *s, size_t *i)
 {
-	size_t	len;
-	char	*value;
 	char	*buf;
 	char	quote;
 	int		j;
 	
 	j = 0;
-	len = ft_strlen(s);
-	buf = malloc(len + 1);
+	buf = malloc(ft_strlen(s) + 1);
 	if (!buf)
 		return (NULL);
 	while (s[*i] && !is_separator(s[*i]))
@@ -106,7 +103,6 @@ static t_token *read_word(char *s, size_t *i)
 			while (s[*i] && s[*i] != quote)
 				buf[j++] = s[(*i)++];
 			buf[j] = '\0';
-			// printf("s[%zu] = %c ; buf = %s\n", *i, s[*i], buf);
 			if (s[(*i)] != quote)
 				return(free(buf), syntax_error(quote), NULL);
 			(*i)++;
@@ -122,10 +118,7 @@ static t_token *read_word(char *s, size_t *i)
 			buf[j] = '\0';
 		}
 	}
-	value = ft_strdup(buf);
-	// printf("value = %s\n", value);
-	free(buf);
-	return new_token(TOKEN_WORD, value);
+	return new_token(TOKEN_WORD, buf);
 }
 
 void tokenize(t_token **head, char *s)
