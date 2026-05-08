@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/09 01:26:17 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/09 01:29:18 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	add_token(t_token **head, t_token *new_token)
 // return iter jump + token
 static t_token	*handle_operator(char *s, size_t *i)
 {
-	// printf("%c\n", s[*i]);
 	if (s[*i] == '|')
 		return ((*i)++, new_token(TOKEN_PIPE, ft_strdup("|")));
 	else if (s[*i] == '>' && s[*i + 1] == '>')
