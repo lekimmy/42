@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/12 19:54:41 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/12 19:57:14 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,11 +129,7 @@ void tokenize(t_token **head, char *s)
 		if (!t)
 			t = read_word(s, &i);
 		if (!t || !t->value || !t->value[0])
-		{
-			free(t->value);
-			free(t);
-			free_all(head);
-		}
+			return (free(t->value), free(t), free_all(head));
 		else
 			add_token(head, t);
 	}
