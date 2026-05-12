@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/12 23:49:29 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:18:02 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	handle_quoted_word(char *s, char *buf, size_t *i, size_t *j)
 	while (s[*i] && s[*i] != quote)
 		buf[(*j)++] = s[(*i)++];
 	if (s[(*i)] != quote)
-		return (syntax_error(quote), 0);
+		return (0);
 	(*i)++;
 	return (1);
 }

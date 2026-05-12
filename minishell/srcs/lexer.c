@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/12 23:53:34 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:21:38 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,24 +84,26 @@ static t_token	*handle_operator(char *s, size_t *i)
 // loop while not separator
 // handle quoted & normal word differently
 // returns empty string in case of lexing error
-static t_token *read_word(char *s, size_t *i, size_t *j)
+static t_token *read_word(char *s, size_t *i)
 {
 	char	*buf;
+	size_t	j;
 	
 	buf = malloc(ft_strlen(s) + 1);
 	if (!buf)
 		return (NULL);
+	j = 0;
 	while (s[*i] && !is_separator(s[*i]))
 	{
 		if (quote_opened(s[*i]))
 		{
-			if (!handle_quoted_word(s, buf, i, j))
+			if (!handle_quoted_word(s, buf, i, &j))
 				return (free(buf), NULL);
 		}
 		else
-			handle_normal_word(s, buf, i, j);
+			handle_normal_word(s, buf, i, &j);
 	}
-	buf[*j] = '\0';
+	buf[j] = '\0';
 	return new_token(TOKEN_WORD, buf);
 }
 
@@ -110,7 +112,6 @@ static t_token *read_word(char *s, size_t *i, size_t *j)
 void tokenize(t_token **head, char *s)
 {
 	size_t		i;
-	size_t		j;
 	t_token		*t;
 
 	i = 0;
@@ -122,12 +123,9 @@ void tokenize(t_token **head, char *s)
 			return (syntax_error(s[i]), free_all(head));
 		t = handle_operator(s, &i);
 		if (!t)
-		{
-			j = 0;
-			t = read_word(s, &i, &j);
-		}
+			t = read_word(s, &i);
 		if (!t)
-			return (free_all(head));
+			return (syntax_error(s[i]), free_all(head));
 		add_token(head, t);
 		printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);
 	}
