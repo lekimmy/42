@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:31:27 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:47:31 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_token	*new_token(t_token_type type, char *value)
 		if (!token->value)
 			return (free(token), NULL);
 	}
+	token->quote_type = 0;
 	token->next = NULL;
 	return (token);
 }
@@ -88,14 +89,17 @@ static t_token *read_word(char *s, size_t *i)
 {
 	char	*buf;
 	size_t	j;
+	t_token	*t;
+	char	quote;
 	
+	t = NULL;
 	buf = malloc(ft_strlen(s) + 1);
 	if (!buf)
 		return (NULL);
 	j = 0;
 	while (s[*i] && !is_separator(s[*i]))
 	{
-		if (quote_opened(s[*i]))
+		if ((quote = quote_opened(s[*i])))
 		{
 			if (!handle_quoted_word(s, buf, i, &j))
 				return (free(buf), NULL);
@@ -104,7 +108,9 @@ static t_token *read_word(char *s, size_t *i)
 			handle_normal_word(s, buf, i, &j);
 	}
 	buf[j] = '\0';
-	return new_token(TOKEN_WORD, buf);
+	t = new_token(TOKEN_WORD, buf);
+	set_quote_type(t, quote);
+	return (t);
 }
 
 // only spaces = no token

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 17:07:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:32:21 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:48:35 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_tokens(t_token **head)
 	while (current)
 	{
 		type_name = token_type_name(current->type);
-		printf("TYPE: %d | TYPE_NAME: %s | VALUE: [%s]\n", current->type, type_name, current->value);
+		printf("TYPE: %d | TYPE_NAME: %s | VALUE: [%s] | QUOTE_TYPE: %d\n", current->type, type_name, current->value, current->quote_type);
 		current = current->next;
 	}
 }

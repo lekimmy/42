@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:23:37 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:47:48 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ char	quote_opened(char c)
 	if (c == '\'')
 		return ('\'');
 	return ('\0');
+}
+
+void set_quote_type(t_token *t, char quote)
+{
+	if (quote == '"')
+		t->quote_type = 2;
+	if (quote == '\'')
+		t->quote_type = 1;
 }
 
 // log quote: single or double
