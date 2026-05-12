@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:47:29 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 01:27:52 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-
 /************************************
  * LIBFT
  *************************************/
@@ -69,10 +68,10 @@ int		handle_quoted_word(char *s, char *buf, size_t *i, size_t *j);
 void	handle_normal_word(char *s, char *buf, size_t *i, size_t *j);
 
 char	quote_opened(char c);
-void 	set_quote_type(t_token *t, char quote);
+void	set_quote_type(t_token *t, char quote);
 
 void	tokenize(t_token **head, char *line);
-void 	syntax_error(char c);
+void	syntax_error(char c);
 
 /************************************
  * PARSER

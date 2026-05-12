@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:50:43 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 01:27:24 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ static t_token	*handle_operator(char *s, size_t *i)
 static t_token *read_word(char *s, size_t *i)
 {
 	char	*buf;
+	char	quote;
 	size_t	j;
 	t_token	*t;
-	char	quote;
 	
 	t = NULL;
 	buf = malloc(ft_strlen(s) + 1);
