@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/12 20:24:57 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/12 23:53:34 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,12 @@ static t_token *read_word(char *s, size_t *i, size_t *j)
 	while (s[*i] && !is_separator(s[*i]))
 	{
 		if (quote_opened(s[*i]))
-			handle_quoted_word(s, buf, i, j);
-		else
 		{
-			while (s[*i] && !ft_isspace(s[*i]) && !quote_opened(s[*i]))
-			{
-				buf[(*j)++] = s[(*i)++];
-				if (quote_opened(s[*i]))
-					break;
-			}
+			if (!handle_quoted_word(s, buf, i, j))
+				return (free(buf), NULL);
 		}
+		else
+			handle_normal_word(s, buf, i, j);
 	}
 	buf[*j] = '\0';
 	return new_token(TOKEN_WORD, buf);
@@ -131,9 +127,7 @@ void tokenize(t_token **head, char *s)
 			t = read_word(s, &i, &j);
 		}
 		if (!t)
-			return ( free_all(head));
-		if (!t->value || !t->value[0])
-			return (free(t->value), free(t), free_all(head));
+			return (free_all(head));
 		add_token(head, t);
 		printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);
 	}
