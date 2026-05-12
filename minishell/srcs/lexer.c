@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:21:38 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:28:43 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ static t_token *read_word(char *s, size_t *i)
 	return new_token(TOKEN_WORD, buf);
 }
 
+// only spaces = no token
+// "" = valid token (quoted)
 // no token, no token value, or value is null = buggy == free all
 // else add token
 void tokenize(t_token **head, char *s)
@@ -119,6 +121,8 @@ void tokenize(t_token **head, char *s)
 	{
 		while (ft_isspace(s[i]))
 			i++;
+		if (!s[i])
+			break;
 		if (is_unsupported(s[i]))
 			return (syntax_error(s[i]), free_all(head));
 		t = handle_operator(s, &i);
@@ -127,6 +131,6 @@ void tokenize(t_token **head, char *s)
 		if (!t)
 			return (syntax_error(s[i]), free_all(head));
 		add_token(head, t);
-		printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);
+		// printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);
 	}
 }
