@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/12 19:51:19 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/12 19:54:41 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static t_token	*handle_operator(char *s, size_t *i)
 // malloc for cleaner memory management
 // loop while not separator
 // handle quoted & normal word differently
+// returns empty string in case of lexing error
 static t_token *read_word(char *s, size_t *i)
 {
 	char	*buf;
