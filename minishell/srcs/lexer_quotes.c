@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/12 19:45:32 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/12 20:23:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,17 @@ char	quote_opened(char c)
 // iter to matching quote
 // if none then syntax error
 // else move i to next char
-size_t	handle_quoted_word(char *s, char *buf, size_t *i, size_t len)
+void	handle_quoted_word(char *s, char *buf, size_t *i, size_t *j)
 {
 	char	quote;
 	
 	quote = quote_opened(s[*i]);
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
-		buf[len++] = s[(*i)++];
+		buf[(*j)++] = s[(*i)++];
 	if (s[(*i)] != quote)
-		return(syntax_error(quote), 0);
+		return (syntax_error(quote));
 	(*i)++;
-	return (len);
 }
 
 void syntax_error(char c)

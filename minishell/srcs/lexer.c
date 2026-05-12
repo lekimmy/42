@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/12 19:57:14 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/12 20:24:57 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,30 +84,28 @@ static t_token	*handle_operator(char *s, size_t *i)
 // loop while not separator
 // handle quoted & normal word differently
 // returns empty string in case of lexing error
-static t_token *read_word(char *s, size_t *i)
+static t_token *read_word(char *s, size_t *i, size_t *j)
 {
 	char	*buf;
-	size_t	len;
 	
-	len = 0;
 	buf = malloc(ft_strlen(s) + 1);
 	if (!buf)
 		return (NULL);
 	while (s[*i] && !is_separator(s[*i]))
 	{
 		if (quote_opened(s[*i]))
-			len = handle_quoted_word(s, buf, i, len);
+			handle_quoted_word(s, buf, i, j);
 		else
 		{
 			while (s[*i] && !ft_isspace(s[*i]) && !quote_opened(s[*i]))
 			{
-				buf[len++] = s[(*i)++];
+				buf[(*j)++] = s[(*i)++];
 				if (quote_opened(s[*i]))
 					break;
 			}
 		}
 	}
-	buf[len] = '\0';
+	buf[*j] = '\0';
 	return new_token(TOKEN_WORD, buf);
 }
 
@@ -116,6 +114,7 @@ static t_token *read_word(char *s, size_t *i)
 void tokenize(t_token **head, char *s)
 {
 	size_t		i;
+	size_t		j;
 	t_token		*t;
 
 	i = 0;
@@ -127,10 +126,15 @@ void tokenize(t_token **head, char *s)
 			return (syntax_error(s[i]), free_all(head));
 		t = handle_operator(s, &i);
 		if (!t)
-			t = read_word(s, &i);
-		if (!t || !t->value || !t->value[0])
+		{
+			j = 0;
+			t = read_word(s, &i, &j);
+		}
+		if (!t)
+			return ( free_all(head));
+		if (!t->value || !t->value[0])
 			return (free(t->value), free(t), free_all(head));
-		else
-			add_token(head, t);
+		add_token(head, t);
+		printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);
 	}
 }
