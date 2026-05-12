@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:28:43 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:31:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,5 @@ void tokenize(t_token **head, char *s)
 		if (!t)
 			return (syntax_error(s[i]), free_all(head));
 		add_token(head, t);
-		// printf("TYPE: %d | VALUE: [%s]\n", t->type, t->value);
 	}
 }
