@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 00:47:31 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 00:50:43 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 // modifying it = crash ; freeing it = UB
 // solution : duplicate the string
 // = full ownership of memory to free & modify values (expansion)
+// init quote_type = 0 [later 1 if '' 2 if ""]
 t_token	*new_token(t_token_type type, char *value)
 {
 	t_token	*token;
