@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 05:52:45 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 06:41:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,6 @@ void	free_all(t_token **head);
 int		is_separator(char c);
 int		is_unsupported(char c);
 
-int		handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j);
-void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j);
-
-char	quote_opened(char c);
-int		get_quote_type(char quote);
-void	set_quote_type(t_token *t, char quote);
-
 void	tokenize(t_token **head, char *line);
 void	syntax_error(char c);
 
@@ -114,8 +107,11 @@ t_token	*handle_operator(char *s, size_t *i);
 t_token	*new_token_word(t_segment *segment);
 t_token *handle_word(char *s, size_t *i);
 
-void	add_segment(t_segment **segment, t_segment *new_segment);
 t_segment	*new_segment(char *value, char quote);
+void	add_segment(t_segment **segment, t_segment *new_segment);
+int		get_quote_type(char quote);
+int		handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j);
+void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j);
 
 /************************************
  * PARSER
