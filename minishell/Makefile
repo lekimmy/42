@@ -70,10 +70,10 @@ valgrind: $(NAME)
 
 # Clean
 clean:
-	rm -f $(OBJS) 
+	rm -f $(OBJS) main.o
 
 fclean: clean
-	rm -f $(NAME) 
+	rm -f $(NAME) $(TEST_LEXER) $(TEST_PARSER)
 
 re: fclean 
 	$(MAKE) all
