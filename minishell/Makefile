@@ -12,20 +12,26 @@ TEST_PARSER					= test_parser
 VALGRIND					= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes
 
 SRCS_PATH 					= srcs
-SRCS_FILES					= lexer.c lexer_quotes.c parser.c utils.c libft.c main.c
-SRCS_FILES_LEXER			= lexer.c lexer_quotes.c utils.c libft.c lexer_test.c
-SRCS_FILES_PARSER			= lexer.c lexer_quotes.c parser.c utils.c libft.c parser_test.c
+LEXER_PATH					= lexer
+PARSER_PATH					= parser
+UTILS_PATH					= utils
+
+SRCS_FILES					= main.c
+SRCS_FILES_LEXER			= lexer.c operators.c words.c segments.c
+SRCS_FILES_PARSER			= parser.c
+SRCS_FILES_UTILS			= utils.c libft.c
 
 INCLUDES_PATH 				= includes
 INCLUDES 					= -I$(INCLUDES_PATH)
 
-SRCS		 				= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES))
-SRCS_LEXER		 			= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES_LEXER))
-SRCS_PARSER		 			= $(addprefix $(SRCS_PATH)/, $(SRCS_FILES_PARSER))
+SRCS		 				= $(addprefix $(SRCS_PATH)/$(LEXER_PATH)/, $(SRCS_FILES_LEXER)) \
+							$(addprefix $(SRCS_PATH)/$(PARSER_PATH)/, $(SRCS_FILES_PARSER)) \
+							$(addprefix $(SRCS_PATH)/$(UTILS_PATH)/, $(SRCS_FILES_UTILS))
 
 OBJS						= $(SRCS:.c=.o)
-OBJS_LEXER					= $(SRCS_LEXER:.c=.o)
-OBJS_PARSER					= $(SRCS_PARSER:.c=.o)
+# OBJS_LEXER					= $(SRCS_LEXER:.c=.o)
+# OBJS_PARSER					= $(SRCS_PARSER:.c=.o)
+# OBJS_UTILS					= $(SRCS_UTILS:.c=.o)
 
 #########
 # Rules #
@@ -35,20 +41,20 @@ OBJS_PARSER					= $(SRCS_PARSER:.c=.o)
 all: $(NAME) 
 
 # Mandatory
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -lreadline -lhistory -o $(NAME)
+$(NAME): $(OBJS) main.o
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) main.o -lreadline -lhistory -o $(NAME)
 
 # Test
 test-lexer: $(TEST_LEXER)
-$(TEST_LEXER): $(OBJS_LEXER)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_LEXER) -lreadline -lhistory -o $(TEST_LEXER)
-# Test
-test-parser: $(TEST_PARSER)
-$(TEST_PARSER): $(OBJS_PARSER)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_PARSER) -lreadline -lhistory -o $(TEST_PARSER)
+$(TEST_LEXER): $(OBJS) srcs/lexer/lexer_test.c
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/lexer/lexer_test.c  -lreadline -lhistory -o $(TEST_LEXER)
+# # Test
+# test-parser: $(TEST_PARSER)
+# $(TEST_PARSER): $(OBJS_PARSER) parser_test.c
+# 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_LEXER) $(OBJS_UTILS) $(OBJS_PARSER) parser_test.c -lreadline -lhistory -o $(TEST_PARSER)
 
 # Pattern rule for .o files
-$(SRCS_PATH)/%.o: $(SRCS_PATH)/%.c
+%.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # Append debug flags
@@ -59,18 +65,18 @@ debug: re
 valgrind: $(NAME)
 	$(VALGRIND) ./$(NAME)
 
-valgrind-test-lexer: $(TEST_LEXER)
-	$(VALGRIND) ./$(TEST_LEXER)
+# valgrind-test-lexer: $(TEST_LEXER)
+# 	$(VALGRIND) ./$(TEST_LEXER)
 
-valgrind-test-lexer: $(TEST_PARSER)
-	$(VALGRIND) ./$(TEST_PARSER)
+# valgrind-test-parser: $(TEST_PARSER)
+# 	$(VALGRIND) ./$(TEST_PARSER)
 
 # Clean
 clean:
-	rm -f $(OBJS) $(OBJS_LEXER) $(OBJS_PARSER)
+	rm -f $(OBJS) 
 
 fclean: clean
-	rm -f $(NAME) $(TEST_LEXER) $(TEST_PARSER)
+	rm -f $(NAME) 
 
 re: fclean 
 	$(MAKE) all

@@ -1,0 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
+/*   Updated: 2026/05/13 04:17:47 by ls-phabm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+// The lexer doesn't see words: it sees chars that slowly become words
+// Scan > build > handle quotes inline > emit tokens
+
+// 1. operators + basic words without quotes
+// 2. quotes
+// 3. edge cases
+
+// unclosed quotes + special chars / unsupported ops (\;) = syntax error
+// closer to bash + avoids UB later + easier than trying to support them
+
+static void	add_token(t_token **head, t_token *new_token)
+{
+	t_token	*current;
+
+	if (!*head)
+	{
+		*head = new_token;
+		return ;
+	}
+	current = *head;
+	while (current->next)
+		current = current->next;
+	current->next = new_token;
+}
+
+// only spaces = no token
+// "" = valid token (quoted)
+// no token, no token value, or value is null = buggy == free all
+// else add token
+void tokenize(t_token **head, char *s)
+{
+	size_t		i;
+	t_token		*t;
+
+	i = 0;
+	while (s[i])
+	{
+		while (ft_isspace(s[i]))
+			i++;
+		if (!s[i])
+			break;
+		if (is_unsupported(s[i]))
+			return (syntax_error(s[i]), free_all(head));
+		t = handle_operator(s, &i);
+		if (!t)
+			t = handle_word(s, &i);
+		if (!t)
+			return (syntax_error(s[i]), free_all(head));
+		add_token(head, t);
+	}
+}

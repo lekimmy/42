@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_quotes.c                                     :+:      :+:    :+:   */
+/*   segments.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 02:04:53 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 05:09:52 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,23 @@
 // 3. include content in word
 // 4. (ignore expansion for now)
 
-char	quote_opened(char c)
+char	get_quote(char c)
 {
-	if (c == '"')
-		return ('"');
-	if (c == '\'')
-		return ('\'');
+	if (c == DOUBLE_QUOTE)
+		return (DOUBLE_QUOTE);
+	if (c == SINGLE_QUOTE)
+		return (SINGLE_QUOTE);
 	return ('\0');
 }
 
-void set_quote_type(t_token *t, char quote)
+int	get_quote_type(char quote)
 {
-	if (quote == '"')
-		t->quote_type = 2;
-	if (quote == '\'')
-		t->quote_type = 1;
+	if (quote == DOUBLE_QUOTE)
+		return (DOUBLE);
+	else if (quote == SINGLE_QUOTE)
+		return (SINGLE);
+	else
+		return (NONE);
 }
 
 // log quote: single or double
@@ -43,11 +45,11 @@ void set_quote_type(t_token *t, char quote)
 // iter to matching quote
 // if none then syntax error, return 0
 // else move i to next char,r eturn 1
-int	handle_quoted_word(char *s, char *buf, size_t *i, size_t *j)
+int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	char	quote;
 	
-	quote = quote_opened(s[*i]);
+	quote = get_quote(s[*i]);
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
 		buf[(*j)++] = s[(*i)++];
@@ -57,13 +59,41 @@ int	handle_quoted_word(char *s, char *buf, size_t *i, size_t *j)
 	return (1);
 }
 
-void handle_normal_word(char *s, char *buf, size_t *i, size_t *j)
+void handle_normal_segment(char *s, char *buf, size_t *i, size_t *j)
 {
-	while (s[*i] && !is_separator(s[*i]) && !quote_opened(s[*i]))
+	while (s[*i] && !is_separator(s[*i]) && !get_quote(s[*i]))
 		buf[(*j)++] = s[(*i)++];
 }
 
-void syntax_error(char c)
+t_segment	*new_segment(char *value, char quote)
 {
-	printf("minishell: syntax error near unexpected token '%c'\n", c);
+	t_segment	*segment;
+
+	segment = malloc(sizeof(t_segment));
+	if (!segment)
+		return (NULL);
+	if (value)
+	{
+		segment->value = value;
+		if (!segment->value)
+			return (free(segment), NULL);
+	}
+	segment->quote_context = get_quote_type(quote);
+	segment->next = NULL;
+	return (segment);
+}
+
+void	add_segment(t_segment **segment, t_segment *new_segment)
+{
+	t_segment	*current;
+
+	if (!*segment)
+	{
+		*segment = new_segment;
+		return ;
+	}
+	current = *segment;
+	while (current->next)
+		current = current->next;
+	current->next = new_segment;
 }
