@@ -29,9 +29,6 @@ SRCS		 				= $(addprefix $(SRCS_PATH)/$(LEXER_PATH)/, $(SRCS_FILES_LEXER)) \
 							$(addprefix $(SRCS_PATH)/$(UTILS_PATH)/, $(SRCS_FILES_UTILS))
 
 OBJS						= $(SRCS:.c=.o)
-# OBJS_LEXER					= $(SRCS_LEXER:.c=.o)
-# OBJS_PARSER					= $(SRCS_PARSER:.c=.o)
-# OBJS_UTILS					= $(SRCS_UTILS:.c=.o)
 
 #########
 # Rules #
@@ -48,7 +45,7 @@ $(NAME): $(OBJS) main.o
 test-lexer: $(TEST_LEXER)
 $(TEST_LEXER): $(OBJS) srcs/lexer/lexer_test.c
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/lexer/lexer_test.c  -lreadline -lhistory -o $(TEST_LEXER)
-# # Test
+# Test
 # test-parser: $(TEST_PARSER)
 # $(TEST_PARSER): $(OBJS_PARSER) parser_test.c
 # 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_LEXER) $(OBJS_UTILS) $(OBJS_PARSER) parser_test.c -lreadline -lhistory -o $(TEST_PARSER)

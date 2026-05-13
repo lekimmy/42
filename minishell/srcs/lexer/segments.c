@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 05:09:52 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 05:52:46 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void handle_normal_segment(char *s, char *buf, size_t *i, size_t *j)
 		buf[(*j)++] = s[(*i)++];
 }
 
-t_segment	*new_segment(char *value, char quote)
+t_segment	*new_segment(char *value, char quote_context)
 {
 	t_segment	*segment;
 
@@ -78,7 +78,7 @@ t_segment	*new_segment(char *value, char quote)
 		if (!segment->value)
 			return (free(segment), NULL);
 	}
-	segment->quote_context = get_quote_type(quote);
+	segment->quote_context = quote_context;
 	segment->next = NULL;
 	return (segment);
 }

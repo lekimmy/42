@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 05:07:58 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 05:52:10 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_token	*new_token_word(t_segment *segment)
 t_token *handle_word(char *s, size_t *i)
 {
 	char		*buf;
-	char		quote;
+	int			quote_context;
 	size_t		j;
 	t_segment	*segment;
 	
@@ -72,7 +72,7 @@ t_token *handle_word(char *s, size_t *i)
 		if (!buf)
 			return (NULL);
 		j = 0;
-		if ((quote = get_quote_type(s[*i])))
+		if ((quote_context = get_quote_type(s[*i])))
 		{
 			if (!handle_quoted_segment(s, buf, i, &j))
 				return (free(buf), NULL);
@@ -80,7 +80,7 @@ t_token *handle_word(char *s, size_t *i)
 		else
 			handle_normal_segment(s, buf, i, &j);
 		buf[j] = '\0';
-		add_segment(&segment, new_segment(buf, quote));
+		add_segment(&segment, new_segment(buf, quote_context));
 	}
 	return (new_token_word(segment));
 }
