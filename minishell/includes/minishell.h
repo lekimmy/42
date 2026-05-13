@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 06:41:51 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 07:05:09 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ t_token *handle_word(char *s, size_t *i);
 
 t_segment	*new_segment(char *value, char quote);
 void	add_segment(t_segment **segment, t_segment *new_segment);
-int		get_quote_type(char quote);
 int		handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j);
 void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j);
 

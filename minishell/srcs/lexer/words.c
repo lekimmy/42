@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 06:52:39 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 07:04:43 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,16 @@
 void	syntax_error(char c)
 {
 	printf("minishell: syntax error near unexpected token '%c'\n", c);
+}
+
+static int	get_quote_type(char quote)
+{
+	if (quote == DOUBLE_QUOTE)
+		return (DOUBLE);
+	else if (quote == SINGLE_QUOTE)
+		return (SINGLE);
+	else
+		return (NONE);
 }
 
 // value : don't store literal pointer
