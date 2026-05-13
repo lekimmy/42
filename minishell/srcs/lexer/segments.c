@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 06:56:58 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 07:00:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	char	quote;
 
-	if (get_quote(s[*i] == DOUBLE_QUOTE))
+	if (s[*i] == DOUBLE_QUOTE)
 		quote = DOUBLE_QUOTE;
-	else if (get_quote(s[*i] == SINGLE_QUOTE))
+	else if (s[*i] == SINGLE_QUOTE)
 		quote = SINGLE_QUOTE;
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
@@ -54,7 +54,7 @@ int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 
 void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j)
 {
-	while (s[*i] && !is_separator(s[*i]) && !get_quote(s[*i]))
+	while (s[*i] && !is_separator(s[*i]) && !get_quote_type(s[*i]))
 		buf[(*j)++] = s[(*i)++];
 }
 
