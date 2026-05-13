@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 01:26:19 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 02:04:53 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ void set_quote_type(t_token *t, char quote)
 // iter to matching quote
 // if none then syntax error, return 0
 // else move i to next char,r eturn 1
-int	handle_quoted_word(char *s, char *buf, size_t *i, size_t *j, char quote)
+int	handle_quoted_word(char *s, char *buf, size_t *i, size_t *j)
 {
+	char	quote;
+	
+	quote = quote_opened(s[*i]);
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
 		buf[(*j)++] = s[(*i)++];
