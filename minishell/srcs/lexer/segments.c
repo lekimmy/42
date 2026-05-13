@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 07:06:04 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 07:07:31 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static char	get_quote(char c)
 		return (SINGLE_QUOTE);
 	return ('\0');
 }
+
 // log quote: single or double
 // move to i real char
 // iter to matching quote
 // if none then syntax error, return 0
 // else move i to next char, return 1
-// ugly code for norm
 int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	char	quote;
