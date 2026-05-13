@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 05:52:46 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 06:56:58 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@
 // 2. read until matching quote
 // 3. include content in word
 // 4. (ignore expansion for now)
-
-char	get_quote(char c)
-{
-	if (c == DOUBLE_QUOTE)
-		return (DOUBLE_QUOTE);
-	if (c == SINGLE_QUOTE)
-		return (SINGLE_QUOTE);
-	return ('\0');
-}
-
 int	get_quote_type(char quote)
 {
 	if (quote == DOUBLE_QUOTE)
@@ -48,8 +38,11 @@ int	get_quote_type(char quote)
 int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	char	quote;
-	
-	quote = get_quote(s[*i]);
+
+	if (get_quote(s[*i] == DOUBLE_QUOTE))
+		quote = DOUBLE_QUOTE;
+	else if (get_quote(s[*i] == SINGLE_QUOTE))
+		quote = SINGLE_QUOTE;
 	(*i)++;
 	while (s[*i] && s[*i] != quote)
 		buf[(*j)++] = s[(*i)++];
@@ -59,7 +52,7 @@ int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 	return (1);
 }
 
-void handle_normal_segment(char *s, char *buf, size_t *i, size_t *j)
+void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	while (s[*i] && !is_separator(s[*i]) && !get_quote(s[*i]))
 		buf[(*j)++] = s[(*i)++];

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/06 16:53:34 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 06:57:32 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 char	*ft_strdup(char *s)
 {
-	char	*dup;
+	char		*dup;
 	size_t		n;
 	size_t		i;
 

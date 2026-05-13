@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:20 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 01:29:59 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 06:47:50 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 // return 1 in case of lexing / parsing error
 int	main(int argc, char **argv, char **envp)
 {
+	char	*line;
+	t_token	*token;
+
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	
-	char *line;
-	t_token	*token;
-	
 	token = NULL;
 	while (1)
 	{

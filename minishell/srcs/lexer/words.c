@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 05:52:10 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/13 06:52:39 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // 3. include content in word
 // 4. (ignore expansion for now)
 
-void syntax_error(char c)
+void	syntax_error(char c)
 {
 	printf("minishell: syntax error near unexpected token '%c'\n", c);
 }
@@ -50,7 +50,6 @@ t_token	*new_token_word(t_segment *segment)
 	return (token);
 }
 
-
 // must stop at sep = space, |, redirect < >, EOF
 // *i reference vs. i copy
 // *i ptr better for shared reference
@@ -58,13 +57,13 @@ t_token	*new_token_word(t_segment *segment)
 // loop while not separator
 // handle quoted & normal word differently
 // returns empty string in case of lexing error
-t_token *handle_word(char *s, size_t *i)
+t_token	*handle_word(char *s, size_t *i)
 {
 	char		*buf;
 	int			quote_context;
 	size_t		j;
 	t_segment	*segment;
-	
+
 	segment = NULL;
 	while (s[*i] && !is_separator(s[*i]))
 	{
@@ -72,7 +71,8 @@ t_token *handle_word(char *s, size_t *i)
 		if (!buf)
 			return (NULL);
 		j = 0;
-		if ((quote_context = get_quote_type(s[*i])))
+		quote_context = get_quote_type(s[*i]);
+		if (quote_context)
 		{
 			if (!handle_quoted_segment(s, buf, i, &j))
 				return (free(buf), NULL);
