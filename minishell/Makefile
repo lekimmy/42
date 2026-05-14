@@ -71,7 +71,7 @@ valgrind-test-parser: $(TEST_PARSER)
 
 # Clean
 clean:
-	rm -f $(OBJS) main.o
+	rm -f $(OBJS) srcs/main.o
 
 fclean: clean
 	rm -f $(NAME) $(TEST_LEXER) $(TEST_PARSER)
