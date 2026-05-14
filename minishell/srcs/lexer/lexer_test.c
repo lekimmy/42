@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 17:07:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 06:50:55 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/14 20:23:29 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,25 +92,25 @@ void	print_tokens(t_token **head)
 int main(void)
 {
 	t_test	tests[] = {
-		{"echo hello"},
-		{"ls|grep hi"},
-		{"echo \"hello world\""},
-		{"echo \'hello world\'"},
-		{"echo abc\"def\"ghi"},
-		{"echo \"undeterminated"},
-		{"cat << eof"}, ///
-		{"          "},
-		{"> >> < << | || >>>> <<<<"},
-		{"ls|grep<><<>>||>>>><<<<hi"}, ///
+		// {"echo hello"},
+		// {"ls|grep hi"},
+		// {"echo \"hello world\""},
+		// {"echo \'hello world\'"},
+		// {"echo abc\"def\"ghi"},
+		// {"echo \"undeterminated"},
+		// {"cat << eof"}, ///
+		// {"          "},
+		// {"> >> < << | || >>>> <<<<"},
+		// {"ls|grep<><<>>||>>>><<<<hi"},
 		{"echo\"hi\""},
-		{"\"hello\"\'world\'\"samere\""},
-		{"wesh\"wesh"},
-		{"wesh\'wesh"},
-		{"wesh\'wesh\'\"yolo"},
-		{"wesh\"wesh\"\'yolo"},
-		{""},
-		{"echo \"\""},
-		{"\"\""},
+		// {"\"hello\"\'world\'\"samere\""},
+		// {"wesh\"wesh"},
+		// {"wesh\'wesh"},
+		// {"wesh\'wesh\'\"yolo"},
+		// {"wesh\"wesh\"\'yolo"}, /////////////////
+		// {""},
+		// {"echo \"\""},
+		// {"\"\""},
 		{NULL}
 	};
 
