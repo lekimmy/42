@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 07:07:31 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/14 18:44:57 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 // 2. read until matching quote
 // 3. include content in word
 // 4. (ignore expansion for now)
+
+// retrieve raw quote
 static char	get_quote(char c)
 {
 	if (c == DOUBLE_QUOTE)
@@ -29,11 +31,11 @@ static char	get_quote(char c)
 	return ('\0');
 }
 
-// log quote: single or double
-// move to i real char
+// log raw quote: single or double
+// move to i++ = real char
 // iter to matching quote
-// if none then syntax error, return 0
-// else move i to next char, return 1
+// if none then syntax error = return 0
+// else move i to next real char = return 1
 int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	char	quote;
@@ -48,6 +50,7 @@ int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 	return (1);
 }
 
+// if any quote inside = return to initial loop
 void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	while (s[*i] && !is_separator(s[*i]) && !get_quote(s[*i]))

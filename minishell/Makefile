@@ -41,14 +41,15 @@ all: $(NAME)
 $(NAME): $(OBJS) main.o
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) main.o -lreadline -lhistory -o $(NAME)
 
-# Test
+# Test lexer
 test-lexer: $(TEST_LEXER)
 $(TEST_LEXER): $(OBJS) srcs/lexer/lexer_test.c
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/lexer/lexer_test.c  -lreadline -lhistory -o $(TEST_LEXER)
-# Test
-# test-parser: $(TEST_PARSER)
-# $(TEST_PARSER): $(OBJS_PARSER) parser_test.c
-# 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS_LEXER) $(OBJS_UTILS) $(OBJS_PARSER) parser_test.c -lreadline -lhistory -o $(TEST_PARSER)
+
+# Test parser
+test-parser: $(TEST_PARSER)
+$(TEST_PARSER): $(OBJS) srcs/parser/parser_test.c
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/parser/parser_test.c -lreadline -lhistory -o $(TEST_PARSER)
 
 # Pattern rule for .o files
 %.o: %.c

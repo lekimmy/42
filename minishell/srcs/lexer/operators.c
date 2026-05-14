@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 04:17:11 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/14 18:46:52 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_token	*new_token_operator(t_operator_type operator)
 }
 
 // abstraction to handle operators
+// no need to log raw operator, enum for semantics is enough
 // return iter jump + token
 t_token	*handle_operator(char *s, size_t *i)
 {

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 06:51:13 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/14 18:45:58 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 // unclosed quotes + special chars / unsupported ops (\;) = syntax error
 // closer to bash + avoids UB later + easier than trying to support them
 
+// linked list
 static void	add_token(t_token **head, t_token *new_token)
 {
 	t_token	*current;
