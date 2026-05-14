@@ -38,13 +38,13 @@ OBJS						= $(SRCS:.c=.o)
 all: $(NAME) 
 
 # Mandatory
-$(NAME): $(OBJS) main.o
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) main.o -lreadline -lhistory -o $(NAME)
+$(NAME): $(OBJS) srcs/main.c
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/main.c -lreadline -lhistory -o $(NAME)
 
 # Test lexer
 test-lexer: $(TEST_LEXER)
 $(TEST_LEXER): $(OBJS) srcs/lexer/lexer_test.c
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/lexer/lexer_test.c  -lreadline -lhistory -o $(TEST_LEXER)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/lexer/lexer_test.c -lreadline -lhistory -o $(TEST_LEXER)
 
 # Test parser
 test-parser: $(TEST_PARSER)
@@ -63,11 +63,11 @@ debug: re
 valgrind: $(NAME)
 	$(VALGRIND) ./$(NAME)
 
-# valgrind-test-lexer: $(TEST_LEXER)
-# 	$(VALGRIND) ./$(TEST_LEXER)
+valgrind-test-lexer: $(TEST_LEXER)
+	$(VALGRIND) ./$(TEST_LEXER)
 
-# valgrind-test-parser: $(TEST_PARSER)
-# 	$(VALGRIND) ./$(TEST_PARSER)
+valgrind-test-parser: $(TEST_PARSER)
+	$(VALGRIND) ./$(TEST_PARSER)
 
 # Clean
 clean:
