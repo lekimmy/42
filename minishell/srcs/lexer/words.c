@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/18 22:55:02 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 01:30:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,17 @@
 // 3. include content in word
 // 4. (ignore expansion for now)
 
-void	syntax_error_token(char token)
+void	lexer_error(char *msg, char *token)
 {
-	// ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
-	// ft_putstr_fd(token, 2);
-	// ft_putstr_fd("'\n", 2);
-	printf("minishell: syntax error near unexpected token '%c'\n", token);
-	// return (2);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(msg, 2);
+	if (token)
+	{
+		ft_putstr_fd(" `", 2);
+		ft_putstr_fd(token, 2);
+		ft_putstr_fd("'", 2);
+	}
+	ft_putstr_fd("\n", 2);
 }
 
 // for expand (different behviors)
@@ -84,7 +88,8 @@ t_token	*handle_word(char *s, size_t *i)
 		if (quote_context)
 		{
 			if (!handle_quoted_segment(s, buf, i, &j))
-				return (free(buf), free_segments(&segment), NULL);
+				return (free(buf), free_segments(&segment),
+					lexer_error("unclosed quote", NULL), NULL);
 		}
 		else
 			handle_normal_segment(s, buf, i, &j);

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:20 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/18 22:52:40 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 01:34:23 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int	main(int argc, char **argv, char **envp)
 			free_all(&token);
 			continue;
 		}
-			// return (free(line), free_all(&token), shell->exit_code);
 		free(line);
 	}
-	return (0);
+	return (shell->exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/18 22:55:05 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 01:31:14 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,18 @@ typedef struct s_segment
 	struct s_segment	*next;
 }	t_segment;
 
-
 typedef struct s_word
 {
 	t_segment	*segments;
 }	t_word;
 
+// typedef struct s_lexer
+// {
+// 	char	*s;
+// 	char	*buf;
+// 	size_t	i;
+// 	size_t	j;
+// }	t_lexer;
 
 typedef struct s_token
 {
@@ -117,7 +123,7 @@ int		is_separator(char c);
 int		is_unsupported(char c);
 
 int		tokenize(t_token **head, char *line);
-void		syntax_error_token(char token);
+void	lexer_error(char *msg, char *token);
 
 t_token	*new_token_operator(t_operator_type operator);
 t_token	*handle_operator(char *s, size_t *i);
@@ -126,9 +132,9 @@ t_token	*new_token_word(t_segment *segment);
 t_token *handle_word(char *s, size_t *i);
 
 t_segment	*new_segment(char *value, char quote);
-int		add_segment(t_segment **segment, t_segment *new_segment);
+void	add_segment(t_segment **segment, t_segment *new_segment);
 int		handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j);
-int		handle_normal_segment(char *s, char *buf, size_t *i, size_t *j);
+void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j);
 
 /************************************
  * PARSER

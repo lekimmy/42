@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/18 22:53:52 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 01:30:25 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ int	tokenize(t_token **head, char *s)
 		if (!s[i])
 			break ;
 		if (is_unsupported(s[i]))
-			return (syntax_error_token(s[i]), 0);
+			return (lexer_error("unexpected token", &s[i]), 0);
 		t = handle_operator(s, &i);
 		if (!t)
 			t = handle_word(s, &i);
 		if (!t)
-			return (syntax_error_token(s[i]), 0);
+			return (0);
 		add_token(head, t);
 	}
 	return (1);
