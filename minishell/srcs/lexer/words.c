@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/14 20:49:47 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/18 21:15:12 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static int	get_quote_type(char quote)
 		return (DOUBLE);
 	else if (quote == SINGLE_QUOTE)
 		return (SINGLE);
-	else
-		return (NONE);
+	return (NONE);
 }
 
 t_token	*new_token_word(t_segment *segment)

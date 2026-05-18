@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/14 20:49:18 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/18 21:13:37 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,22 @@ typedef struct s_token
 	
 	struct s_token	*next;
 }	t_token;
+
+typedef struct s_cmd
+{
+	char			**argv;
+	int				infile;
+	int				outfile;
+	struct s_cmd	*next;
+}	t_cmd;
+
+typedef struct s_shell
+{
+	int		exit_code;
+	// t_env	*env;
+	pid_t	*pids;
+	int		interactive;
+}	t_shell;
 
 /************************************
  * LIBFT
