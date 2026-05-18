@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/14 18:45:58 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/18 22:53:52 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	add_token(t_token **head, t_token *new_token)
 // "" = valid token (quoted)
 // no token, no token value, or value is null = buggy == free all
 // else add token
-void	tokenize(t_token **head, char *s)
+int	tokenize(t_token **head, char *s)
 {
 	size_t		i;
 	t_token		*t;
@@ -55,12 +55,13 @@ void	tokenize(t_token **head, char *s)
 		if (!s[i])
 			break ;
 		if (is_unsupported(s[i]))
-			return (syntax_error(s[i]), free_all(head));
+			return (syntax_error_token(s[i]), 0);
 		t = handle_operator(s, &i);
 		if (!t)
 			t = handle_word(s, &i);
 		if (!t)
-			return (syntax_error(s[i]), free_all(head));
+			return (syntax_error_token(s[i]), 0);
 		add_token(head, t);
 	}
+	return (1);
 }

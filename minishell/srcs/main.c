@@ -6,23 +6,37 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:20 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 06:47:50 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/18 22:52:40 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+t_shell	*init_shell()
+{
+	t_shell	*shell;
+
+	shell = malloc(sizeof(t_shell));
+	if (!shell)
+		return (NULL);
+	shell->exit_code = 0;
+	return (shell);
+}
+
 // !line == ctrl+D = stil reachable valgrind
 // return 1 in case of lexing / parsing error
 int	main(int argc, char **argv, char **envp)
 {
+	t_shell	*shell;
 	char	*line;
 	t_token	*token;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	token = NULL;
+	shell = init_shell();
+	if (!shell)
+		return (1);
 	while (1)
 	{
 		line = readline("minishell> ");
@@ -34,9 +48,15 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*line)
 			add_history(line);
-		tokenize(&token, line);
-		if (!token)
-			return (free(line), 1);
+		token = NULL;
+		if (!tokenize(&token, line))
+		{
+			shell->exit_code = 2;
+			free(line);
+			free_all(&token);
+			continue;
+		}
+			// return (free(line), free_all(&token), shell->exit_code);
 		free(line);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/18 21:15:12 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/18 22:55:02 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@
 // 3. include content in word
 // 4. (ignore expansion for now)
 
-void	syntax_error(char c)
+void	syntax_error_token(char token)
 {
-	printf("minishell: syntax error near unexpected token '%c'\n", c);
+	// ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
+	// ft_putstr_fd(token, 2);
+	// ft_putstr_fd("'\n", 2);
+	printf("minishell: syntax error near unexpected token '%c'\n", token);
+	// return (2);
 }
 
 // for expand (different behviors)
