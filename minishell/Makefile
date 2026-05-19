@@ -18,7 +18,7 @@ UTILS_PATH					= utils
 
 SRCS_FILES					= main.c
 SRCS_FILES_LEXER			= lexer.c operators.c words.c segments.c
-SRCS_FILES_PARSER			= parser.c
+SRCS_FILES_PARSER			= parser.c bools.c
 SRCS_FILES_UTILS			= utils.c libft.c
 
 INCLUDES_PATH 				= includes

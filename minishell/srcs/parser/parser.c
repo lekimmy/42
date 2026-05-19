@@ -6,14 +6,65 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 03:31:15 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 04:59:11 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	validate_pipe(t_token **head)
-// {
-// 	if ((*head)->type == OPERATOR && (*head)->operator == PIPE)
-// 		return (1);
-// }
+// KISS = identify invalid syntaxes
+
+// 1. if pipe start then error
+// 2. if consecutive pipes then error
+// 3. if pipe end then error
+static int	validate_pipe(t_token *head)
+{
+	t_token	*current;
+	
+	if (!head)
+		return (0);
+	if (is_pipe(head))
+		return (0);
+	current = head;
+	while (current->next)
+	{
+		if (is_pipe(current) && is_pipe(current->next))
+			return (0);
+		current = current->next;
+	}
+	if (is_pipe(current))
+		return (0);
+	return (1);
+}
+
+// if no WORD after redir then error
+static int	validate_redirection(t_token *head)
+{
+	t_token	*current;
+	
+	if (!head)
+		return (0);
+	current = head;
+	while (current)
+	{
+		if (is_redir(current))
+		{
+			if (!current->next)
+				return (0);
+			if (!is_word(current->next))
+				return (0);
+		}
+		current = current->next;
+	}
+	return (1);
+}
+
+// wrapper
+int	validate_syntax(t_token *head)
+{
+	if (!validate_pipe(head))
+		return (0);
+	if (!validate_redirection(head))
+		return (0);
+	return (1);
+}

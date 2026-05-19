@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 03:30:26 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 04:59:09 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,10 @@ void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j);
 /************************************
  * PARSER
  *************************************/
+int		is_pipe(t_token *t);
+int		is_redir(t_token *t);
+int		is_word(t_token *t);
+
+int		validate_syntax(t_token *head);
 
 #endif
