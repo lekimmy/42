@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 01:30:27 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 03:30:28 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ t_token	*new_token_word(t_segment *segment)
 	token->type = WORD;
 	if (segment)
 	{
-		token->data.segments = segment;
-		if (!token->data.segments)
+		token->segments = segment;
+		if (!token->segments)
 			return (free(token), NULL);
 	}
 	token->next = NULL;

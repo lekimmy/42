@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 01:30:26 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 03:29:40 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_token	*new_token_operator(t_operator_type operator)
 	if (!token)
 		return (NULL);
 	token->type = OPERATOR;
-	token->data.operator = operator;
+	token->operator = operator;
 	token->next = NULL;
 	return (token);
 }

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:20 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 01:34:23 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 03:31:45 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	*shell;
 	char	*line;
 	t_token	*token;
+	// t_cmd	*cmd;
 
 	(void)argc;
 	(void)argv;
@@ -56,6 +57,7 @@ int	main(int argc, char **argv, char **envp)
 			free_all(&token);
 			continue;
 		}
+		// cmd = NULL;
 		free(line);
 	}
 	return (shell->exit_code);

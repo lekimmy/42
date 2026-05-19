@@ -6,8 +6,14 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 02:08:38 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 03:31:15 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// int	validate_pipe(t_token **head)
+// {
+// 	if ((*head)->type == OPERATOR && (*head)->operator == PIPE)
+// 		return (1);
+// }

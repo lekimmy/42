@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 01:31:14 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/19 03:30:26 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 
 # define SINGLE_QUOTE '\''
 # define DOUBLE_QUOTE '\"'
+
+/************************************
+ * LEXER
+ *************************************/
 
 typedef enum e_token_type
 {
@@ -63,14 +67,6 @@ typedef struct s_word
 	t_segment	*segments;
 }	t_word;
 
-// typedef struct s_lexer
-// {
-// 	char	*s;
-// 	char	*buf;
-// 	size_t	i;
-// 	size_t	j;
-// }	t_lexer;
-
 typedef struct s_token
 {
 	t_token_type	type;
@@ -79,10 +75,14 @@ typedef struct s_token
 	{
 		t_segment		*segments;
 		t_operator_type	operator;
-	} data;
+	};
 	
 	struct s_token	*next;
 }	t_token;
+
+/************************************
+ * PARSER
+ *************************************/
 
 typedef struct s_cmd
 {
@@ -91,6 +91,10 @@ typedef struct s_cmd
 	int				outfile;
 	struct s_cmd	*next;
 }	t_cmd;
+
+/************************************
+ * EXEC
+ *************************************/
 
 typedef struct s_shell
 {
