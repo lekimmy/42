@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 04:59:09 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/20 23:50:46 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ typedef struct s_token
 typedef struct s_cmd
 {
 	char			**argv;
-	int				infile;
-	int				outfile;
+	char			*infile;
+	char			*outfile;
+	char			*heredoc_eof;
 	struct s_cmd	*next;
 }	t_cmd;
 
