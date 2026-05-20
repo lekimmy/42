@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 04:59:11 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/20 23:06:03 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,11 @@ static int	validate_redirection(t_token *head)
 }
 
 // wrapper
+// space only = no token = valid syntax
 int	validate_syntax(t_token *head)
 {
+	if (!head)
+		return (1);
 	if (!validate_pipe(head))
 		return (0);
 	if (!validate_redirection(head))
