@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 03:30:28 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 01:24:05 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,20 @@ static int	get_quote_type(char quote)
 	return (NONE);
 }
 
-t_token	*new_token_word(t_segment *segment)
+t_token	*new_token_word(t_word word)
 {
-	t_token	*token;
+	t_token		*token;
+	t_segment	*segment;
 
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->type = WORD;
-	if (segment)
-	{
-		token->segments = segment;
-		if (!token->segments)
-			return (free(token), NULL);
-	}
+	if (!word)
+		return (NULL);
+	token->word = word;
+	if (!token->word)
+		return (free(token), NULL);
 	token->next = NULL;
 	return (token);
 }
@@ -76,6 +76,7 @@ t_token	*handle_word(char *s, size_t *i)
 	int			quote_context;
 	size_t		j;
 	t_segment	*segment;
+	t_word		word;
 
 	segment = NULL;
 	while (s[*i] && !is_separator(s[*i]))
@@ -96,5 +97,6 @@ t_token	*handle_word(char *s, size_t *i)
 		buf[j] = '\0';
 		add_segment(&segment, new_segment(buf, quote_context));
 	}
-	return (new_token_word(segment));
+	word->segments = segment;
+	return (new_token_word(word));
 }

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 04:38:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/20 23:44:39 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 01:02:56 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,15 @@ t_cmd	*new_command(t_token *t)
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	
+	cmd->argv = malloc(sizeof(word *));
+	if (!cmd->argv)
+		return (NULL);
+	cmd->argv[0] = NULL;
+	while (t && t->operator != PIPE)
+	{
+		if (is_word(t))
+			add_arg(cmd, t->segments);
+	}
 	return (cmd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/20 23:17:54 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 01:03:53 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,29 @@ int	validate_syntax(t_token *head)
 	if (!validate_redirection(head))
 		return (0);
 	return (1);
+}
+
+// realloc forbidden = manual
+// get n of existing args
+// malloc +1 new arg + NULL terminate
+// alloc existing args + strdup new arg
+int	add_arg(t_cmd *cmd, t_word *word)
+{
+	int		n_cmd;
+	char	**tmp;
+	int		i;
+	
+	n_cmd = 0;
+	while (cmd[n_cmd])
+		n_cmd++;
+	tmp = malloc(sizeof(char *) * (n_cmd + 2));
+	if (!tmp)
+		return (0);
+	while (i < n_cmd)
+	{
+		tmp[i] = cmd->args[i];
+		i++;
+	}
+	tmp[i] = word;
+	tmp[i + 1] = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/20 23:50:46 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 01:23:21 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_token
 
 	union
 	{
-		t_segment		*segments;
+		t_word		word;
 		t_operator_type	operator;
 	};
 	
@@ -86,9 +86,10 @@ typedef struct s_token
 
 typedef struct s_cmd
 {
-	char			**argv;
+	t_word			*argv;
 	char			*infile;
 	char			*outfile;
+	int				append;
 	char			*heredoc_eof;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -133,7 +134,7 @@ void	lexer_error(char *msg, char *token);
 t_token	*new_token_operator(t_operator_type operator);
 t_token	*handle_operator(char *s, size_t *i);
 
-t_token	*new_token_word(t_segment *segment);
+t_token	*new_token_word(t_word word);
 t_token *handle_word(char *s, size_t *i);
 
 t_segment	*new_segment(char *value, char quote);
