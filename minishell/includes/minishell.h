@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 06:17:09 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 07:13:03 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,9 @@ size_t	ft_strlen(char *s);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *s);
 
-void	free_all(t_token **head);
+void	free_tokens(t_token **head);
 void	free_segments(t_segment **head);
+void	free_cmds(t_cmd **head);
 void	ft_putstr_fd(char *s, int fd);
 
 /************************************

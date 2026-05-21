@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 17:07:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 02:20:51 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 07:13:58 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int main(void)
 		tokenize(&tokens, tests[i].input);
 		print_tokens(&tokens);
 		if (tokens)
-			free_all(&tokens);
+			free_tokens(&tokens);
 		i++;
 	}
 	return (0);

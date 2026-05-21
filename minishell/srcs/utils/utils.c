@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 23:34:32 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 02:22:22 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 07:13:15 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_segments(t_segment **head)
 	}
 }
 
-void	free_all(t_token **head)
+void	free_tokens(t_token **head)
 {
 	t_token		*current;
 	
@@ -54,6 +54,21 @@ void	free_all(t_token **head)
 			free_segments(&(*head)->word->segments);
 			free((*head)->word);
 		}
+		free(*head);
+		*head = current;
+	}
+}
+
+void	free_cmds(t_cmd **head)
+{
+	t_cmd		*current;
+	
+	if (!head || !*head)
+		return ;
+	current = *head;
+	while (current)
+	{
+		current = (*head)->next;
 		free(*head);
 		*head = current;
 	}

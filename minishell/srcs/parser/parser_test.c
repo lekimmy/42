@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 00:52:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 06:30:49 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 07:13:34 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ int	main()
 		if (parse_argv(&cmds, tokens))
 			print_argv(&cmds);
 		if (tokens)
-			free_all(&tokens);
+			free_tokens(&tokens);
+		if (cmds)
+			free_cmds(&cmds);
 		i++;
 	}
 	return (0);
