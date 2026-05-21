@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 02:12:56 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 03:13:36 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,53 @@ int	validate_syntax(t_token *head)
 // get n of existing args
 // malloc +1 new arg + NULL terminate
 // alloc existing args + strdup new arg
-int	add_arg(t_cmd *cmd, t_word *word)
+static void	add_arg(t_word **argv, t_word *word)
 {
-	int		n_cmd;
-	t_word	**tmp;
-	int		i;
+	t_word	*current;
 	
-	n_cmd = 0;
-	while (cmd->argv[n_cmd])
-		n_cmd++;
-	tmp = malloc(sizeof(char *) * (n_cmd + 2));
-	if (!tmp)
-		return (0);
-	while (i < n_cmd)
+	if (!*argv)
 	{
-		tmp[i] = cmd->argv[i];
-		i++;
+		*argv = word;
+		return;
 	}
-	tmp[i] = word;
-	tmp[i + 1] = NULL;
+	current = *argv;
+	while (current)
+		current = current->next;
+	current->next = word;
+}
+
+t_cmd	*new_command(t_token *t)
+{
+	t_cmd	*cmd;
+
+	cmd = malloc(sizeof(t_cmd));
+	if (!cmd)
+		return (NULL);
+	cmd->argv = NULL;
+	while (t && t->operator != PIPE)
+	{
+		if (is_word(t))
+			add_arg(&cmd->argv, t->word);
+	}
+	return (cmd);
+}
+
+void	add_command(t_cmd **head, t_cmd *new_cmd)
+{
+	t_cmd	*current;
+	
+	if (!*head)
+	{
+		*head = new_cmd;
+		return ;
+	}
+	current = *head;
+	while (current->next)
+		current = current->next;
+	current->next = new_cmd;
+}
+
+int	parse()
+{
+	
 }

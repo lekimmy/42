@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 00:52:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/20 23:44:38 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 03:12:05 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	main()
 		{"wesh\'wesh"},
 		{"wesh\'wesh\'\"yolo"},
 		{"wesh\"wesh\"\'yolo"}, /////////////////
-		{"ls | grep test > test.txt | cat test.txt"};
-		{"grep particular < text.txt >> test.txt"};
+		{"ls | grep test > test.txt | cat test.txt"},
+		{"grep particular < text.txt >> test.txt"},
 		{"ls|grep<><<>>||>>>><<<<hi"},
 		{"> >> < << | || >>>> <<<<"},
 		{">"},
@@ -63,9 +63,10 @@ int	main()
 		printf("\ni = %d | INPUT: [%s]\n", i, tests[i].input);
 		
 		t_token *tokens = NULL;
-		// t_cmd	*cmds = NULL;
 		if (tokenize(&tokens, tests[i].input))
 			printf("validate syntax : %d\n", validate_syntax(tokens));
+		t_cmd	*cmds = NULL;
+		cmds = new_command(t);
 		if (tokens)
 			free_all(&tokens);
 		i++;

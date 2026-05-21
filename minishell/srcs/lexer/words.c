@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 02:25:01 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 02:45:59 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ t_token	*handle_word(char *s, size_t *i)
 	if (!segment)
 		return (free(word), NULL);
 	word->segments = segment;
+	word->next = NULL;
 	return (new_token_word(word));
 }

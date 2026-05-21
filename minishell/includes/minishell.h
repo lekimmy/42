@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 02:11:16 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 02:51:47 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct s_segment
 
 typedef struct s_word
 {
-	t_segment	*segments;
+	t_segment		*segments;
+	struct s_word	*next;
 }	t_word;
 
 typedef struct s_token
