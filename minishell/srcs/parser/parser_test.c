@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 00:52:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 07:47:22 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 08:24:41 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ int	main()
 		{"wesh\'wesh\'\"yolo"},
 		{"wesh\"wesh\"\'yolo"}, /////////////////
 		// {"ls | grep test > test.txt | cat test.txt"},
+		{"grep particular < text.txt"},
 		{"grep particular < text.txt >> test.txt"},
+		{"lol >> append"},
 		{"ls|grep<><<>>||>>>><<<<hi"},
 		{"> >> < << | || >>>> <<<<"},
 		{">"},
