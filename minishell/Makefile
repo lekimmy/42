@@ -25,8 +25,8 @@ INCLUDES_PATH 				= includes
 INCLUDES 					= -I$(INCLUDES_PATH)
 
 SRCS		 				= $(addprefix $(SRCS_PATH)/$(LEXER_PATH)/, $(SRCS_FILES_LEXER)) \
-							$(addprefix $(SRCS_PATH)/$(PARSER_PATH)/, $(SRCS_FILES_PARSER)) \
-							$(addprefix $(SRCS_PATH)/$(UTILS_PATH)/, $(SRCS_FILES_UTILS))
+							$(addprefix $(SRCS_PATH)/$(UTILS_PATH)/, $(SRCS_FILES_UTILS)) 
+# 							$(addprefix $(SRCS_PATH)/$(PARSER_PATH)/, $(SRCS_FILES_PARSER))
 
 OBJS						= $(SRCS:.c=.o)
 

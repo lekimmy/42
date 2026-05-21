@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 01:03:53 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 02:12:56 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,18 @@ int	validate_syntax(t_token *head)
 int	add_arg(t_cmd *cmd, t_word *word)
 {
 	int		n_cmd;
-	char	**tmp;
+	t_word	**tmp;
 	int		i;
 	
 	n_cmd = 0;
-	while (cmd[n_cmd])
+	while (cmd->argv[n_cmd])
 		n_cmd++;
 	tmp = malloc(sizeof(char *) * (n_cmd + 2));
 	if (!tmp)
 		return (0);
 	while (i < n_cmd)
 	{
-		tmp[i] = cmd->args[i];
+		tmp[i] = cmd->argv[i];
 		i++;
 	}
 	tmp[i] = word;

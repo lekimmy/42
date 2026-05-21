@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 17:07:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 03:30:05 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 02:20:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ void	print_tokens(t_token **head)
 		{
 			operator = operator_name(current->operator);
 			raw = operator_raw(current->operator);
-			printf("TYPE: %d | TYPE_NAME: %s | OPERATOR: [%d] | OPERATOR_NAME: %s | RAW: %s\n", 
-				current->type, type_name, current->operator, operator, raw);
+			printf("TYPE: %d | TYPE_NAME: %s | RAW: %s | OPERATOR_NAME: %s | OPERATOR: [%d]\n", 
+				current->type, type_name, raw, operator, current->operator);
 		}
 		if (current->type == WORD)
 		{
-			tmp = current->segments;
+			tmp = current->word->segments;
 			while (tmp)
 			{
 				printf("TYPE: %d | TYPE_NAME: %s | SEGMENT: [%s] | QUOTE_CONTEXT: %d\n", current->type, type_name, tmp->value, tmp->quote_context);

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 01:24:05 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 02:25:01 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,40 +45,25 @@ static int	get_quote_type(char quote)
 	return (NONE);
 }
 
-t_token	*new_token_word(t_word word)
+t_token	*new_token_word(t_word *word)
 {
 	t_token		*token;
-	t_segment	*segment;
 
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->type = WORD;
-	if (!word)
-		return (NULL);
 	token->word = word;
-	if (!token->word)
-		return (free(token), NULL);
 	token->next = NULL;
 	return (token);
 }
 
-// must stop at sep = space, |, redirect < >
-// *i reference vs. i copy
-// *i ptr better for shared reference
-// malloc for cleaner memory management
-// loop while not separator
-// handle quoted & normal segments differently
-// returns NULL in case of lexing error
-t_token	*handle_word(char *s, size_t *i)
+t_segment	*handle_segments(char *s, size_t *i, t_segment *segment)
 {
 	char		*buf;
 	int			quote_context;
 	size_t		j;
-	t_segment	*segment;
-	t_word		word;
 
-	segment = NULL;
 	while (s[*i] && !is_separator(s[*i]))
 	{
 		buf = malloc(ft_strlen(s) + 1);
@@ -97,6 +82,28 @@ t_token	*handle_word(char *s, size_t *i)
 		buf[j] = '\0';
 		add_segment(&segment, new_segment(buf, quote_context));
 	}
+	return (segment);
+}
+
+// must stop at sep = space, |, redirect < >
+// *i reference vs. i copy
+// *i ptr better for shared reference
+// malloc for cleaner memory management
+// loop while not separator
+// handle quoted & normal segments differently
+// returns NULL in case of lexing error
+t_token	*handle_word(char *s, size_t *i)
+{
+	t_segment	*segment;
+	t_word		*word;
+
+	word = malloc(sizeof(t_word));
+	if (!word)
+		return (NULL);
+	segment = NULL;
+	segment = handle_segments(s, i, segment);
+	if (!segment)
+		return (free(word), NULL);
 	word->segments = segment;
 	return (new_token_word(word));
 }

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 23:34:32 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 03:31:30 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 02:22:22 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ void	free_all(t_token **head)
 	{
 		current = (*head)->next;
 		if ((*head)->type == WORD)
-			free_segments(&(*head)->segments);
+		{
+			free_segments(&(*head)->word->segments);
+			free((*head)->word);
+		}
 		free(*head);
 		*head = current;
 	}
