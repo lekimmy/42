@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 08:42:14 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 08:48:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_cmd	*new_command(t_token *t)
 
 	cmd = init_cmd();
 	current = t;
-	while (current && current->operator != PIPE)
+	while (current && !is_pipe(current))
 	{
 		if (is_word(current))
 			add_arg(&cmd->argv, current->word);
