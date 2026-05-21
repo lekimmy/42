@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 00:52:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 07:13:34 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 07:47:22 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	print_argv(t_cmd **head)
 	t_cmd		*current;
 	t_word		*arg;
 	t_segment	*seg;
+	int			j;
 	
 	current = *head;
+	j = 1;
 	while (current)
 	{
 		arg = current->argv;
@@ -32,12 +34,13 @@ void	print_argv(t_cmd **head)
 			seg = arg->segments;
 			while (seg)
 			{
-				printf("%s\n", seg->value);
+				printf("j = %d | %s\n", j, seg->value);
 				seg = seg->next;
 			}
 			arg = arg->next;
 		}
 		current = current->next;
+		j++;
 	}
 }
 
@@ -88,14 +91,20 @@ int	main()
 		
 		t_token *tokens = NULL;
 		if (tokenize(&tokens, tests[i].input))
+		{
 			printf("validate syntax : %d\n", validate_syntax(tokens));
-		t_cmd	*cmds = NULL;
-		if (parse_argv(&cmds, tokens))
-			print_argv(&cmds);
+			if (validate_syntax(tokens))
+			{
+				t_cmd	*cmds = NULL;
+				if (parse_argv(&cmds, tokens))
+					print_argv(&cmds);
+				if (cmds)
+				free_cmds(&cmds);
+			}
+			
+		}
 		if (tokens)
 			free_tokens(&tokens);
-		if (cmds)
-			free_cmds(&cmds);
 		i++;
 	}
 	return (0);
