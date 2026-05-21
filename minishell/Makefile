@@ -3,7 +3,7 @@
 #############
 
 CC							= cc
-CFLAGS						= -Wall -Wextra -Werror -fPIC #-fsanitize=address
+CFLAGS						= -Wall -Wextra -Werror -fPIC -fsanitize=address
 
 NAME						= minishell
 TEST_LEXER					= test_lexer

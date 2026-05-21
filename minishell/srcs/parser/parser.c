@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 03:13:36 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/21 07:03:53 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	add_arg(t_word **argv, t_word *word)
 		return;
 	}
 	current = *argv;
-	while (current)
+	while (current->next)
 		current = current->next;
 	current->next = word;
 }
@@ -94,16 +94,24 @@ static void	add_arg(t_word **argv, t_word *word)
 t_cmd	*new_command(t_token *t)
 {
 	t_cmd	*cmd;
+	t_token	*current;
 
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	cmd->argv = NULL;
-	while (t && t->operator != PIPE)
+	current = t;
+	while (current && current->operator != PIPE)
 	{
-		if (is_word(t))
-			add_arg(&cmd->argv, t->word);
+		if (is_word(current))
+			add_arg(&cmd->argv, current->word);
+		current = current->next;
 	}
+	cmd->infile = NULL;
+	cmd->outfile = NULL;
+	cmd->append = 0;
+	cmd->heredoc_eof = NULL;
+	cmd->next = NULL;
 	return (cmd);
 }
 
@@ -122,7 +130,20 @@ void	add_command(t_cmd **head, t_cmd *new_cmd)
 	current->next = new_cmd;
 }
 
-int	parse()
+// add cmd and transverse until pipe
+// if pipe > skip = next
+int	parse_argv(t_cmd **head, t_token *t)
 {
+	t_token	*current;
 	
+	current = t;
+	while (current)
+	{
+		add_command(head, new_command(current));
+		while (current && !is_pipe(current))
+			current = current->next;
+		if (current)
+			current = current->next;
+	}
+	return (1);
 }
