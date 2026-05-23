@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 08:48:51 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/22 19:12:16 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ int	parse_argv(t_cmd **head, t_token *t)
 		add_command(head, new_command(current));
 		while (current && !is_pipe(current))
 			current = current->next;
-		if (current)
+		if (current && is_pipe(current))
 			current = current->next;
 	}
 	return (1);

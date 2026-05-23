@@ -8,17 +8,20 @@ CFLAGS						= -Wall -Wextra -Werror -fPIC #-fsanitize=address
 NAME						= minishell
 TEST_LEXER					= test_lexer
 TEST_PARSER					= test_parser
+TEST_EXPANDER				= test_expander
 
 VALGRIND					= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes
 
 SRCS_PATH 					= srcs
 LEXER_PATH					= lexer
 PARSER_PATH					= parser
+EXPANDER_PATH				= expander
 UTILS_PATH					= utils
 
 SRCS_FILES					= main.c
 SRCS_FILES_LEXER			= lexer.c operators.c words.c segments.c
 SRCS_FILES_PARSER			= parser.c bools.c
+SRCS_FILES_EXPANDER			= expander.c
 SRCS_FILES_UTILS			= utils.c libft.c
 
 INCLUDES_PATH 				= includes
@@ -26,7 +29,8 @@ INCLUDES 					= -I$(INCLUDES_PATH)
 
 SRCS		 				= $(addprefix $(SRCS_PATH)/$(LEXER_PATH)/, $(SRCS_FILES_LEXER)) \
 							$(addprefix $(SRCS_PATH)/$(UTILS_PATH)/, $(SRCS_FILES_UTILS)) \
-							$(addprefix $(SRCS_PATH)/$(PARSER_PATH)/, $(SRCS_FILES_PARSER))
+							$(addprefix $(SRCS_PATH)/$(PARSER_PATH)/, $(SRCS_FILES_PARSER)) \
+							$(addprefix $(SRCS_PATH)/$(EXPANDER_PATH)/, $(SRCS_FILES_EXPANDER))
 
 OBJS						= $(SRCS:.c=.o)
 
@@ -50,6 +54,11 @@ $(TEST_LEXER): $(OBJS) srcs/lexer/lexer_test.c
 test-parser: $(TEST_PARSER)
 $(TEST_PARSER): $(OBJS) srcs/parser/parser_test.c
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/parser/parser_test.c -lreadline -lhistory -o $(TEST_PARSER)
+
+# Test parser
+test-expander: $(TEST_EXPANDER)
+$(TEST_EXPANDER): $(OBJS) srcs/expander/expander_test.c
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) srcs/expander/expander_test.c -lreadline -lhistory -o $(TEST_EXPANDER)
 
 # Pattern rule for .o files
 %.o: %.c
