@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 08:04:52 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/23 22:27:52 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,17 @@ typedef struct s_cmd
 	t_word			*heredoc_eof;
 	struct s_cmd	*next;
 }	t_cmd;
+
+/************************************
+ * EXPANDER
+ *************************************/
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 /************************************
  * EXEC
