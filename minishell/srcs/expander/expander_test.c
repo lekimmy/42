@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:38:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 03:27:10 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 06:05:46 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_len(t_cmd **head)
 	t_word		*arg;
 	t_segment	*seg;
     size_t      len;
+	char		*str;
 	int			j;
 	
 	current = *head;
@@ -36,7 +37,8 @@ void	print_len(t_cmd **head)
 			while (seg)
 			{
                 len = expanded_len(seg->value, 0);
-				printf("j = %d | %ld\n", j, len);
+				str = expand_string(seg->value, 0);
+				printf("j = %d | len = %ld | str = %s\n", j, len, str);
 				seg = seg->next;
 			}
 			arg = arg->next;
@@ -70,7 +72,7 @@ int main() {
 		t_token *tokens = NULL;
 		if (tokenize(&tokens, tests[i].input))
 		{
-			printf("validate syntax : %d\n", validate_syntax(tokens));
+			// printf("validate syntax : %d\n", validate_syntax(tokens));
 			if (validate_syntax(tokens))
 			{
 				t_cmd	*cmds = NULL;

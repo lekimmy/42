@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 03:08:13 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 06:04:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,14 @@ size_t	ft_strlen(char *s);
 
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *s);
+char	*ft_itoa(int n);
 
 void	free_tokens(t_token **head);
 void	free_segments(t_segment **head);
 void	free_cmds(t_cmd **head);
 void	ft_putstr_fd(char *s, int fd);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
 int		ft_nbrlen(int n);
 
 /************************************
@@ -173,9 +176,10 @@ void	add_command(t_cmd **head, t_cmd *new_cmd);
 int		parse_argv(t_cmd **head, t_token *t);
 
 /************************************
- * PARSER
+ * EXPANDER
  *************************************/
 
 size_t	expanded_len(char *s, int exit_code);
+char	*expand_string(char *s, int exit_code);
 
 #endif

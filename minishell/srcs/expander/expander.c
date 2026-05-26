@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 03:34:56 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 06:08:48 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	expanded_len(char *s, int exit_code)
 		else
 		{
 			env_len = var_len(&s[i + 1]);
-			printf("env_len = %ld\n", env_len);
+			// printf("env_len = %ld\n", env_len);
 			if (!env_len)
 			{
 				len++;
@@ -65,7 +65,7 @@ size_t	expanded_len(char *s, int exit_code)
 				env = getenv(key);
 				if (env)
 				{
-					printf("env = %s\n", env);
+					// printf("env = %s\n", env);
 					len += ft_strlen(env);
 				}
 				free(key);
@@ -76,22 +76,59 @@ size_t	expanded_len(char *s, int exit_code)
 	return (len);
 }
 
-// char	*expand_string(char *s, t_env *env, int exit_code);
-// {
-// 	size_t	i;
-// 	size_t	len;
-// 	char	*buf;
+char	*expand_string(char *s, int exit_code)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+	size_t	env_len;
+	size_t	key_len;
+	char	*buf;
+	char	*tmp;
+	char	*key;
+	char	*env;
 	
-// 	len = expanded_len(s, env, exit_code);
-// 	buf = malloc(len + 1);
-// 	i = 0;
-// 	while ()
-// 	{
-		
-// 	}
-// 	buf[i] = '\0';
-// 	return (buf);
-// }
+	len = expanded_len(s, exit_code);
+	buf = malloc(len + 1);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != '$')
+			buf[j++] = s[i++];
+		else if (s[i + 1] == '?')
+		{ // copy_exit_code()
+			tmp = ft_itoa(exit_code);
+			ft_memcpy(buf + j, tmp, ft_strlen(tmp));
+			j += ft_strlen(tmp);
+			free(tmp);
+			i += 2;
+		}
+		else
+		{// copy env value
+			key_len = var_len(&s[i + 1]);
+			printf("key_len = %ld\n", key_len);
+			if (!key_len)
+				i++;
+			else
+			{
+				key = ft_substr(s, i + 1, key_len);
+				env = getenv(key);
+				if (env)
+				{
+					env_len = ft_strlen(env);
+					printf("env = %s\n", env);
+					ft_memcpy(buf + j, env, env_len);
+					j += env_len;
+				}
+				free(key);
+				i += env_len + 1;
+			}
+		}
+	}
+	buf[i] = '\0';
+	printf("expanded string: %s\n", buf);
+	return (buf);
+}
 
 // char	*expand_segment(t_segment *seg, t_env *env, int exit_code)
 // {

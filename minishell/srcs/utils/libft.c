@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 00:41:49 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 05:28:47 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,3 +102,50 @@ int	ft_isdigit(int c)
 // 		return (1);
 // 	return (0);
 // }
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char	*tmp;
+
+	tmp = (unsigned char *)dest;
+	if (n == 0)
+		return (dest);
+	if (dest == 0 && src == 0)
+		return (NULL);
+	while (n != 0)
+	{
+		*tmp = *(unsigned char *)src;
+		tmp++;
+		src++;
+		n--;
+	}
+	return (dest);
+}
+
+
+char	*ft_itoa(int n)
+{
+	long int	nb;
+	int			len;
+	char		*str;
+
+	nb = n;
+	len = ft_nbrlen(nb);
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	if (nb == 0)
+		str[0] = '0';
+	if (nb < 0)
+	{
+		nb = -nb;
+		str[0] = '-';
+	}
+	while (nb)
+	{
+		str[--len] = nb % 10 + '0';
+		nb /= 10;
+	}
+	return (str);
+}
