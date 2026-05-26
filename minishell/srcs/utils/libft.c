@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 05:28:47 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 00:31:26 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,22 +103,19 @@ int	ft_isdigit(int c)
 // 	return (0);
 // }
 
+// never dereference input params before validating them, even if n == 0
+// encapsulate n == 0 with n--
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char	*tmp;
+	unsigned char		*d;
+	const unsigned char	*s;
 
-	tmp = (unsigned char *)dest;
-	if (n == 0)
-		return (dest);
-	if (dest == 0 && src == 0)
+	if (!dest && !src)
 		return (NULL);
-	while (n != 0)
-	{
-		*tmp = *(unsigned char *)src;
-		tmp++;
-		src++;
-		n--;
-	}
+	d = (unsigned char *)dest;
+	s = (const unsigned char *)src;	
+	while (n--)
+		*d++ = *s++;
 	return (dest);
 }
 
