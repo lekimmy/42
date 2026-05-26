@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 02:42:16 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 03:34:56 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 // return var len
 // if 0 > render litteral
 // stop at first invalid char and render litteral
-size_t	var_len(char *s)
+static size_t	var_len(char *s)
 {
 	size_t	len;
 
 	len = 0;
-	if (!s[len] || !is_alpha(s[len]) || s[len] != '_')
+	if (!s[len] || (!ft_isalpha(s[len]) && s[len] != '_'))
 		return (0);
-	while (s[len] && ft_isalpha(s[len]) && ft_isdigit(s[len]))
+	while (s[len] && (ft_isalpha(s[len]) || ft_isdigit(s[len])))
 		len++;
 	return (len);
 }
@@ -53,6 +53,7 @@ size_t	expanded_len(char *s, int exit_code)
 		else
 		{
 			env_len = var_len(&s[i + 1]);
+			printf("env_len = %ld\n", env_len);
 			if (!env_len)
 			{
 				len++;
@@ -63,7 +64,10 @@ size_t	expanded_len(char *s, int exit_code)
 				key = ft_substr(s, i + 1, env_len);
 				env = getenv(key);
 				if (env)
+				{
+					printf("env = %s\n", env);
 					len += ft_strlen(env);
+				}
 				free(key);
 				i += env_len + 1;
 			}

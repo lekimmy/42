@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 00:49:44 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 03:08:13 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void	free_tokens(t_token **head);
 void	free_segments(t_segment **head);
 void	free_cmds(t_cmd **head);
 void	ft_putstr_fd(char *s, int fd);
+int		ft_nbrlen(int n);
 
 /************************************
  * LEXER
@@ -170,5 +171,11 @@ int		validate_syntax(t_token *head);
 t_cmd	*new_command(t_token *t);
 void	add_command(t_cmd **head, t_cmd *new_cmd);
 int		parse_argv(t_cmd **head, t_token *t);
+
+/************************************
+ * PARSER
+ *************************************/
+
+size_t	expanded_len(char *s, int exit_code);
 
 #endif

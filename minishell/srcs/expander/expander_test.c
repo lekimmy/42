@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:38:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 02:45:22 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 03:27:10 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,35 @@ typedef struct s_test
 {
 	char	*input;
 }			t_test;
+
+void	print_len(t_cmd **head)
+{
+    t_cmd		*current;
+	t_word		*arg;
+	t_segment	*seg;
+    size_t      len;
+	int			j;
+	
+	current = *head;
+	j = 1;
+	while (current)
+	{
+		arg = current->argv;
+		while (arg)
+		{
+			seg = arg->segments;
+			while (seg)
+			{
+                len = expanded_len(seg->value, 0);
+				printf("j = %d | %ld\n", j, len);
+				seg = seg->next;
+			}
+			arg = arg->next;
+		}
+		current = current->next;
+		j++;
+	}
+}
 
 int main() {
 
@@ -28,8 +57,8 @@ int main() {
 		{"$@"},
 		{"$?"}, ///
 		{"abc$USERdef"},
-		{"\"USER\""},
-		{"\'USER\'"},
+		{"\"$USER\""},
+		{"\'$USER\'"},
 		{NULL}
 	};
 
@@ -46,7 +75,7 @@ int main() {
 			{
 				t_cmd	*cmds = NULL;
 				if (parse_argv(&cmds, tokens))
-					print_argv(&cmds);
+					print_len(&cmds);
 				if (cmds)
 				free_cmds(&cmds);
 			}
