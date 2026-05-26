@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 06:08:48 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 06:16:42 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ char	*expand_string(char *s, int exit_code)
 	len = expanded_len(s, exit_code);
 	buf = malloc(len + 1);
 	i = 0;
+	j = 0;
 	while (s[i])
 	{
 		if (s[i] != '$')
@@ -98,7 +99,7 @@ char	*expand_string(char *s, int exit_code)
 		else if (s[i + 1] == '?')
 		{ // copy_exit_code()
 			tmp = ft_itoa(exit_code);
-			ft_memcpy(buf + j, tmp, ft_strlen(tmp));
+			ft_memcpy(&buf[j], tmp, ft_strlen(tmp));
 			j += ft_strlen(tmp);
 			free(tmp);
 			i += 2;
@@ -117,7 +118,7 @@ char	*expand_string(char *s, int exit_code)
 				{
 					env_len = ft_strlen(env);
 					printf("env = %s\n", env);
-					ft_memcpy(buf + j, env, env_len);
+					ft_memcpy(&buf[j], env, env_len);
 					j += env_len;
 				}
 				free(key);
@@ -125,7 +126,7 @@ char	*expand_string(char *s, int exit_code)
 			}
 		}
 	}
-	buf[i] = '\0';
+	buf[j] = '\0';
 	printf("expanded string: %s\n", buf);
 	return (buf);
 }
