@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
+/*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 00:31:26 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 00:34:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_isspace(char c)
-{
-	if ((c >= '\t' && c <= '\r') || c == ' ')
-		return (1);
-	return (0);
-}
 
 size_t	ft_strlen(char *s)
 {
@@ -80,29 +73,6 @@ char	*ft_strdup(char *s)
 	return (dup);
 }
 
-int	ft_isalpha(int c)
-{
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
-// int	ft_isalnum(int c)
-// {
-// 	if (ft_isalpha(c) == 1 || ft_isdigit(c) == 1)
-// 		return (1);
-// 	return (0);
-// }
-
 // never dereference input params before validating them, even if n == 0
 // encapsulate n == 0 with n--
 void	*ft_memcpy(void *dest, const void *src, size_t n)
@@ -118,7 +88,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		*d++ = *s++;
 	return (dest);
 }
-
 
 char	*ft_itoa(int n)
 {
