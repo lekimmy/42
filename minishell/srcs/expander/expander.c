@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 06:16:42 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 23:45:05 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	expanded_len(char *s, int exit_code)
 		else
 		{
 			env_len = var_len(&s[i + 1]);
-			// printf("env_len = %ld\n", env_len);
+			printf("env_len = %ld\n", env_len);
 			if (!env_len)
 			{
 				len++;
@@ -68,6 +68,8 @@ size_t	expanded_len(char *s, int exit_code)
 					// printf("env = %s\n", env);
 					len += ft_strlen(env);
 				}
+				// else
+				// 	len += ft_strlen(key) + 1;
 				free(key);
 				i += env_len + 1;
 			}
@@ -121,13 +123,20 @@ char	*expand_string(char *s, int exit_code)
 					ft_memcpy(&buf[j], env, env_len);
 					j += env_len;
 				}
+				else
+				{
+					printf("key = %s\n", key);
+					buf[j++] = '$';
+					ft_memcpy(&buf[j], key, key_len);
+					j += key_len;
+				}
 				free(key);
 				i += env_len + 1;
 			}
 		}
 	}
 	buf[j] = '\0';
-	printf("expanded string: %s\n", buf);
+	// printf("expanded string: %s\n", buf);
 	return (buf);
 }
 
