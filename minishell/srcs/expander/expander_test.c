@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:38:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 01:02:07 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 01:11:55 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	print_seg(t_cmd **head)
     t_cmd		*current;
 	t_word		*arg;
 	t_segment	*seg;
-	char		*str;
 	int			j;
 	
 	current = *head;
@@ -35,8 +34,8 @@ void	print_seg(t_cmd **head)
 			seg = arg->segments;
 			while (seg)
 			{
-				str = expand_segment(seg, 0);
-				printf("j = %d | str = %s\n", j, str);
+				expand_segment(seg, 0);
+				printf("j = %d | str = %s\n", j, seg->value);
 				seg = seg->next;
 			}
 			arg = arg->next;

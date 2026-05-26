@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 00:59:30 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 01:19:38 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static size_t	expanded_len(char *s, int exit_code)
 		else
 		{
 			env_len = var_len(&s[i + 1]);
-			// printf("env_len = %ld\n", env_len);
 			if (!env_len)
 			{
 				len++;
@@ -64,12 +63,7 @@ static size_t	expanded_len(char *s, int exit_code)
 				key = ft_substr(s, i + 1, env_len);
 				env = getenv(key);
 				if (env)
-				{
-					// printf("env = %s\n", env);
 					len += ft_strlen(env);
-				}
-				// else
-				// 	len += ft_strlen(key) + 1;
 				free(key);
 				i += env_len + 1;
 			}
@@ -109,7 +103,6 @@ static char	*expand_string(char *s, int exit_code)
 		else
 		{// copy env value
 			key_len = var_len(&s[i + 1]);
-			// printf("key_len = %ld\n", key_len);
 			if (!key_len)
 			{
 				buf[j++] = '$';
@@ -123,13 +116,11 @@ static char	*expand_string(char *s, int exit_code)
 				if (env)
 				{
 					env_len = ft_strlen(env);
-					// printf("env = %s\n", env);
 					ft_memcpy(&buf[j], env, env_len);
 					j += env_len;
 				}
 				else
 				{
-					// printf("key = %s\n", key);
 					buf[j++] = '$';
 					ft_memcpy(&buf[j], key, key_len);
 					j += key_len;
@@ -144,9 +135,12 @@ static char	*expand_string(char *s, int exit_code)
 	return (buf);
 }
 
-char	*expand_segment(t_segment *seg, int exit_code)
+void	expand_segment(t_segment *seg, int exit_code)
 {
+	char	*expand;
 	if (seg->quote_context == 1)
-		return (seg->value);
-	return (expand_string(seg->value, exit_code));
+		return ;
+	expand = expand_string(seg->value, exit_code);
+	free(seg->value);
+	seg->value = expand;
 }
