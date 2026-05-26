@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 23:34:32 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 07:13:15 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 02:41:39 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,22 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, s, 1);
 		s++;
 	}
+}
+
+int	ft_nbrlen(int n)
+{
+	int	i;
+
+	i = 0;
+	if (n <= 0)
+	{
+		i++;
+		n = -n;
+	}
+	while (n)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
 }

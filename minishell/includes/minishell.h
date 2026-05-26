@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/25 22:16:01 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 00:49:44 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_env
 typedef struct s_shell
 {
 	int		exit_code;
-	// t_env	*env;
+	t_env	*env;
 	pid_t	*pids;
 	int		interactive;
 }	t_shell;
@@ -123,6 +123,8 @@ typedef struct s_shell
  *************************************/
 
 int		ft_isspace(char c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
 
 size_t	ft_strlen(char *s);
 

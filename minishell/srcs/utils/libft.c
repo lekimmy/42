@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 17:12:11 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/13 06:57:32 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/26 00:41:49 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,26 @@ char	*ft_strdup(char *s)
 	dup[i] = '\0';
 	return (dup);
 }
+
+int	ft_isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
+
+// int	ft_isalnum(int c)
+// {
+// 	if (ft_isalpha(c) == 1 || ft_isdigit(c) == 1)
+// 		return (1);
+// 	return (0);
+// }
