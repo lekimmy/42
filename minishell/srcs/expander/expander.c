@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 00:22:40 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 00:25:34 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*expand_string(char *s, int exit_code)
 				if (env)
 				{
 					env_len = ft_strlen(env);
-					printf("env = %s\n", env);
+					// printf("env = %s\n", env);
 					ft_memcpy(&buf[j], env, env_len);
 					j += env_len;
 				}

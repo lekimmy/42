@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:38:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 06:05:46 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 00:26:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	print_len(t_cmd **head)
                 len = expanded_len(seg->value, 0);
 				str = expand_string(seg->value, 0);
 				printf("j = %d | len = %ld | str = %s\n", j, len, str);
+				free(str);
 				seg = seg->next;
 			}
 			arg = arg->next;
