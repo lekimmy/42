@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 23:45:05 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 00:22:40 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	expanded_len(char *s, int exit_code)
 		else
 		{
 			env_len = var_len(&s[i + 1]);
-			printf("env_len = %ld\n", env_len);
+			// printf("env_len = %ld\n", env_len);
 			if (!env_len)
 			{
 				len++;
@@ -109,9 +109,13 @@ char	*expand_string(char *s, int exit_code)
 		else
 		{// copy env value
 			key_len = var_len(&s[i + 1]);
-			printf("key_len = %ld\n", key_len);
+			// printf("key_len = %ld\n", key_len);
 			if (!key_len)
+			{
+				buf[j++] = '$';
+				ft_memcpy(&buf[j], key, key_len);
 				i++;
+			}
 			else
 			{
 				key = ft_substr(s, i + 1, key_len);
@@ -131,7 +135,7 @@ char	*expand_string(char *s, int exit_code)
 					j += key_len;
 				}
 				free(key);
-				i += env_len + 1;
+				i += key_len + 1;
 			}
 		}
 	}

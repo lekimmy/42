@@ -78,6 +78,8 @@ valgrind-test-lexer: $(TEST_LEXER)
 valgrind-test-parser: $(TEST_PARSER)
 	$(VALGRIND) ./$(TEST_PARSER)
 
+valgrind-test-expander: $(TEST_EXPANDER)
+	$(VALGRIND) ./$(TEST_EXPANDER)
 # Clean
 clean:
 	rm -f $(OBJS) srcs/main.o
