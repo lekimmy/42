@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 00:25:34 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 00:59:30 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static size_t	var_len(char *s)
 	return (len);
 }
 
-size_t	expanded_len(char *s, int exit_code)
+static size_t	expanded_len(char *s, int exit_code)
 {
 	size_t	len;
 	size_t	env_len;
@@ -78,7 +78,7 @@ size_t	expanded_len(char *s, int exit_code)
 	return (len);
 }
 
-char	*expand_string(char *s, int exit_code)
+static char	*expand_string(char *s, int exit_code)
 {
 	size_t	i;
 	size_t	j;
@@ -129,7 +129,7 @@ char	*expand_string(char *s, int exit_code)
 				}
 				else
 				{
-					printf("key = %s\n", key);
+					// printf("key = %s\n", key);
 					buf[j++] = '$';
 					ft_memcpy(&buf[j], key, key_len);
 					j += key_len;
@@ -144,13 +144,9 @@ char	*expand_string(char *s, int exit_code)
 	return (buf);
 }
 
-// char	*expand_segment(t_segment *seg, t_env *env, int exit_code)
-// {
-// 	if (seg->quote_context == 1)
-// 		return ;
-// 	while (seg->value)
-// 	{
-// 		if (*(seg->value) == '$')
-// 			expand_string(seg->value, env, exit_code);
-// 	}
-// }
+char	*expand_segment(t_segment *seg, int exit_code)
+{
+	if (seg->quote_context == 1)
+		return (seg->value);
+	return (expand_string(seg->value, exit_code));
+}

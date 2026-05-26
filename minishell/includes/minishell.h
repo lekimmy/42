@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/26 06:04:27 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 01:00:49 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,6 @@ int		parse_argv(t_cmd **head, t_token *t);
  * EXPANDER
  *************************************/
 
-size_t	expanded_len(char *s, int exit_code);
-char	*expand_string(char *s, int exit_code);
+char	*expand_segment(t_segment *seg, int exit_code);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:38:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 00:26:27 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 01:02:07 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ typedef struct s_test
 	char	*input;
 }			t_test;
 
-void	print_len(t_cmd **head)
+void	print_seg(t_cmd **head)
 {
     t_cmd		*current;
 	t_word		*arg;
 	t_segment	*seg;
-    size_t      len;
 	char		*str;
 	int			j;
 	
@@ -36,10 +35,8 @@ void	print_len(t_cmd **head)
 			seg = arg->segments;
 			while (seg)
 			{
-                len = expanded_len(seg->value, 0);
-				str = expand_string(seg->value, 0);
-				printf("j = %d | len = %ld | str = %s\n", j, len, str);
-				free(str);
+				str = expand_segment(seg, 0);
+				printf("j = %d | str = %s\n", j, str);
 				seg = seg->next;
 			}
 			arg = arg->next;
@@ -53,15 +50,63 @@ int main() {
 
     t_test	tests[] = {
 		{"hello"},
-		{"$USER"},
-		{"$USER]"},
+		{"echo $USER"},
+		{"echo $HOME"},
+		{"echo $SHELL"},
+		{"echo $USER$HOME"},
+		{"echo $DOES_NOT_EXIST"},
 		{"$USERabc"},
 		{"$"},
-		{"$@"},
-		{"$?"}, ///
-		{"abc$USERdef"},
+		{"echo $?"}, ///
+		{"echo abc$UNKNOWNdef"},
+		{"echo $?abc"}, /////////
+		{"echo abc$?"},
+		{"echo $?$?"},
 		{"\"$USER\""},
-		{"\'$USER\'"},
+		{"\'$USER\'"}, //////////
+		//// no expansion
+		{"echo \'$USER\'"},
+		{"echo \'$?\'"},
+		{"echo \'abc$USERdef\'"},
+		//// expansion
+		{"echo \"$USER\""},
+		{"echo \"$?\""},
+		{"echo \"abc$USERdef\""},
+		//// mixed chaos
+		{"echo \"\'$USER\'\""},
+		{"echo \'\"$USER\"\'"},
+		//// adjacent expansions
+		{"echo $USER$USER"},
+		{"echo $USER$?"}, /////////
+		{"echo $?$?"},
+		//// invalid var 
+		{"echo $42"}, ////////
+		{"echo $@"}, ///////
+		{"echo $-"},
+		{"echo $!"},
+		//// edge $ pos
+		{"echo $"},
+		{"echo abc$"},
+		{"echo $$$"},
+		//// mixed parsing
+		{"echo abc$USERdef"}, ////////
+		{"echo $USER]"},
+		{"echo [$USER]"},
+		{"echo $USER,hello"},
+		//// empty / whitespace / weird
+		{"echo \"\""},
+		{"echo \'\'"},
+		{"echo \'    \'"},
+		{"echo \"    \""},
+		{"echo $\'\'"},
+		//// heredoc interaction
+		{"cat << EOF \n $USER \n EOF"},
+		{"cat << \"EOF\" \n $USER \n EOF"},
+		//// stress / combinational traps
+		{"echo $USER$USER$USER"},
+		{"echo a$b$c$d$e"},
+		{"echo $$$$$$"},
+		{"echo $USER$?$USER$?"},
 		{NULL}
 	};
 
@@ -78,11 +123,10 @@ int main() {
 			{
 				t_cmd	*cmds = NULL;
 				if (parse_argv(&cmds, tokens))
-					print_len(&cmds);
+					print_seg(&cmds);
 				if (cmds)
 				free_cmds(&cmds);
 			}
-			
 		}
 		if (tokens)
 			free_tokens(&tokens);
