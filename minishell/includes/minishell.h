@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 03:32:25 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/28 01:17:18 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,29 @@ typedef struct s_cmd
  * EXPANDER
  *************************************/
 
+typedef struct s_exp
+{
+	char	*key;
+	char	*value;
+	char	*buf;
+	size_t	env_len;
+	size_t	key_len;
+	size_t	i;
+	size_t	j;
+}	t_exp;
+
+/************************************
+ * EXEC
+ *************************************/
+
+// Shell environment database
+// t_shell owns it
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
 }	t_env;
-
-/************************************
- * EXEC
- *************************************/
 
 typedef struct s_shell
 {
