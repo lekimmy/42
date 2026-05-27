@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 02:22:58 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 02:24:20 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static size_t	expanded_len(char *s, int exit_code)
 		else
 		{
 			env_len = var_len(&s[i + 1]);
-			printf("env_len = %ld\n", env_len);
+			// printf("env_len = %ld\n", env_len);
 			if (!env_len)
 			{
 				len++;
@@ -89,7 +89,7 @@ static char	*expand_string(char *s, int exit_code)
 	char	*env;
 	
 	len = expanded_len(s, exit_code);
-	printf("expanded len = %ld\n", len);
+	// printf("expanded len = %ld\n", len);
 	buf = malloc(len + 2);
 	i = 0;
 	j = 0;
