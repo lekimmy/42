@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/13 00:52:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/22 19:13:37 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 06:48:37 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,44 @@ void	print_argv(t_cmd **head)
 {
 	t_cmd		*current;
 	t_word		*arg;
+	t_word		*infile;
+	t_word		*outfile;
+	t_word		*heredoc_eof;
 	t_segment	*seg;
 	int			j;
+	int			append;
+	int			heredoc_expand;
 	
 	current = *head;
 	j = 1;
 	while (current)
 	{
 		arg = current->argv;
+		infile = current->infile;
+		outfile = current->outfile;
+		append = current->append;
+		heredoc_eof = current->heredoc_eof;
+		heredoc_expand = current->heredoc_expand;
 		while (arg)
 		{
 			seg = arg->segments;
 			while (seg)
 			{
-				printf("j = %d | %s\n", j, seg->value);
+				printf("j = %d | %s | quote_context = %d\n", j, seg->value, seg->quote_context);
 				seg = seg->next;
 			}
 			arg = arg->next;
 		}
+		if (infile)
+			printf("infile = %s\n", infile->segments->value);
+		if (outfile)
+			printf("outfile = %s\n", outfile->segments->value);
+		if (append)
+			printf("append = %d\n", append);
+		if (heredoc_eof)
+			printf("heredoc_eof = %s\n", heredoc_eof->segments->value);
+		if (heredoc_expand)
+			printf("heredoc_expand = %d\n", heredoc_expand);
 		current = current->next;
 		j++;
 	}
@@ -48,6 +68,9 @@ int	main()
 {
 	t_test	tests[] = {
 		{"echo hello"},
+		{"cat < file"},
+		{"cat << EOF"},
+		{"echo $USER > file"},
 		{"ls|grep hi"},
 		{"echo \"hello world\""},
 		{"echo \'hello world\'"},
@@ -101,7 +124,7 @@ int	main()
 				if (parse_argv(&cmds, tokens))
 					print_argv(&cmds);
 				if (cmds)
-				free_cmds(&cmds);
+					free_cmds(&cmds);
 			}
 			
 		}

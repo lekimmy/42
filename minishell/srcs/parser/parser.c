@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 04:02:01 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 04:44:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void set_append(t_token *current, t_cmd *cmd)
 void set_heredoc_eof(t_token *current, t_cmd *cmd)
 {
 	cmd->heredoc_eof = current->next->word;
-	if (current->word->segments->quote_context = 0)
+	if (current->next->word->segments->quote_context == NONE)
 		cmd->heredoc_expand = 1;
 }
 
