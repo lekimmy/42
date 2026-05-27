@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 01:11:17 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 03:32:25 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_cmd
 	t_word			*outfile;
 	int				append;
 	t_word			*heredoc_eof;
+	int				heredoc_expand;
 	struct s_cmd	*next;
 }	t_cmd;
 

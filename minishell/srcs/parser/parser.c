@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:30 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/22 19:12:16 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 03:33:10 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static t_cmd *init_cmd()
 	cmd->outfile = NULL;
 	cmd->append = 0;
 	cmd->heredoc_eof = NULL;
+	cmd->heredoc_expand = 0;
 	cmd->next = NULL;
 	return (cmd);
 }
