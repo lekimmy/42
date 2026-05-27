@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:38:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 01:11:55 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 04:26:36 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int main() {
 
     t_test	tests[] = {
 		{"hello"},
+		{"abc\"def\"ghi"},
 		{"echo $USER"},
 		{"echo $HOME"},
 		{"echo $SHELL"},
