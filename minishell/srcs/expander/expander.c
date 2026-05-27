@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 01:25:57 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 02:12:41 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	var_len(char *s)
 	len = 0;
 	if (!s[len] || (!ft_isalpha(s[len]) && s[len] != '_'))
 		return (0);
-	while (s[len] && (ft_isalpha(s[len]) || ft_isdigit(s[len])))
+	while (s[len] && (ft_isalpha(s[len]) || ft_isdigit(s[len]) || s[len] == '_'))
 		len++;
 	return (len);
 }
@@ -53,6 +53,7 @@ static size_t	expanded_len(char *s, int exit_code)
 		else
 		{
 			env_len = var_len(&s[i + 1]);
+			printf("env_len = %ld\n", env_len);
 			if (!env_len)
 			{
 				len++;
@@ -64,6 +65,8 @@ static size_t	expanded_len(char *s, int exit_code)
 				env = getenv(key);
 				if (env)
 					len += ft_strlen(env);
+				else
+					len += env_len;
 				free(key);
 				i += env_len + 1;
 			}
@@ -72,6 +75,7 @@ static size_t	expanded_len(char *s, int exit_code)
 	return (len);
 }
 
+// malloc len + '\0' + $
 static char	*expand_string(char *s, int exit_code)
 {
 	size_t	i;
@@ -85,7 +89,8 @@ static char	*expand_string(char *s, int exit_code)
 	char	*env;
 	
 	len = expanded_len(s, exit_code);
-	buf = malloc(len + 1);
+	printf("expanded len = %ld\n", len);
+	buf = malloc(len + 2);
 	i = 0;
 	j = 0;
 	while (s[i])
