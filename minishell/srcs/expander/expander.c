@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 02:12:41 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 02:21:34 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static size_t	expanded_len(char *s, int exit_code)
 				if (env)
 					len += ft_strlen(env);
 				else
-					len += env_len;
+					len += env_len + 1;
 				free(key);
 				i += env_len + 1;
 			}
