@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 02:21:34 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/27 02:22:58 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,11 +142,11 @@ static char	*expand_string(char *s, int exit_code)
 
 void	expand_segment(t_segment *seg, int exit_code)
 {
-	// char	*expand;
+	char	*expand;
 	
 	if (seg->quote_context == 1)
 		return ;
-	seg->value = expand_string(seg->value, exit_code);
-	// free(seg->value);
-	// seg->value = expand;
+	expand = expand_string(seg->value, exit_code);
+	free(seg->value);
+	seg->value = expand;
 }
