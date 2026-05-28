@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 01:13:35 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/28 03:20:59 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,65 +27,115 @@ static size_t	var_len(char *s)
 	return (len);
 }
 
+static void get_expanded_len(size_t *len, char *s, size_t env_len, size_t *i)
+{
+	char	*key;
+	char	*env;
+
+	key = ft_substr(s, *i + 1, env_len);
+	env = getenv(key);
+	if (env)
+		*len += ft_strlen(env);
+	else
+		*len += env_len + 1;
+	free(key);
+	*i += env_len + 1;
+}
+
+static void	get_next(size_t *len, size_t *i)
+{
+	(*len)++;
+	(*i)++;
+}
+
+static void get_exit_code_len(size_t *len, size_t *i, int exit_code)
+{
+	*len += ft_nbrlen(exit_code);
+	*i += 2;
+}
+
 static size_t	expanded_len(char *s, int exit_code)
 {
 	size_t	len;
 	size_t	env_len;
 	size_t	i;
-	char	*key;
-	char	*env;
 	
 	i = 0;
 	len = 0;
 	while (s[i])
 	{
 		if (s[i] != '$')
-		{
-			len++;
-			i++;
-		}	
+			get_next(&len, &i);
 		else if (s[i + 1] == '?')
-		{
-			len += ft_nbrlen(exit_code);
-			i += 2;
-			continue;
-		}
+			get_exit_code_len(&len, &i, exit_code);
 		else
 		{
 			env_len = var_len(&s[i + 1]);
 			if (!env_len)
-			{
-				len++;
-				i++;
-			}
+				get_next(&len, &i);
 			else
-			{
-				key = ft_substr(s, i + 1, env_len);
-				env = getenv(key);
-				if (env)
-					len += ft_strlen(env);
-				else
-					len += env_len + 1;
-				free(key);
-				i += env_len + 1;
-			}
+				get_expanded_len(&len, s, env_len, &i);
 		}
 	}
 	return (len);
 }
 
+static void	copy_exit_code(char *buf, size_t *i, size_t *j, int exit_code)
+{
+	char	*tmp;
+
+	tmp = ft_itoa(exit_code);
+	ft_memcpy(&buf[*j], tmp, ft_strlen(tmp));
+	*j += ft_strlen(tmp);
+	free(tmp);
+	*i += 2;
+}
+
+static void	copy_env_value(char *buf, char *env, size_t *j)
+{
+	size_t	env_len;
+
+	env_len = ft_strlen(env);
+	ft_memcpy(&buf[*j], env, env_len);
+	*j += env_len;
+}
+
+static void	copy_key_value(char *buf, char *key, size_t key_len, size_t *j)
+{
+	buf[(*j)++] = '$';
+	ft_memcpy(&buf[*j], key, key_len);
+	*j += key_len;
+}
+
+static void copy_literal_value(char *buf, size_t *i, size_t *j)
+{
+	buf[(*j)++] = '$';
+	(*i)++;
+}
+
+static void copy_env_or_key_value(char *buf, char *s, size_t *i, size_t *j, size_t key_len)
+{
+	char	*key;
+	char	*env;
+
+	key = ft_substr(s, *i + 1, key_len);
+	env = getenv(key);
+	if (env)
+		copy_env_value(buf, env, j);
+	else
+		copy_key_value(buf, key, key_len, j);
+	free(key);
+	*i += key_len + 1;
+}
+
 // malloc len + '\0' + $
 static char	*expand_string(char *s, int exit_code)
 {
-	// size_t	i;
-	// size_t	j;
+	size_t	i;
+	size_t	j;
 	size_t	len;
-	// size_t	env_len;
-	// size_t	key_len;
-	// char	*buf;
-	char	*tmp;
-	// char	*key;
-	// char	*env;
+	size_t	key_len;
+	char	*buf;
 	
 	len = expanded_len(s, exit_code);
 	buf = malloc(len + 2);
@@ -96,40 +146,14 @@ static char	*expand_string(char *s, int exit_code)
 		if (s[i] != '$')
 			buf[j++] = s[i++];
 		else if (s[i + 1] == '?')
-		{ // copy_exit_code()
-			tmp = ft_itoa(exit_code);
-			ft_memcpy(&buf[j], tmp, ft_strlen(tmp));
-			j += ft_strlen(tmp);
-			free(tmp);
-			i += 2;
-		}
+			copy_exit_code(buf, &i, &j, exit_code);
 		else
-		{// copy env value
+		{
 			key_len = var_len(&s[i + 1]);
 			if (!key_len)
-			{
-				buf[j++] = '$';
-				i++;
-			}
+				copy_literal_value(buf, &i, &j);
 			else
-			{
-				key = ft_substr(s, i + 1, key_len);
-				env = getenv(key);
-				if (env)
-				{
-					env_len = ft_strlen(env);
-					ft_memcpy(&buf[j], env, env_len);
-					j += env_len;
-				}
-				else
-				{
-					buf[j++] = '$';
-					ft_memcpy(&buf[j], key, key_len);
-					j += key_len;
-				}
-				free(key);
-				i += key_len + 1;
-			}
+				copy_env_or_key_value(buf, s, &i, &j, key_len);
 		}
 	}
 	buf[j] = '\0';
