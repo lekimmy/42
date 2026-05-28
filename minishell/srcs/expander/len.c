@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 04:09:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 04:15:45 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/28 22:49:36 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ size_t	var_len(char *s)
 	len = 0;
 	if (!s[len] || (!ft_isalpha(s[len]) && s[len] != '_'))
 		return (0);
-	while (s[len] && (ft_isalpha(s[len]) || ft_isdigit(s[len]) || s[len] == '_'))
+	while (s[len] && (ft_isalpha(s[len]) || ft_isdigit(s[len])
+			|| s[len] == '_'))
 		len++;
 	return (len);
 }
 
-static void get_expanded_len(size_t *len, char *s, size_t env_len, size_t *i)
+static void	get_expanded_len(size_t *len, char *s, size_t env_len, size_t *i)
 {
 	char	*key;
 	char	*value;
@@ -48,7 +49,7 @@ static void	get_next(size_t *len, size_t *i)
 	(*i)++;
 }
 
-static void get_exit_code_len(size_t *len, size_t *i, int exit_code)
+static void	get_exit_code_len(size_t *len, size_t *i, int exit_code)
 {
 	*len += ft_nbrlen(exit_code);
 	*i += 2;
@@ -59,7 +60,7 @@ size_t	expanded_len(char *s, int exit_code)
 	size_t	len;
 	size_t	env_len;
 	size_t	i;
-	
+
 	i = 0;
 	len = 0;
 	while (s[i])

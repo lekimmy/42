@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 04:15:56 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/28 22:55:04 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,14 @@ int		is_redir(t_token *t);
 int		is_word(t_token *t);
 
 int		validate_syntax(t_token *head);
+int		validate_pipe(t_token *head);
+int		validate_redirection(t_token *head);
+
+void	set_infile(t_token *current, t_cmd *cmd);
+void	set_outfile(t_token *current, t_cmd *cmd);
+void	set_append(t_token *current, t_cmd *cmd);
+void	set_heredoc_eof(t_token *current, t_cmd *cmd);
+
 t_cmd	*new_command(t_token *t);
 void	add_command(t_cmd **head, t_cmd *new_cmd);
 int		parse_argv(t_cmd **head, t_token *t);
