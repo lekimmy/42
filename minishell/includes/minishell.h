@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 02:34:11 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/28 03:26:04 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,7 @@ typedef struct s_cmd
 
 typedef struct s_exp
 {
-	char	*key;
-	char	*value;
 	char	*buf;
-	size_t	env_len;
-	size_t	key_len;
 	size_t	i;
 	size_t	j;
 }	t_exp;
