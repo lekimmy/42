@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 03:26:04 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/28 04:15:56 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,15 @@ int		parse_argv(t_cmd **head, t_token *t);
 /************************************
  * EXPANDER
  *************************************/
+
+size_t	var_len(char *s);
+size_t	expanded_len(char *s, int exit_code);
+
+void	copy_exit_code(t_exp *exp, int exit_code);
+void	copy_env_value(t_exp *exp, char *env);
+void	copy_key_value(t_exp *exp, char *key, size_t key_len);
+void	copy_literal_value(t_exp *exp);
+void	copy_env_or_key_value(t_exp *exp, char *s, size_t key_len);
 
 void	expand_segment(t_segment *seg, int exit_code);
 
