@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 04:09:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 22:49:36 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/29 02:27:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ size_t	var_len(char *s)
 	return (len);
 }
 
-static void	get_expanded_len(size_t *len, char *s, size_t env_len, size_t *i)
+static void	get_expanded_len(size_t *len, char *s, size_t env_len, size_t *i, t_env *envs)
 {
 	char	*key;
 	char	*value;
 
 	key = ft_substr(s, *i + 1, env_len);
-	value = getenv(key);
+	value = env_get(envs, key);
 	if (value)
 		*len += ft_strlen(value);
 	else
@@ -55,7 +55,7 @@ static void	get_exit_code_len(size_t *len, size_t *i, int exit_code)
 	*i += 2;
 }
 
-size_t	expanded_len(char *s, int exit_code)
+size_t	expanded_len(char *s, t_env *envs, int exit_code)
 {
 	size_t	len;
 	size_t	env_len;
@@ -75,7 +75,7 @@ size_t	expanded_len(char *s, int exit_code)
 			if (!env_len)
 				get_next(&len, &i);
 			else
-				get_expanded_len(&len, s, env_len, &i);
+				get_expanded_len(&len, s, env_len, &i, envs);
 		}
 	}
 	return (len);

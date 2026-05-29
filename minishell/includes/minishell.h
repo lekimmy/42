@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 21:39:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 22:55:04 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/29 02:28:34 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ size_t	ft_strlen(char *s);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strdup(char *s);
 char	*ft_itoa(int n);
+char	*ft_strchr(const char *s, int c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 void	free_tokens(t_token **head);
 void	free_segments(t_segment **head);
@@ -198,14 +200,17 @@ int		parse_argv(t_cmd **head, t_token *t);
  *************************************/
 
 size_t	var_len(char *s);
-size_t	expanded_len(char *s, int exit_code);
+size_t	expanded_len(char *s, t_env *envs, int exit_code);
 
 void	copy_exit_code(t_exp *exp, int exit_code);
 void	copy_env_value(t_exp *exp, char *env);
 void	copy_key_value(t_exp *exp, char *key, size_t key_len);
 void	copy_literal_value(t_exp *exp);
-void	copy_env_or_key_value(t_exp *exp, char *s, size_t key_len);
+void	copy_env_or_key_value(t_exp *exp, char *s, size_t key_len, t_env *envs);
 
 void	expand_segment(t_segment *seg, int exit_code);
+
+t_env	*get_env_from_envp(char **envp);
+char	*env_get(t_env *env, char *key);
 
 #endif

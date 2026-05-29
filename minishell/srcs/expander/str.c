@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 04:11:05 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/28 22:48:28 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/29 02:23:04 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	copy_literal_value(t_exp *exp)
 	exp->i++;
 }
 
-void	copy_env_or_key_value(t_exp *exp, char *s, size_t key_len)
+void	copy_env_or_key_value(t_exp *exp, char *s, size_t key_len, t_env *envs)
 {
 	char	*key;
 	char	*env;
 
 	key = ft_substr(s, exp->i + 1, key_len);
-	env = getenv(key);
+	env = env_get(envs, key);
 	if (env)
 		copy_env_value(exp, env);
 	else

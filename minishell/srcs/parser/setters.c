@@ -1,53 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/05 23:34:32 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/29 02:17:52 by ls-phabm         ###   ########.fr       */
+/*   Created: 2026/05/28 22:52:23 by ls-phabm          #+#    #+#             */
+/*   Updated: 2026/05/28 22:52:32 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// abstract for read_word()
-int	is_separator(char c)
+void	set_infile(t_token *current, t_cmd *cmd)
 {
-	return (ft_isspace(c) || c == '|' || c == '<' || c == '>');
+	cmd->infile = current->next->word;
 }
 
-int	is_unsupported(char c)
+void	set_outfile(t_token *current, t_cmd *cmd)
 {
-	return ((c == '\\') || (c == ';'));
+	cmd->outfile = current->next->word;
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void	set_append(t_token *current, t_cmd *cmd)
 {
-	if (!s)
-		return ;
-	while (*s)
-	{
-		write(fd, s, 1);
-		s++;
-	}
+	cmd->outfile = current->next->word;
+	cmd->append = 1;
 }
 
-int	ft_nbrlen(int n)
+void	set_heredoc_eof(t_token *current, t_cmd *cmd)
 {
-	int	i;
-
-	i = 0;
-	if (n <= 0)
-	{
-		i++;
-		n = -n;
-	}
-	while (n)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i);
+	cmd->heredoc_eof = current->next->word;
+	if (current->next->word->segments->quote_context == NONE)
+		cmd->heredoc_expand = 1;
 }

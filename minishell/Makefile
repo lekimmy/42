@@ -24,7 +24,7 @@ SRCS_FILES_LEXER			= lexer.c operators.c words.c segments.c
 SRCS_FILES_PARSER			= parser.c bools.c rules.c setters.c
 SRCS_FILES_EXPANDER			= expander.c len.c str.c
 SRCS_FILES_LIBFT			= bools.c str.c
-SRCS_FILES_UTILS			= utils.c
+SRCS_FILES_UTILS			= utils.c free.c envp.c
 
 INCLUDES_PATH 				= includes
 INCLUDES 					= -I$(INCLUDES_PATH)
