@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 01:35:09 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/29 02:27:16 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/29 02:36:28 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static t_env	*env_new(char *envp)
 	if (!env)
 		return (NULL);
 	equal = ft_strchr(envp, '=');
+	if (!equal)
+		return (free(env), NULL);
 	key_len = equal - envp;
 	env->key = ft_substr(envp, 0, key_len);
 	env->value = ft_strdup(equal + 1);
@@ -33,6 +35,11 @@ static void	env_add_back(t_env **head, t_env *env)
 {
 	t_env	*current;
 
+	if (!*head)
+	{
+		*head = env;
+		return ;
+	}
 	current = *head;
 	while (current->next)
 		current = current->next;
