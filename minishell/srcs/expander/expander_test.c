@@ -6,18 +6,32 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:38:28 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/27 04:46:19 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/29 02:57:27 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_shell	*init_shell(char **envp)
+{
+	t_shell	*shell;
+
+	shell = malloc(sizeof(t_shell));
+	if (!shell)
+		return (NULL);
+	shell->env = get_env_from_envp(envp);
+	shell->exit_code = 0;
+	shell->pids = NULL;
+	shell->interactive = 0;
+	return (shell);
+}
 
 typedef struct s_test
 {
 	char	*input;
 }			t_test;
 
-void	print_seg(t_cmd **head)
+void	print_seg(t_cmd **head, t_shell *shell)
 {
     t_cmd		*current;
 	t_word		*arg;
@@ -34,7 +48,7 @@ void	print_seg(t_cmd **head)
 			seg = arg->segments;
 			while (seg)
 			{
-				expand_segment(seg, 0);
+				expand_segment(seg, shell->env, 0);
 				printf("j = %d | str = %s\n", j, seg->value);
 				seg = seg->next;
 			}
@@ -45,7 +59,7 @@ void	print_seg(t_cmd **head)
 	}
 }
 
-int main() {
+int main(int argc, char **argv, char **envp) {
 
     t_test	tests[] = {
 		{"hello"},
@@ -112,8 +126,18 @@ int main() {
 		{"echo $USER$?$USER$?"},
 		{NULL}
 	};
-
+	
+	(void)argc;
+	(void)argv;
+	t_shell	*shell;
+	
+	shell = init_shell(envp);
+	if (!shell)
+		return (1);
+		
     int i = 0;
+	// while (envp[i])
+	// 	printf("%s\n", envp[i++]);
 	while (tests[i].input)
 	{
 		printf("\ni = %d | INPUT: [%s]\n", i, tests[i].input);
@@ -126,7 +150,7 @@ int main() {
 			{
 				t_cmd	*cmds = NULL;
 				if (parse_argv(&cmds, tokens))
-					print_seg(&cmds);
+					print_seg(&cmds, shell);
 				if (cmds)
 				free_cmds(&cmds);
 			}

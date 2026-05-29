@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 01:35:09 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/29 02:36:28 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/05/29 03:00:55 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*env_get(t_env *env, char *key)
 	while (env)
 	{
 		if (!ft_strncmp(env->key, key, ft_strlen(key)))
-			return (env->key);
+			return (env->value);
 		env = env->next;
 	}
 	return (NULL);
