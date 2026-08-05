@@ -1,0 +1,21 @@
+A 0.2 255,255,255
+
+C -50,0,20 0,0,1 70
+L -40,0,30 0.7 255,255,255
+
+pl 0,0,0 0,1.0,0 255,0,225
+pl 0,0,0 0,1.0,0 255,0,225
+sp 0,0,20 20 255,0,0
+sp 0,0,20 20 255,0,0
+cy 50.0,0.0,20.6 0,0,1.0 14.2 21.42 10,0,255
+sp 0,0,20 20 255,0,0
+
+
+#Quick recap of the fields per line:
+#
+#A: ambient ratio 0.2, RGB 255,255,255
+#C: position -50,0,20, orientation vector 0,0,1, FOV 70
+#L: position -40,0,30, brightness 0.7, RGB 255,255,255
+#pl: point on plane 0,0,0, normal vector 0,1.0,0, RGB 255,0,225
+#sp: center 0,0,20, diameter 20, RGB 255,0,0
+#cy: center 50.0,0.0,20.6, axis vector 0,0,1.0, diameter 14.2, height 21.42, RGB 10,0,255
