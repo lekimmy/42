@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bools.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/19 04:38:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/06/20 19:51:25 by ls-phabm         ###   ########.fr       */
+/*   Created: 2026/05/29 17:07:20 by mpietri           #+#    #+#             */
+/*   Updated: 2026/06/20 20:41:07 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
+#include "builtins.h"
 
-int	is_pipe(t_token *t)
+int	builtin_pwd(t_shell *shell)
 {
-	return (t->type == OPERATOR && t->operator == PIPE);
-}
+	char	buf[PATH_MAX];
+	char	*logical;
 
-int	is_redir(t_token *t)
-{
-	return (t->type == OPERATOR && t->operator && t->operator != PIPE);
-}
-
-int	is_word(t_token *t)
-{
-	return (t->type == WORD);
+	if (getcwd(buf, PATH_MAX))
+		return (ft_putstr_fd(buf, STDOUT_FILENO),
+			ft_putstr_fd("\n", STDOUT_FILENO), 0);
+	logical = env_get(shell->env, "PWD");
+	if (logical)
+		return (ft_putstr_fd(logical, STDOUT_FILENO),
+			ft_putstr_fd("\n", STDOUT_FILENO), 0);
+	perror("pwd");
+	return (1);
 }

@@ -6,11 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 03:29:40 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:51:03 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "lexer.h"
 
 // The lexer doesn't see words: it sees chars that slowly become words
 // Scan > build > handle quotes inline > emit tokens
@@ -35,6 +36,7 @@ t_token	*new_token_operator(t_operator_type operator)
 // abstraction to handle operators
 // no need to log raw operator, enum for semantics is enough
 // return iter jump + token
+// treat unsupported as tokens as well, throw syntax error later in parser
 t_token	*handle_operator(char *s, size_t *i)
 {
 	if (s[*i] == '|')
@@ -47,5 +49,11 @@ t_token	*handle_operator(char *s, size_t *i)
 		return ((*i)++, new_token_operator(REDIRECT_IN));
 	else if (s[*i] == '>')
 		return ((*i)++, new_token_operator(REDIRECT_OUT));
+	else if (s[*i] == '(')
+		return ((*i)++, new_token_operator(LPAR));
+	else if (s[*i] == ')')
+		return ((*i)++, new_token_operator(RPAR));
+	else if (s[*i] == ';')
+		return ((*i)++, new_token_operator(SEMICOL));
 	return (NULL);
 }

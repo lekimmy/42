@@ -83,65 +83,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	if (!dest && !src)
 		return (NULL);
 	d = (unsigned char *)dest;
-	s = (const unsigned char *)src;	
+	s = (const unsigned char *)src;
 	while (n--)
 		*d++ = *s++;
 	return (dest);
-}
-
-char	*ft_itoa(int n)
-{
-	long int	nb;
-	int			len;
-	char		*str;
-
-	nb = n;
-	len = ft_nbrlen(nb);
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	str[len] = '\0';
-	if (nb == 0)
-		str[0] = '0';
-	if (nb < 0)
-	{
-		nb = -nb;
-		str[0] = '-';
-	}
-	while (nb)
-	{
-		str[--len] = nb % 10 + '0';
-		nb /= 10;
-	}
-	return (str);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	unsigned char	ch;
-
-	ch = (unsigned char)c;
-	while (*s)
-	{
-		if (*s == ch)
-			return ((char *)s);
-		s++;
-	}
-	if (ch == '\0')
-		return ((char *)s);
-	return (NULL);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	while (n--)
-	{
-		if ((unsigned char)*s1 != (unsigned char)*s2)
-			return ((unsigned char)*s1 - (unsigned char)*s2);
-		if (*s1 == '\0')
-			return (0);
-		s1++;
-		s2++;
-	}
-	return (0);
 }

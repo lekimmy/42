@@ -6,11 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:16:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/29 02:32:45 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:50:40 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "expander.h"
 
 // malloc len + '\0' + $
 static t_exp	*init_exp(char *s, t_env *envs, int exit_code)
@@ -30,10 +31,24 @@ static t_exp	*init_exp(char *s, t_env *envs, int exit_code)
 	return (exp);
 }
 
-static char	*expand_string(t_exp *exp, char *s, t_env *envs, int exit_code)
+// release expansion state and return ownership of buffer
+static char	*finish_exp(t_exp *exp)
+{
+	char	*expanded;
+
+	expanded = exp->buf;
+	free(exp);
+	return (expanded);
+}
+
+char	*expand_string(char *s, t_env *envs, int exit_code)
 {
 	size_t	key_len;
+	t_exp	*exp;
 
+	exp = init_exp(s, envs, exit_code);
+	if (!exp)
+		return (NULL);
 	while (s[exp->i])
 	{
 		if (s[exp->i] != '$')
@@ -50,19 +65,16 @@ static char	*expand_string(t_exp *exp, char *s, t_env *envs, int exit_code)
 		}
 	}
 	exp->buf[exp->j] = '\0';
-	return (exp->buf);
+	return (finish_exp(exp));
 }
 
 void	expand_segment(t_segment *seg, t_env *envs, int exit_code)
 {
-	t_exp	*exp;
 	char	*expand;
 
-	if (seg->quote_context == 1)
+	if (seg->quote_context == SINGLE)
 		return ;
-	exp = init_exp(seg->value, envs, exit_code);
-	expand = expand_string(exp, seg->value, envs, exit_code);
+	expand = expand_string(seg->value, envs, exit_code);
 	free(seg->value);
 	seg->value = expand;
-	free(exp);
 }

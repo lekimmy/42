@@ -6,11 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/05 15:26:18 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/19 03:23:01 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:50:59 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "lexer.h"
 
 // The lexer doesn't see words: it sees chars that slowly become words
 // Scan > build > handle quotes inline > emit tokens
@@ -55,7 +56,7 @@ int	tokenize(t_token **head, char *s)
 		if (!s[i])
 			break ;
 		if (is_unsupported(s[i]))
-			return (lexer_error("unexpected token", &s[i]), 0);
+			return (syntax_error("unexpected token", &s[i]), 0);
 		t = handle_operator(s, &i);
 		if (!t)
 			t = handle_word(s, &i);

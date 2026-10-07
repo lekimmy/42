@@ -6,11 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 04:09:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/29 02:27:51 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:50:44 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "expander.h"
 
 // return var len
 // if 0 > render litteral
@@ -28,11 +29,13 @@ size_t	var_len(char *s)
 	return (len);
 }
 
-static void	get_expanded_len(size_t *len, char *s, size_t env_len, size_t *i, t_env *envs)
+static void	get_expanded_len(size_t *len, char *s, size_t *i, t_env *envs)
 {
 	char	*key;
 	char	*value;
+	size_t	env_len;
 
+	env_len = var_len(&s[*i + 1]);
 	key = ft_substr(s, *i + 1, env_len);
 	value = env_get(envs, key);
 	if (value)
@@ -75,7 +78,7 @@ size_t	expanded_len(char *s, t_env *envs, int exit_code)
 			if (!env_len)
 				get_next(&len, &i);
 			else
-				get_expanded_len(&len, s, env_len, &i, envs);
+				get_expanded_len(&len, s, &i, envs);
 		}
 	}
 	return (len);

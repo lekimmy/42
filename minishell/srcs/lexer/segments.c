@@ -6,11 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 02:06:05 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:51:08 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "lexer.h"
 
 // quotes don't split words > they override splitting
 // outside quotes, spaces split words
@@ -54,7 +55,14 @@ int	handle_quoted_segment(char *s, char *buf, size_t *i, size_t *j)
 void	handle_normal_segment(char *s, char *buf, size_t *i, size_t *j)
 {
 	while (s[*i] && !is_separator(s[*i]) && !get_quote(s[*i]))
+	{
+		if (s[*i] == '$' && get_quote(s[*i + 1]))
+		{
+			(*i)++;
+			break ;
+		}
 		buf[(*j)++] = s[(*i)++];
+	}
 }
 
 t_segment	*new_segment(char *value, char quote_context)

@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bools.c                                            :+:      :+:    :+:   */
+/*   signals2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/19 04:38:59 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/06/20 19:51:25 by ls-phabm         ###   ########.fr       */
+/*   Created: 2026/06/09 22:16:20 by ls-phabm          #+#    #+#             */
+/*   Updated: 2026/07/09 18:42:58 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
+#include "signals.h"
 
-int	is_pipe(t_token *t)
+static void	sigint_heredoc_handler(int sig)
 {
-	return (t->type == OPERATOR && t->operator == PIPE);
+	(void)sig;
+	g_sigint = 1;
+	rl_catch_signals = 0;
+	close(STDIN_FILENO);
 }
 
-int	is_redir(t_token *t)
+void	setup_heredoc_signals(void)
 {
-	return (t->type == OPERATOR && t->operator && t->operator != PIPE);
-}
-
-int	is_word(t_token *t)
-{
-	return (t->type == WORD);
+	signal(SIGINT, sigint_heredoc_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

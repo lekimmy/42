@@ -6,11 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 17:01:17 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/21 06:58:24 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:51:11 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "lexer.h"
 
 // quotes don't split words > they override splitting
 // outside quotes, spaces split words
@@ -20,19 +21,6 @@
 // 2. read until matching quote
 // 3. include content in word
 // 4. (ignore expansion for now)
-
-void	lexer_error(char *msg, char *token)
-{
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(msg, 2);
-	if (token)
-	{
-		ft_putstr_fd(" `", 2);
-		ft_putstr_fd(token, 2);
-		ft_putstr_fd("'", 2);
-	}
-	ft_putstr_fd("\n", 2);
-}
 
 // for expand (different behviors)
 // log enum only is enough for semantics
@@ -75,7 +63,7 @@ t_segment	*handle_segments(char *s, size_t *i, t_segment *segment)
 		{
 			if (!handle_quoted_segment(s, buf, i, &j))
 				return (free(buf), free_segments(&segment),
-					lexer_error("unclosed quote", NULL), NULL);
+					syntax_error("unclosed quote", NULL), NULL);
 		}
 		else
 			handle_normal_segment(s, buf, i, &j);

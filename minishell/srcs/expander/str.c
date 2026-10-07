@@ -6,11 +6,12 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 04:11:05 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/05/29 02:23:04 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/06/20 19:50:48 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "expander.h"
 
 void	copy_exit_code(t_exp *exp, int exit_code)
 {
@@ -23,7 +24,7 @@ void	copy_exit_code(t_exp *exp, int exit_code)
 	exp->i += 2;
 }
 
-void	copy_env_value(t_exp *exp, char *env)
+static void	copy_env_value(t_exp *exp, char *env)
 {
 	size_t	env_len;
 
@@ -54,8 +55,6 @@ void	copy_env_or_key_value(t_exp *exp, char *s, size_t key_len, t_env *envs)
 	env = env_get(envs, key);
 	if (env)
 		copy_env_value(exp, env);
-	else
-		copy_key_value(exp, key, key_len);
 	free(key);
 	exp->i += key_len + 1;
 }

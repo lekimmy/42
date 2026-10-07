@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/29 02:17:25 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/07/03 23:46:54 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/07/15 16:19:05 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_segments(t_segment **head)
+void	free_env(t_env **head)
 {
-	t_segment	*current;
+	t_env		*current;
 
-	if (!head || !(*head))
+	if (!head || !*head)
 		return ;
 	current = *head;
 	while (current)
 	{
 		current = (*head)->next;
+		free((*head)->key);
 		free((*head)->value);
 		free(*head);
 		*head = current;
 	}
 }
 
-void	free_tokens(t_token **head)
+void	free_heredocs(t_heredoc **head)
 {
-	t_token		*current;
+	t_heredoc	*current;
 
 	if (!head || !*head)
 		return ;
@@ -38,19 +39,15 @@ void	free_tokens(t_token **head)
 	while (current)
 	{
 		current = (*head)->next;
-		if ((*head)->type == WORD)
-		{
-			free_segments(&(*head)->word->segments);
-			free((*head)->word);
-		}
+		free_word_list(&(*head)->eof);
 		free(*head);
 		*head = current;
 	}
 }
 
-void	free_word_list(t_word **head)
+void	free_redirs(t_redir **head)
 {
-	t_word	*current;
+	t_redir	*current;
 
 	if (!head || !*head)
 		return ;
@@ -58,41 +55,27 @@ void	free_word_list(t_word **head)
 	while (current)
 	{
 		current = (*head)->next;
-		free_segments(&(*head)->segments);
+		free_word_list(&(*head)->file);
 		free(*head);
 		*head = current;
 	}
 }
 
-void	free_cmds(t_cmd **head)
+void	free_all(char **argv, t_shell *shell)
 {
-	t_cmd	*current;
-
-	if (!head || !*head)
-		return ;
-	current = *head;
-	while (current)
-	{
-		current = (*head)->next;
-		free_word_list(&(*head)->argv);
-		free_redirs(&(*head)->redirs);
-		free_heredocs(&(*head)->heredocs);
-		free(*head);
-		*head = current;
-	}
+	free_strtab(argv);
+	free_shell(shell);
 }
 
-void	free_token_list(t_token **head)
+void	free_shell(t_shell *shell)
 {
-	t_token	*current;
-
-	if (!head || !*head)
+	if (!shell)
 		return ;
-	current = *head;
-	while (current)
-	{
-		current = (*head)->next;
-		free(*head);
-		*head = current;
-	}
+	free(shell->line);
+	shell->line = NULL;
+	free_cmds(&shell->cmd);
+	free_env(&shell->env);
+	free(shell->pids);
+	rl_clear_history();
+	free(shell);
 }
