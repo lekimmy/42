@@ -20,7 +20,7 @@ IMG_PATH				= img
 
 SRCS_FILES				= main.c
 SRCS_FILES_PARSER		= cmd.c heredoc.c bools.c rules.c rules2.c setters.c
-SRCS_FILES_LIBFT		= gnl.c
+SRCS_FILES_LIBFT		= gnl.c str.c
 SRCS_FILES_UTILS		= maths.c
 SRCS_FILES_IMG			= hooks.c utils.c
 
@@ -29,7 +29,7 @@ MLX_FLAGS				= -Lminilibx-linux -l:libmlx.a -lX11 -lXext -lm #math
 MLX 					= $(MLX_PATH)/libmlx.a
 
 INCLUDES_PATH			= includes
-INCLUDES				= -I$(INCLUDES_PATH)
+INCLUDES				= -I$(INCLUDES_PATH) -I$(MLX_PATH)
 
 SRCS					= $(addprefix $(SRCS_PATH)/$(IMG_PATH)/, $(SRCS_FILES_IMG)) \
 						$(addprefix $(SRCS_PATH)/$(LIBFT_PATH)/, $(SRCS_FILES_LIBFT)) \

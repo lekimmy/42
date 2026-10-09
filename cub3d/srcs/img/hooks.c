@@ -6,11 +6,11 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/26 02:56:55 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/08/07 01:12:57 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/09 17:06:19 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "cub3d.h"
 #include "mlx.h"
 #include <X11/keysym.h>
 
@@ -29,7 +29,6 @@ int	close_handler(void *param)
 		mlx_destroy_display(data->mlx_conn);
 		free(data->mlx_conn);
 	}
-	ft_free_scene(data->scene);
 	close(data->fd);
 	exit(0);
 }

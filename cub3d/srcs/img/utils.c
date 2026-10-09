@@ -6,27 +6,27 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/06 05:21:51 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/08/03 23:19:48 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/09 17:08:04 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#include "cub3d.h"
 
 // Init first, render afterwards
 // Otherwise every render resets the view = fractal state is constantly reset
 // Zoom never survives the render
-int init_scene(t_data *data, int fd)
-{
-	t_scene	*scene;
+// int init_scene(t_data *data, int fd)
+// {
+// 	t_scene	*scene;
 	
-	scene = ft_calloc(1, sizeof(t_scene));
-	if (!scene)
-		return (0);
-	if (!read_scene(fd, scene))
-		return (free_scene(scene), 0);
-	data->scene = scene;
-	return (1);
-}
+// 	scene = ft_calloc(1, sizeof(t_scene));
+// 	if (!scene)
+// 		return (0);
+// 	if (!read_scene(fd, scene))
+// 		return (free_scene(scene), 0);
+// 	data->scene = scene;
+// 	return (1);
+// }
 
 int	init_data(t_data *data, int fd)
 {
@@ -40,15 +40,15 @@ int	init_data(t_data *data, int fd)
 	if (!create_img(data))
 		return (mlx_destroy_display(data->mlx_conn), free(data->mlx_conn), 0);
 	data->fd = fd;
-	if (!init_scene(data, fd))
-	{
-		mlx_destroy_image(data->mlx_conn, data->img.img);
-		mlx_destroy_window(data->mlx_conn, data->win);
-		mlx_destroy_display(data->mlx_conn);
-		free(data->mlx_conn);
-		close(data->fd);
-		return (0);
-	}
+	// if (!init_scene(data, fd))
+	// {
+	// 	mlx_destroy_image(data->mlx_conn, data->img.img);
+	// 	mlx_destroy_window(data->mlx_conn, data->win);
+	// 	mlx_destroy_display(data->mlx_conn);
+	// 	free(data->mlx_conn);
+	// 	close(data->fd);
+	// 	return (0);
+	// }
 	return (1);
 }
 
@@ -71,10 +71,10 @@ int	create_img(t_data *data)
 	return (1);
 }
 
-int	rgb_to_int(t_color color)
-{
-	return ((color.r & 0xFF) << 16 | (color.g & 0xFF) << 8 | (color.b & 0xFF));
-}
+// int	rgb_to_int(t_color color)
+// {
+// 	return ((color.r & 0xFF) << 16 | (color.g & 0xFF) << 8 | (color.b & 0xFF));
+// }
 
 // mlx_put_pixel is too slow
 // Calculate each byte location of px & drop color there

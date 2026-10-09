@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 17:42:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/09 14:57:44 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/09 16:59:45 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ typedef struct s_data
 	void		*mlx_conn;
 	void		*win;
 	int			fd;
-	t_scene		*scene;
 	t_img		img;
 	t_mouse		mouse;
 	t_render	render;
@@ -98,10 +97,8 @@ int				close_handler(void *param);
 double			normalize(int px, int win_size, double min, double max);
 
 void			my_pixel_put(t_img *img, int x, int y, int color);
-void			init_render(t_amb *amb, t_data *data);
 void			render_scene(t_data *data);
 
 int				create_img(t_data *data);
-int				rgb_to_int(t_color color);
 
 #endif

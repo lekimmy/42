@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/09 14:48:47 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/09 14:49:08 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/09 17:14:31 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ double	ft_atod(char *str)
 	i = 0;
 	unit = 0;
 	s = 1;
-	while (is_whitespace(str[i]))
+	while (ft_isspace(str[i]))
 		i++;
 	while ((str[i] == '-') || (str[i] == '+'))
 	{
