@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 17:42:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/09 16:59:45 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/09 17:31:37 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct s_img
 {
 	void		*img;
 	char		*addr;
+	int			width;
+	int			height;
 	int			bpp;
 	int			endian;
 	int			line_len;
