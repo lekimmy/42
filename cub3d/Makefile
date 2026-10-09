@@ -10,26 +10,30 @@ NAME					= cub3d
 VALGRIND				= valgrind --track-fds=yes --leak-check=full --suppressions=readline.supp \
 						--track-origins=yes --show-leak-kinds=all #-q
 
-FSANITIZE	= -fsanitize=address
+FSANITIZE				= -fsanitize=address
 
 SRCS_PATH				= srcs
 PARSER_PATH				= parser
 LIBFT_PATH				= libft
 UTILS_PATH				= utils
+IMG_PATH				= img
 
 SRCS_FILES				= main.c
 SRCS_FILES_PARSER		= cmd.c heredoc.c bools.c rules.c rules2.c setters.c
-SRCS_FILES_LIBFT		= bools.c str.c str2.c split.c gnl.c
-SRCS_FILES_UTILS		= utils.c utils2.c free.c free2.c envp.c env_ops.c signals.c signals2.c
+SRCS_FILES_LIBFT		= gnl.c
+SRCS_FILES_UTILS		= maths.c
+SRCS_FILES_IMG			= hooks.c utils.c
 
-MLX_PATH					= minilibx-linux
-MLX_FLAGS					= -Lminilibx-linux -l:libmlx.a -lX11 -lXext -lm #math
-MLX 						= $(MLX_PATH)/libmlx.a
+MLX_PATH				= minilibx-linux
+MLX_FLAGS				= -Lminilibx-linux -l:libmlx.a -lX11 -lXext -lm #math
+MLX 					= $(MLX_PATH)/libmlx.a
 
 INCLUDES_PATH			= includes
 INCLUDES				= -I$(INCLUDES_PATH)
 
-SRCS					= $(addprefix $(SRCS_PATH)/$(LEXER_PATH)/, $(SRCS_FILES_LEXER))
+SRCS					= $(addprefix $(SRCS_PATH)/$(IMG_PATH)/, $(SRCS_FILES_IMG)) \
+						$(addprefix $(SRCS_PATH)/$(LIBFT_PATH)/, $(SRCS_FILES_LIBFT)) \
+						$(addprefix $(SRCS_PATH)/$(UTILS_PATH)/, $(SRCS_FILES_UTILS)) \
 
 OBJS					= $(SRCS:.c=.o)
 
