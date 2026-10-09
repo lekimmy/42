@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 21:59:34 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/09 17:45:15 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/09 19:09:51 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,17 @@ typedef struct s_map
 	int		width;
 	int		height;
 } t_map;
+
+typedef struct s_img
+{
+	void		*img;
+	char		*addr;
+	int			width;
+	int			height;
+	int			bpp;
+	int			endian;
+	int			line_len;
+}				t_img;
 
 /*
 4 walls

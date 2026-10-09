@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/03 17:42:29 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/09 17:31:37 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/09 19:09:45 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@
 // line_len : nb of bytes per row in memory
 //      !! NOT always WIDTH * (bpp / 8)
 //      [how wide each row is in memory]
-typedef struct s_img
-{
-	void		*img;
-	char		*addr;
-	int			width;
-	int			height;
-	int			bpp;
-	int			endian;
-	int			line_len;
-}				t_img;
 
 typedef struct s_mouse
 {
@@ -57,50 +47,5 @@ typedef struct s_render
 	double		dy;
 	int			color;
 }				t_render;
-
-/************************************
- * MLX
- *************************************/
-
-typedef struct s_data
-{
-	void		*mlx_conn;
-	void		*win;
-	int			fd;
-	t_img		img;
-	t_mouse		mouse;
-	t_render	render;
-	int			locked;
-	double		x_min;
-	double		x_max;
-	double		y_min;
-	double		y_max;
-	double		x_range;
-	double		y_range;
-	int			max_iter;
-	int			*colors;
-}				t_data;
-
-int				init_data(t_data *data, int fd);
-double			clamp_zoom_factor(double zoom_factor);
-
-/************************************
- * HANDLERS
- *************************************/
-
-int				key_handler(int keysym, void *param);
-int				mouse_handler(int button, int px, int py, void *param);
-int				close_handler(void *param);
-
-/************************************
- * IMG RENDERING
- *************************************/
-
-double			normalize(int px, int win_size, double min, double max);
-
-void			my_pixel_put(t_img *img, int x, int y, int color);
-void			render_scene(t_data *data);
-
-int				create_img(t_data *data);
 
 #endif
