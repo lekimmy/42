@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/09 17:09:12 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/09 17:14:04 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/11 19:27:30 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,14 @@ int	ft_isdigit(int c)
 		return (1);
 	else
 		return (0);
+}
+
+size_t	ft_strlen(char *s)
+{
+	size_t	i;
+	
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);			
 }

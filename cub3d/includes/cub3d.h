@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 21:59:34 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/09 19:09:51 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/11 19:33:21 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 #include "mlx.h"
 
 #define BUFFER_SIZE 10
+
+/*************************************
+ * STRUCT
+ *************************************/
 
 /*
 pos, dir, cam
@@ -89,8 +93,9 @@ typedef struct s_ray
 // global entry point
 typedef struct s_game
 {
-	void		*mlx;
+	void		*mlx_conn;
 	void		*win;
+	int			fd;
 	t_img		screen;
 	t_player	player;
 	t_map		map;
@@ -99,6 +104,32 @@ typedef struct s_game
 	int			ceiling_color;
 } t_game;
 
+/*************************************
+ * LIBFT
+ *************************************/
+
+size_t	ft_strlen(char *s);
+
+int		ft_isspace(char c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+
+int		is_separator(char c);
+int		is_unsupported(char c);
+int		ft_nbrlen(int n);
+
+void	ft_putstr_fd(char *s, int fd);
+void	*ft_calloc(size_t count, size_t size);
+
 double	ft_atod(char *str);
+
+/*************************************
+ * INIT
+ *************************************/
+
+int		init_game(t_game *game, int fd);
+int		create_img(t_game *game);
+
+void	my_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

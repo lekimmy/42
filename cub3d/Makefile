@@ -14,13 +14,15 @@ FSANITIZE				= -fsanitize=address
 
 SRCS_PATH				= srcs
 PARSER_PATH				= parser
+IMG_PATH				= img
 LIBFT_PATH				= libft
 UTILS_PATH				= utils
 
-SRCS_FILES				= main.c
+SRCS_FILES				= main.c 
 SRCS_FILES_PARSER		= cmd.c heredoc.c bools.c rules.c rules2.c setters.c
+SRCS_FILES_IMG			= hooks.c
 SRCS_FILES_LIBFT		= gnl.c str.c
-SRCS_FILES_UTILS		= maths.c
+SRCS_FILES_UTILS		= maths.c init.c utils.c img.c
 
 MLX_PATH				= minilibx-linux
 MLX_FLAGS				= -Lminilibx-linux -l:libmlx.a -lX11 -lXext -lm #math
