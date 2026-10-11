@@ -6,7 +6,7 @@
 /*   By: ls-phabm <ls-phabm@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/07 21:59:34 by ls-phabm          #+#    #+#             */
-/*   Updated: 2026/10/11 19:33:21 by ls-phabm         ###   ########.fr       */
+/*   Updated: 2026/10/11 21:11:31 by ls-phabm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,6 @@ typedef struct s_map
 	int		width;
 	int		height;
 } t_map;
-
-typedef struct s_img
-{
-	void		*img;
-	char		*addr;
-	int			width;
-	int			height;
-	int			bpp;
-	int			endian;
-	int			line_len;
-}				t_img;
 
 /*
 4 walls
@@ -130,6 +119,6 @@ double	ft_atod(char *str);
 int		init_game(t_game *game, int fd);
 int		create_img(t_game *game);
 
-void	my_pixel_put(t_img *img, int x, int y, int color);
+void	render_game(t_game *game);
 
 #endif
